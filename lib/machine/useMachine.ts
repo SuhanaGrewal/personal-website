@@ -80,6 +80,19 @@ export function useMachine(): Machine {
   /* ── the real keyboard drives the on-screen one ───────── */
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
+      // never steal keys from a field being typed into — space is the
+      // power toggle and ▼ starts the scroll, and both would otherwise
+      // be swallowed mid-sentence in the composer
+      const el = e.target as HTMLElement | null;
+      if (
+        el &&
+        (el.tagName === "INPUT" ||
+          el.tagName === "TEXTAREA" ||
+          el.isContentEditable)
+      ) {
+        return;
+      }
+
       const code = e.code;
 
       if (code === "Space" || code === "F8") {

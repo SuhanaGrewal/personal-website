@@ -24,6 +24,10 @@ export interface Project {
   h: number;
 
   image?: string;
+  /** wide artwork across the top of the opened view */
+  header?: string;
+  /** renders the foresite benchmark chart in "the result" */
+  chart?: boolean;
   oneLiner?: string;
   year?: string;
   role?: string;
@@ -45,6 +49,8 @@ export const PROJECTS: Project[] = [
     w: 38,
     h: 52,
     image: "/projects/preface.png",
+    header: "/projects/foresite-header.svg",
+    chart: true,
     oneLiner: "a cache eviction policy that learns what an agent will need next.",
     year: "2026",
     role: "Engineer",

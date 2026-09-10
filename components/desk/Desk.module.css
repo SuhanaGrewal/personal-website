@@ -367,14 +367,27 @@
 .detail {
   position: absolute;
   z-index: 3;
-  display: grid;
   inset: 0;
-  padding: 2.6cqw;
+  padding: 0 0 3cqw;
   background: #fff;
-  gap: 2.6cqw;
-  grid-template-columns: 44% 1fr;
   opacity: 0;
   animation: reveal 0.35s var(--ease-out) 0.18s forwards;
+}
+
+/* a banner, not a billboard — it sits in the reading column
+   rather than running the full width of the screen */
+.header {
+  display: block;
+  width: 44%;
+  height: auto;
+  margin: 2.4cqw 0 2cqw;
+  border-radius: 0.6cqw;
+}
+
+/* everything below the artwork sits in a reading column */
+.detail > * {
+  margin-right: 4cqw;
+  margin-left: 4cqw;
 }
 
 @keyframes reveal {
@@ -383,26 +396,10 @@
   }
 }
 
-.detailShot {
-  border-radius: 0.7cqw;
-  background-color: #eef0f5;
-  background-image:
-    radial-gradient(58% 80% at 26% 16%, rgb(26 107 255 / 0.22), transparent 68%),
-    radial-gradient(50% 70% at 84% 78%, rgb(106 168 255 / 0.26), transparent 70%);
-  background-position: center;
-  background-size: cover;
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.07);
-}
-
-.detailText {
-  min-height: 0;
-  padding-right: 0.8cqw;
-}
-
 .detailTitle {
   margin: 0;
   color: var(--word);
-  font-size: 2.6cqw;
+  font-size: 3.4cqw;
   font-weight: 500;
   letter-spacing: -0.032em;
 }
@@ -410,7 +407,7 @@
 .oneLiner {
   margin: 0.5cqw 0 0;
   color: #3a3a44;
-  font-size: 1.35cqw;
+  font-size: 2cqw;
   line-height: 1.45;
 }
 
@@ -427,13 +424,13 @@
 
 .meta dt {
   color: #8a8a94;
-  font-size: 1cqw;
+  font-size: 1.55cqw;
 }
 
 .meta dd {
   margin: 0;
   color: #2b2b33;
-  font-size: 1cqw;
+  font-size: 1.55cqw;
 }
 
 .section {
@@ -443,7 +440,7 @@
 .sectionHeading {
   margin: 0 0 0.5cqw;
   color: var(--blue);
-  font-size: 1.05cqw;
+  font-size: 1.7cqw;
   font-weight: 500;
   letter-spacing: 0.01em;
 }
@@ -451,8 +448,8 @@
 .para {
   margin: 0 0 0.7cqw;
   color: #3d3d47;
-  font-size: 1.1cqw;
-  line-height: 1.6;
+  font-size: 1.75cqw;
+  line-height: 1.65;
 }
 
 .links {
@@ -466,7 +463,7 @@
   border: 1px solid rgb(0 0 0 / 0.12);
   border-radius: 999px;
   color: #22222a;
-  font-size: 1.05cqw;
+  font-size: 1.55cqw;
   text-decoration: none;
   transition:
     border-color 0.2s var(--ease-out),

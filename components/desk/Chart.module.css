@@ -1,0 +1,84 @@
+/* ============================================================
+   chart surface. sits inside a window, so everything is in cqw
+   and scales with the display.
+   ============================================================ */
+
+.chart {
+  margin: 1.4cqw 0 0;
+}
+
+.lede {
+  margin: 0 0 1.6cqw;
+  color: #3d3d47;
+  font-size: 1.65cqw;
+  line-height: 1.6;
+}
+
+.lede strong {
+  color: #17171d;
+  font-weight: 600;
+}
+
+.panels {
+  display: grid;
+  gap: 2cqw;
+  grid-template-columns: 1fr 1fr;
+}
+
+.panel {
+  min-width: 0;
+  margin: 0;
+}
+
+.panel figcaption {
+  display: flex;
+  margin-bottom: 0.6cqw;
+  flex-direction: column;
+  gap: 0.15cqw;
+}
+
+.panel figcaption strong {
+  color: #22222a;
+  font-size: 1.5cqw;
+  font-weight: 600;
+}
+
+.panel figcaption span {
+  color: #8a8a94;
+  font-size: 1.3cqw;
+}
+
+.panel svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* recessive axis furniture, sized in the svg's own units */
+.tick {
+  fill: #9a9aa4;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 20px;
+}
+
+.axis {
+  fill: #6f6f79;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* direct labels carry identity alongside colour */
+.label {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.chartNote {
+  margin: 1.4cqw 0 0;
+  color: #6a6a74;
+  font-size: 1.6cqw;
+  line-height: 1.6;
+}

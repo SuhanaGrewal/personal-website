@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { PROJECTS, type Project } from "./projects";
+import { ForesiteChart } from "./Chart";
 import s from "./Desk.module.css";
 
 const MENUS = ["Finder", "File", "Edit", "View", "Go", "Window", "Help"];
@@ -75,61 +76,68 @@ function Collapsed({ p }: { p: Project }) {
 function Detail({ p }: { p: Project }) {
   if (p.kind === "finder") return null;
   return (
-    <div className={s.detail}>
-      <div className={s.detailShot} style={shot(p)} />
+    <div className={`${s.detail} ${s.scroller}`}>
+      {p.header ? (
+        <img className={s.header} src={p.header} alt="" aria-hidden="true" />
+      ) : null}
 
-      <div className={`${s.detailText} ${s.scroller}`}>
-        <h3 className={s.detailTitle}>{p.title}</h3>
-        {p.oneLiner ? <p className={s.oneLiner}>{p.oneLiner}</p> : null}
+      <h3 className={s.detailTitle}>{p.title}</h3>
+      {p.oneLiner ? <p className={s.oneLiner}>{p.oneLiner}</p> : null}
 
-        <dl className={s.meta}>
-          {p.year ? (
-            <>
-              <dt>year</dt>
-              <dd>{p.year}</dd>
-            </>
-          ) : null}
-          {p.role ? (
-            <>
-              <dt>role</dt>
-              <dd>{p.role}</dd>
-            </>
-          ) : null}
-          {p.stack ? (
-            <>
-              <dt>stack</dt>
-              <dd>{p.stack.join(" · ")}</dd>
-            </>
-          ) : null}
-        </dl>
-
-        {p.sections?.map((sec) => (
-          <section key={sec.heading} className={s.section}>
-            <h4 className={s.sectionHeading}>{sec.heading}</h4>
-            {sec.body.split("\n\n").map((para, i) => (
-              <p key={i} className={s.para}>
-                {para}
-              </p>
-            ))}
-          </section>
-        ))}
-
-        {p.links?.length ? (
-          <div className={s.links}>
-            {p.links.map((l) => (
-              <a
-                key={l.href}
-                className={s.link}
-                href={l.href}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {l.label} ↗
-              </a>
-            ))}
-          </div>
+      <dl className={s.meta}>
+        {p.year ? (
+          <>
+            <dt>year</dt>
+            <dd>{p.year}</dd>
+          </>
         ) : null}
-      </div>
+        {p.role ? (
+          <>
+            <dt>role</dt>
+            <dd>{p.role}</dd>
+          </>
+        ) : null}
+        {p.stack ? (
+          <>
+            <dt>stack</dt>
+            <dd>{p.stack.join(" \u00b7 ")}</dd>
+          </>
+        ) : null}
+      </dl>
+
+      {p.sections?.map((sec) => (
+        <section key={sec.heading} className={s.section}>
+          <h4 className={s.sectionHeading}>{sec.heading}</h4>
+          {sec.body.split("\n\n").map((para, i) => (
+            <p key={i} className={s.para}>
+              {para}
+            </p>
+          ))}
+        </section>
+      ))}
+
+      {p.chart ? (
+        <section className={s.section}>
+          <h4 className={s.sectionHeading}>the result</h4>
+          <ForesiteChart />
+        </section>
+      ) : null}
+
+      {p.links?.length ? (
+        <div className={s.links}>
+          {p.links.map((l) => (
+            <a
+              key={l.href}
+              className={s.link}
+              href={l.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {l.label} \u2197
+            </a>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

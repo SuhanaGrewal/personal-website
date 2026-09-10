@@ -154,14 +154,14 @@
     0 0 0 1px rgb(0 0 0 / 0.11),
     0 0.1cqw 0.3cqw rgb(0 0 0 / 0.08),
     0 1.4cqw 4.6cqw -0.6cqw rgb(0 0 0 / 0.34);
+  /* Geometry is NOT transitioned. Animating width/height forces a full
+     layout every frame, and with a case study of large patterned SVGs
+     inside, that was enough to stall the transition outright and wedge
+     the renderer. The window changes size in one step and the contents
+     fade — which costs nothing and cannot stall. */
   transition:
-    left 0.55s var(--ease-out),
-    top 0.55s var(--ease-out),
-    width 0.55s var(--ease-out),
-    height 0.55s var(--ease-out),
-    border-radius 0.55s var(--ease-out),
-    opacity 0.4s var(--ease-out),
-    filter 0.4s var(--ease-out);
+    opacity 0.3s var(--ease-out),
+    filter 0.3s var(--ease-out);
 }
 
 .window[data-open] {
@@ -354,12 +354,17 @@
    one there yet */
 .thumb {
   flex: 1;
-  background-color: #eef0f5;
+  /* the same paper the preview artwork is drawn on, so the bands left
+     by `contain` are invisible rather than a white frame around it */
+  background-color: #f4f5f6;
   background-image:
     radial-gradient(60% 80% at 28% 18%, rgb(26 107 255 / 0.2), transparent 68%),
     radial-gradient(52% 70% at 82% 74%, rgb(106 168 255 / 0.24), transparent 70%);
   background-position: center;
-  background-size: cover;
+  background-repeat: no-repeat;
+  /* contain, not cover: these previews are diagrams, and cropping one
+     to fill the window would cut the middle out of it */
+  background-size: contain;
 }
 
 /* ── the opened view ───────────────────────────────────── */
@@ -371,7 +376,8 @@
   padding: 0 0 5cqw;
   background: #fff;
   opacity: 0;
-  animation: reveal 0.35s var(--ease-out) 0.18s forwards;
+  animation: reveal 0.3s var(--ease-out) forwards;
+  contain: paint;
 }
 
 /* a banner, not a billboard — it sits in the reading column
@@ -419,17 +425,28 @@
 /* the preface rows: label and value on one line, flush left,
    no rules and no second column to align to */
 .specLine {
-  margin: 0 0 0.7cqw;
+  margin: 0 0 0.55cqw;
   color: #3d3d47;
-  font-size: 1.6cqw;
-  line-height: 1.65;
+  font-family: var(--ui-font);
+  font-size: 1.42cqw;
+  line-height: 1.6;
+}
+
+/* the site is Geist; the contents of these windows are macOS, so they
+   take the system face — SF Pro on a Mac, which is what a window like
+   this would actually be set in */
+.specCols {
+  display: grid;
+  gap: 0.6cqw 3cqw;
+  grid-template-columns: auto 1fr;
 }
 
 .para {
-  margin: 0 0 1.3cqw;
+  margin: 0 0 1.15cqw;
   color: #3d3d47;
-  font-size: 1.75cqw;
-  line-height: 1.8;
+  font-family: var(--ui-font);
+  font-size: 1.5cqw;
+  line-height: 1.72;
 }
 
 .links {
@@ -442,7 +459,8 @@
   display: inline-flex;
   align-items: center;
   color: #22222a;
-  font-size: 1.6cqw;
+  font-family: var(--ui-font);
+  font-size: 1.45cqw;
   gap: 0.45cqw;
   text-decoration: none;
   transition: color 0.2s var(--ease-out);

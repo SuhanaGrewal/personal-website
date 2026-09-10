@@ -1,0 +1,64 @@
+/* the header diagram's type, so the two graphics match */
+.figure {
+  width: 88%;
+  margin: 0 auto 3cqw;
+}
+
+.figure svg {
+  display: block;
+  contain: paint;
+  width: 100%;
+  height: auto;
+  border-radius: 0.6cqw;
+}
+
+.kicker,
+.legend,
+.cache,
+.cacheSub,
+.value,
+.mult,
+.footnote {
+  font-family: "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+}
+
+.kicker {
+  font-size: 22px;
+  letter-spacing: 2.6px;
+}
+
+.headline {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 46px;
+  letter-spacing: -0.5px;
+}
+
+.legend {
+  font-size: 22px;
+  letter-spacing: 0.6px;
+}
+
+.cache {
+  font-size: 40px;
+  letter-spacing: -0.5px;
+}
+
+.cacheSub {
+  font-size: 15px;
+  letter-spacing: 2.6px;
+}
+
+.value {
+  font-size: 22px;
+  letter-spacing: 0.6px;
+}
+
+.mult {
+  font-size: 40px;
+  letter-spacing: -0.5px;
+}
+
+.footnote {
+  font-size: 20px;
+  letter-spacing: 0.6px;
+}

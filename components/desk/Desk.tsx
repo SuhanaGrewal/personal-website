@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { PROJECTS, type Project } from "./projects";
+import { ForesiteBars } from "./Bars";
 import s from "./Desk.module.css";
 
 const MENUS = ["Finder", "File", "Edit", "View", "Go", "Window", "Help"];
@@ -90,6 +91,20 @@ function Detail({ p }: { p: Project }) {
             </p>
           ))}
 
+          {sec.cols ? (
+            <div className={s.specCols}>
+              {sec.cols.map((col, i) => (
+                <div key={i}>
+                  {col.map((l) => (
+                    <p key={l} className={s.specLine}>
+                      {l}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ) : null}
+
           {sec.body?.split("\n\n").map((para, i) => (
             <p key={i} className={s.para}>
               {para}
@@ -97,6 +112,8 @@ function Detail({ p }: { p: Project }) {
           ))}
         </section>
       ))}
+
+      {p.bars ? <ForesiteBars /> : null}
 
       {p.links?.length ? (
         <section className={s.section}>

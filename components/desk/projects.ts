@@ -14,6 +14,8 @@ export interface Section {
   body?: string;
   /** tight rows, for a spec list rather than prose */
   lines?: string[];
+  /** the same, split into side-by-side columns */
+  cols?: string[][];
 }
 
 export interface Project {
@@ -29,6 +31,8 @@ export interface Project {
   image?: string;
   /** wide artwork across the top of the opened view */
   header?: string;
+  /** the foresite vs LRU comparison graphic */
+  bars?: boolean;
   oneLiner?: string;
   year?: string;
   role?: string;
@@ -49,16 +53,15 @@ export const PROJECTS: Project[] = [
     y: 6,
     w: 38,
     h: 52,
-    image: "/projects/foresite.png",
+    image: "/projects/foresite-preview.svg",
     header: "/projects/foresite-header.svg",
+    bars: true,
     sections: [
       {
         heading: "preface",
-        lines: [
-          "Year: 2026",
-          "Role: Engineer",
-          "Languages: Python",
-          "Tools: Ollama, XGBoost, asyncio, scikit-learn, SQLite",
+        cols: [
+          ["Year: 2026", "Role: Engineer"],
+          ["Languages: Python", "Tools: Ollama, XGBoost, asyncio, scikit-learn, SQLite"],
         ],
       },
       {

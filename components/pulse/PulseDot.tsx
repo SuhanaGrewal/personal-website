@@ -27,13 +27,15 @@ export function PulseDot({ box, label, open = false, onPress }: Props) {
   useEffect(() => {
     if (!box || placed.current) return;
     placed.current = true;
-    const id = requestAnimationFrame(() => setReady(true));
+
+    // Deliberately no cleanup. `box` gets a fresh identity every time the
+    // deck is re-measured, which a ResizeObserver does freely. Cancelling
+    // on that re-run kills these for good, because the `placed` guard
+    // stops the re-run from rescheduling them. The ref already guarantees
+    // they are scheduled exactly once.
+    requestAnimationFrame(() => setReady(true));
     // let the machine be looked at before anything asks to be pressed
-    const reveal = setTimeout(() => setShown(true), 1900);
-    return () => {
-      cancelAnimationFrame(id);
-      clearTimeout(reveal);
-    };
+    window.setTimeout(() => setShown(true), 1900);
   }, [box]);
 
   return (

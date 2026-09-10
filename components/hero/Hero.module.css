@@ -148,21 +148,25 @@
   z-index: 1;
   bottom: 0;
   left: 0;
+  display: flex;
+  flex-direction: column;
   margin: 0;
-  padding-bottom: 0.12em;
+  padding-bottom: 0.1em;
   color: var(--word);
-  /* one line, sized to run the width of the frame — the reference's
-     "engineering" works because it is a single long line, and two
-     six-letter lines cannot both fill the frame in one viewport */
-  font-size: clamp(38px, 15.6vw, 268px);
+  /* stacked, so the width is capped by what the machine can hide:
+     "suhana" is the wider of the two lines at 3.0em and has to sit
+     entirely behind the deck, top and right */
+  font-size: clamp(46px, 23vw, 380px);
   font-weight: 400;
   letter-spacing: -0.052em;
-  line-height: 0.84;
+  /* the l of grewal reaches 0.71em above its baseline (measured off
+     the actual face), so anything tighter than that climbs into
+     suhana. this is that floor plus a hair of clearance. */
+  line-height: 0.76;
   text-align: left;
   /* the name is anchored to the bottom of the frame, so its own bottom
      always sits within one viewport height — travelling a full 100vh
-     therefore clears it off the top whatever the type scales to, and
-     stays correct if the line count ever changes */
+     therefore clears it off the top whatever the type scales to */
   transform: translateY(calc(var(--p-name) * -100vh));
   white-space: nowrap;
   will-change: transform;

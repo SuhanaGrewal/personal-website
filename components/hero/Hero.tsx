@@ -124,7 +124,10 @@ export function Hero() {
             </Keyboard>
           </div>
 
-          <h1 className={s.wordmark}>suhana grewal</h1>
+          <h1 className={s.wordmark} aria-label="Suhana Grewal">
+            <span aria-hidden="true">suhana</span>
+            <span aria-hidden="true">grewal</span>
+          </h1>
         </div>
 
         <footer className={s.bottom}>

@@ -7,9 +7,8 @@ import c from "./Bars.module.css";
    ink #16191c, grey #5f676e, JetBrains Mono labels — so the two
    graphics read as one pair.
 
-   deliberately not a plotted chart: no axes, no gridlines, no
-   legend to decode. paired bars and a multiple, which is the
-   sentence someone actually repeats.
+   deliberately not a plotted chart: no axes and no gridlines,
+   just two bars a row and the figures on them.
    ============================================================ */
 
 const ROWS = [
@@ -23,7 +22,7 @@ const ROWS = [
 const W = 1592;
 const H = 680;
 const BAR_X = 300;
-const BAR_MAX = 860;
+const BAR_MAX = 1020;
 const SCALE = 12; // % that fills BAR_MAX
 const ROW_Y = 190;
 const ROW_H = 84;
@@ -65,7 +64,6 @@ export function ForesiteBars() {
 
         {ROWS.map((r, i) => {
           const y = ROW_Y + i * ROW_H;
-          const mult = r.foresite / r.lru;
           return (
             <g key={r.cache}>
               <text x={60} y={y + 30} className={c.cache} fill={INK}>
@@ -85,9 +83,6 @@ export function ForesiteBars() {
                 {r.foresite}%
               </text>
 
-              <text x={W - 60} y={y + 36} className={c.mult} fill={INK} textAnchor="end">
-                {mult.toFixed(mult >= 2 ? 1 : 2).replace(/\.00$/, "")}×
-              </text>
             </g>
           );
         })}

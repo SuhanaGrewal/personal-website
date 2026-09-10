@@ -17,7 +17,6 @@
 .cache,
 .cacheSub,
 .value,
-.mult,
 .footnote {
   font-family: "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
 }
@@ -51,11 +50,6 @@
 .value {
   font-size: 22px;
   letter-spacing: 0.6px;
-}
-
-.mult {
-  font-size: 40px;
-  letter-spacing: -0.5px;
 }
 
 .footnote {

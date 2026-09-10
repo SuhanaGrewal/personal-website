@@ -258,18 +258,16 @@
 /* Anything that scrolls inside a window.
 
    Deliberately NOT overscroll-behavior: contain. Containing it would
-   stop the page scrolling entirely whenever the pointer sat over a
-   window — and since the windows cover almost the whole display, the
-   section would feel stuck. Letting the scroll chain means a window
-   scrolls to its end and then hands the rest to the page, which is
-   what people expect from a scrollable region on a page. */
+   stop the page scrolling whenever the pointer sat over a window — and
+   since the windows cover almost the whole display, the section would
+   feel stuck. Left to chain, the browser latches a gesture to the
+   window and gives the page the next one. */
 .scroller {
   overflow-y: auto;
   scrollbar-color: rgb(0 0 0 / 0.24) transparent;
   scrollbar-width: thin;
 }
 
-/* macOS overlay scrollbars: no track, a thumb inset from the edge */
 .scroller::-webkit-scrollbar {
   width: 0.62cqw;
 }
@@ -290,16 +288,9 @@
   background-clip: content-box;
 }
 
-/* a viewport onto a tall image, the way Preview shows one */
-.mediaWrap {
-  min-height: 0;
-  flex: 1;
-  padding: 0.55cqw;
-}
-
 .sidebar {
   display: flex;
-  width: 32%;
+  width: 34%;
   min-height: 0;
   flex-direction: column;
   padding: 0.6cqw 0.45cqw;
@@ -359,105 +350,139 @@
   background: linear-gradient(160deg, #fff 0%, #eceef1 100%);
 }
 
-.doc {
-  display: flex;
-  min-height: 0;
+/* the thumbnail: the shot itself, or the gradient if there is not
+   one there yet */
+.thumb {
   flex: 1;
-  flex-direction: column;
-  padding: 0.9cqw 1cqw;
-  gap: 0.5cqw;
-}
-
-.textLine {
-  flex: 0 0 auto;
-  color: #2b2b33;
-  font-size: 0.84cqw;
-  line-height: 1.4;
-}
-
-.rule {
-  height: 0.34cqw;
-  flex: 0 0 auto;
-  border-radius: 999px;
-  background: rgb(0 0 0 / 0.07);
-}
-
-.rule[data-w="88"] { width: 88%; }
-.rule[data-w="72"] { width: 72%; }
-.rule[data-w="94"] { width: 94%; }
-.rule[data-w="52"] { width: 52%; }
-
-.mediaFrame {
-  height: 42cqw;
-  border-radius: 0.4cqw;
-  background:
+  background-color: #eef0f5;
+  background-image:
     radial-gradient(60% 80% at 28% 18%, rgb(26 107 255 / 0.2), transparent 68%),
-    radial-gradient(52% 70% at 82% 74%, rgb(106 168 255 / 0.24), transparent 70%),
-    linear-gradient(140deg, #eef0f5 0%, #e3e6ec 100%);
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
+    radial-gradient(52% 70% at 82% 74%, rgb(106 168 255 / 0.24), transparent 70%);
+  background-position: center;
+  background-size: cover;
 }
 
-/* ── the detail, only once opened out ──────────────────── */
+/* ── the opened view ───────────────────────────────────── */
 
 .detail {
   position: absolute;
   z-index: 3;
-  display: flex;
-  overflow: auto;
+  display: grid;
   inset: 0;
-  flex-direction: column;
-  padding: 3.2cqw 4cqw;
+  padding: 2.6cqw;
   background: #fff;
+  gap: 2.6cqw;
+  grid-template-columns: 44% 1fr;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s var(--ease-out);
+  animation: reveal 0.35s var(--ease-out) 0.18s forwards;
 }
 
-.window[data-open] .detail {
-  opacity: 1;
-  pointer-events: auto;
-  transition-delay: 0.18s;
+@keyframes reveal {
+  to {
+    opacity: 1;
+  }
 }
 
-.detailMedia {
-  height: 26cqw;
-  flex: 0 0 auto;
-  border-radius: 0.9cqw;
-  background:
+.detailShot {
+  border-radius: 0.7cqw;
+  background-color: #eef0f5;
+  background-image:
     radial-gradient(58% 80% at 26% 16%, rgb(26 107 255 / 0.22), transparent 68%),
-    radial-gradient(50% 70% at 84% 78%, rgb(106 168 255 / 0.26), transparent 70%),
-    linear-gradient(140deg, #eef0f5 0%, #e2e5eb 100%);
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
+    radial-gradient(50% 70% at 84% 78%, rgb(106 168 255 / 0.26), transparent 70%);
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.07);
+}
+
+.detailText {
+  min-height: 0;
+  padding-right: 0.8cqw;
 }
 
 .detailTitle {
-  margin: 2cqw 0 0.7cqw;
+  margin: 0;
   color: var(--word);
   font-size: 2.6cqw;
   font-weight: 500;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.032em;
 }
 
-.detailBlurb {
-  max-width: 44ch;
-  margin: 0;
-  color: #4a4a54;
-  font-size: 1.25cqw;
-  line-height: 1.5;
+.oneLiner {
+  margin: 0.5cqw 0 0;
+  color: #3a3a44;
+  font-size: 1.35cqw;
+  line-height: 1.45;
 }
 
-.tags {
-  display: flex;
-  margin-top: 1.6cqw;
-  gap: 0.6cqw;
+/* year / role / stack, as a spec sheet */
+.meta {
+  display: grid;
+  margin: 1.6cqw 0;
+  padding: 1cqw 0;
+  border-top: 1px solid rgb(0 0 0 / 0.09);
+  border-bottom: 1px solid rgb(0 0 0 / 0.09);
+  gap: 0.35cqw 1cqw;
+  grid-template-columns: auto 1fr;
 }
 
-.tag {
-  padding: 0.35cqw 0.9cqw;
-  border: 1px solid rgb(0 0 0 / 0.1);
-  border-radius: 999px;
-  color: #55555f;
+.meta dt {
+  color: #8a8a94;
   font-size: 1cqw;
+}
+
+.meta dd {
+  margin: 0;
+  color: #2b2b33;
+  font-size: 1cqw;
+}
+
+.section {
+  margin-bottom: 1.4cqw;
+}
+
+.sectionHeading {
+  margin: 0 0 0.5cqw;
+  color: var(--blue);
+  font-size: 1.05cqw;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.para {
+  margin: 0 0 0.7cqw;
+  color: #3d3d47;
+  font-size: 1.1cqw;
+  line-height: 1.6;
+}
+
+.links {
+  display: flex;
+  margin-top: 0.6cqw;
+  gap: 0.7cqw;
+}
+
+.link {
+  padding: 0.5cqw 1.1cqw;
+  border: 1px solid rgb(0 0 0 / 0.12);
+  border-radius: 999px;
+  color: #22222a;
+  font-size: 1.05cqw;
+  text-decoration: none;
+  transition:
+    border-color 0.2s var(--ease-out),
+    background 0.2s var(--ease-out);
+}
+
+.link:hover {
+  border-color: rgb(26 107 255 / 0.5);
+  background: rgb(26 107 255 / 0.08);
+  color: var(--blue);
+}
+
+/* the finder window cannot be opened, so its green light is inert */
+.lights button:disabled {
+  cursor: default;
+  filter: saturate(0.25);
 }
 
 @media (max-width: 700px) {

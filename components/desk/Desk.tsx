@@ -1,132 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { PROJECTS, type Project } from "./projects";
 import s from "./Desk.module.css";
-
-/* ── YOUR WORK GOES HERE ───────────────────────────────────
-   one entry per window. x/y/w/h are percentages of the
-   display. they are laid out as a mosaic rather than a
-   scattered pile, so nothing overlaps and the desktop is
-   almost entirely covered.
-
-   `blurb` and `tags` are what show once a window is opened
-   full screen with the green button.
-   ────────────────────────────────────────────────────────── */
-interface Project {
-  id: string;
-  title: string;
-  kind: "finder" | "doc" | "media";
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  lines?: string[];
-  blurb: string;
-  tags: string[];
-}
-
-/* a mosaic rather than a grid: three columns of different widths,
-   and rows of different heights within them, so the windows vary in
-   size the way a real desktop does — while still not overlapping. */
-const PROJECTS: Project[] = [
-  {
-    id: "projects",
-    title: "projects",
-    kind: "finder",
-    x: 2.2,
-    y: 6,
-    w: 38,
-    h: 52,
-    lines: [
-      "readme.md",
-      "moodboard.png",
-      "demo.mov",
-      "index.tsx",
-      "notes.txt",
-      "sketches.fig",
-      "changelog.md",
-      "todo.txt",
-      "archive/",
-    ],
-    blurb: "everything, in one place.",
-    tags: ["finder"],
-  },
-  {
-    id: "readme",
-    title: "readme.md",
-    kind: "doc",
-    x: 2.2,
-    y: 61,
-    w: 38,
-    h: 33,
-    lines: [
-      "a thing i built, and why",
-      "the part that was hard",
-      "what i would do differently",
-      "how it started",
-      "the first version was wrong",
-      "what the users actually did",
-      "the rewrite",
-      "what shipped",
-    ],
-    blurb: "the write-up: what it is, why it exists, and what broke on the way.",
-    tags: ["writing", "process"],
-  },
-  {
-    id: "moodboard",
-    title: "moodboard.png",
-    kind: "media",
-    x: 42.2,
-    y: 6,
-    w: 23,
-    h: 30,
-    blurb: "references, colour, type — where the look came from.",
-    tags: ["design", "visual"],
-  },
-  {
-    id: "notes",
-    title: "notes.txt",
-    kind: "doc",
-    x: 42.2,
-    y: 39,
-    w: 23,
-    h: 26,
-    lines: ["ideas", "half-finished", "someday", "abandoned", "revisit", "maybe not"],
-    blurb: "the scratchpad. mostly bad ideas, occasionally not.",
-    tags: ["notes"],
-  },
-  {
-    id: "index",
-    title: "index.tsx",
-    kind: "doc",
-    x: 42.2,
-    y: 68,
-    w: 23,
-    h: 26,
-    lines: [
-      "export default",
-      "  function Thing()",
-      "    const [x, setX]",
-      "    useEffect(() =>",
-      "    return <div />",
-      "  }",
-      "}",
-    ],
-    blurb: "the code behind it.",
-    tags: ["code"],
-  },
-  {
-    id: "demo",
-    title: "demo.mov",
-    kind: "media",
-    x: 67.2,
-    y: 6,
-    w: 30.6,
-    h: 88,
-    blurb: "the thing actually running.",
-    tags: ["demo", "video"],
-  },
-];
 
 const MENUS = ["Finder", "File", "Edit", "View", "Go", "Window", "Help"];
 
@@ -139,13 +15,11 @@ function AppleMark() {
   );
 }
 
-/* the real day, date and time. rendered only after mount — the
-   server has no idea what o'clock it is where you are, and
-   putting a guess in the HTML would just cause a hydration
-   mismatch a second later. */
+/* the real day, date and time. rendered only after mount — the server
+   has no idea what o'clock it is where you are, and putting a guess in
+   the HTML would just cause a hydration mismatch a second later. */
 function useClock() {
   const [now, setNow] = useState("");
-
   useEffect(() => {
     const tick = () => {
       const d = new Date();
@@ -161,8 +35,103 @@ function useClock() {
     const id = window.setInterval(tick, 15000);
     return () => window.clearInterval(id);
   }, []);
-
   return now;
+}
+
+/* the image sits as a background over a gradient, so a project with no
+   shot yet shows the gradient instead of a broken-image icon */
+function shot(p: Project) {
+  return p.image
+    ? { backgroundImage: `url(${p.image})` }
+    : undefined;
+}
+
+function Collapsed({ p }: { p: Project }) {
+  if (p.kind === "finder") {
+    return (
+      <div className={s.finder}>
+        <div className={`${s.sidebar} ${s.scroller}`}>
+          {["recents", "work", "play", "archive"].map((r) => (
+            <span key={r} className={s.sideRow}>
+              <i className={s.sideDot} aria-hidden="true" />
+              {r}
+            </span>
+          ))}
+        </div>
+        <div className={`${s.files} ${s.scroller}`}>
+          {p.files?.map((f) => (
+            <span key={f} className={s.fileRow}>
+              <i className={s.fileIcon} aria-hidden="true" />
+              {f}
+            </span>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return <div className={s.thumb} style={shot(p)} />;
+}
+
+function Detail({ p }: { p: Project }) {
+  if (p.kind === "finder") return null;
+  return (
+    <div className={s.detail}>
+      <div className={s.detailShot} style={shot(p)} />
+
+      <div className={`${s.detailText} ${s.scroller}`}>
+        <h3 className={s.detailTitle}>{p.title}</h3>
+        {p.oneLiner ? <p className={s.oneLiner}>{p.oneLiner}</p> : null}
+
+        <dl className={s.meta}>
+          {p.year ? (
+            <>
+              <dt>year</dt>
+              <dd>{p.year}</dd>
+            </>
+          ) : null}
+          {p.role ? (
+            <>
+              <dt>role</dt>
+              <dd>{p.role}</dd>
+            </>
+          ) : null}
+          {p.stack ? (
+            <>
+              <dt>stack</dt>
+              <dd>{p.stack.join(" · ")}</dd>
+            </>
+          ) : null}
+        </dl>
+
+        {p.sections?.map((sec) => (
+          <section key={sec.heading} className={s.section}>
+            <h4 className={s.sectionHeading}>{sec.heading}</h4>
+            {sec.body.split("\n\n").map((para, i) => (
+              <p key={i} className={s.para}>
+                {para}
+              </p>
+            ))}
+          </section>
+        ))}
+
+        {p.links?.length ? (
+          <div className={s.links}>
+            {p.links.map((l) => (
+              <a
+                key={l.href}
+                className={s.link}
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {l.label} ↗
+              </a>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
 }
 
 export function Desk() {
@@ -171,10 +140,8 @@ export function Desk() {
 
   return (
     <div className={s.imac}>
-      {/* the machine itself */}
       <img className={s.shell} src="/imac.svg" alt="" aria-hidden="true" />
 
-      {/* the display, positioned onto the artwork's screen area */}
       <div className={s.screen} data-fullscreen={open ? "true" : undefined}>
         <div className={s.wallpaper} aria-hidden="true" />
 
@@ -208,79 +175,22 @@ export function Desk() {
             >
               <header className={s.titlebar}>
                 <span className={s.lights}>
-                  <button
-                    type="button"
-                    data-c="r"
-                    aria-label="Close"
-                    onClick={() => setOpen(null)}
-                  />
-                  <button
-                    type="button"
-                    data-c="y"
-                    aria-label="Exit full screen"
-                    onClick={() => setOpen(null)}
-                  />
+                  <button type="button" data-c="r" aria-label="Close" onClick={() => setOpen(null)} />
+                  <button type="button" data-c="y" aria-label="Exit full screen" onClick={() => setOpen(null)} />
                   <button
                     type="button"
                     data-c="g"
-                    aria-label={`Open ${p.title} full screen`}
+                    aria-label={`Open ${p.title}`}
                     onClick={() => setOpen(p.id)}
+                    disabled={p.kind === "finder"}
                   />
                 </span>
                 <span className={s.title}>{p.title}</span>
               </header>
 
               <div className={s.body}>
-                {p.kind === "finder" ? (
-                  <div className={s.finder}>
-                    <div className={`${s.sidebar} ${s.scroller}`}>
-                      {["recents", "work", "play", "archive"].map((r) => (
-                        <span key={r} className={s.sideRow}>
-                          <i className={s.sideDot} aria-hidden="true" />
-                          {r}
-                        </span>
-                      ))}
-                    </div>
-                    <div className={`${s.files} ${s.scroller}`}>
-                      {p.lines?.map((f) => (
-                        <span key={f} className={s.fileRow}>
-                          <i className={s.fileIcon} aria-hidden="true" />
-                          {f}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ) : p.kind === "media" ? (
-                  <div className={`${s.mediaWrap} ${s.scroller}`}>
-                    <div className={s.mediaFrame} />
-                  </div>
-                ) : (
-                  <div className={`${s.doc} ${s.scroller}`}>
-                    {p.lines?.map((l) => (
-                      <span key={l} className={s.textLine}>
-                        {l}
-                      </span>
-                    ))}
-                    {["88", "72", "94", "52", "88", "72", "94", "52", "88", "72"].map(
-                      (w, i) => (
-                        <span key={i} className={s.rule} data-w={w} />
-                      ),
-                    )}
-                  </div>
-                )}
-
-                <div className={`${s.detail} ${s.scroller}`}>
-                  <div className={s.detailMedia} />
-                  <h3 className={s.detailTitle}>{p.title}</h3>
-                  <p className={s.detailBlurb}>{p.blurb}</p>
-                  <div className={s.tags}>
-                    {p.tags.map((t) => (
-                      <span key={t} className={s.tag}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <Collapsed p={p} />
+                {isOpen ? <Detail p={p} /> : null}
               </div>
             </article>
           );

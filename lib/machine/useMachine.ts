@@ -16,8 +16,10 @@ export interface Machine {
   targetKey: string | null;
   /** the label shown in the pill on hover */
   hint: string;
-  /** keys held down right now, real or pointer */
+  /** keys lit right now — physically held, or flashed by typing */
   pressed: ReadonlySet<string>;
+  /** light a cap briefly; used when typing into the composer */
+  flashKey: (code: string) => void;
   powerOn: () => void;
   descend: () => void;
   activate: (id: string) => void;
@@ -32,9 +34,13 @@ const HINTS: Record<MachineState, string> = {
 
 export function useMachine(): Machine {
   const [state, setState] = useState<MachineState>("dormant");
-  const [pressed, setPressed] = useState<ReadonlySet<string>>(
+  // keys physically held down, and keys flashed by typing elsewhere on
+  // the page — kept apart so a field's keyup cannot cut a flash short
+  const [held, setHeld] = useState<ReadonlySet<string>>(() => new Set<string>());
+  const [flashed, setFlashed] = useState<ReadonlySet<string>>(
     () => new Set<string>(),
   );
+  const flashTimers = useRef(new Map<string, number>());
 
   const engineRef = useRef<AudioEngine | null>(null);
   const stateRef = useRef<MachineState>("dormant");
@@ -108,7 +114,7 @@ export function useMachine(): Machine {
         descend();
       }
 
-      setPressed((prev) => {
+      setHeld((prev) => {
         if (prev.has(code)) return prev;
         const next = new Set(prev);
         next.add(code);
@@ -117,7 +123,7 @@ export function useMachine(): Machine {
     };
 
     const up = (e: KeyboardEvent) => {
-      setPressed((prev) => {
+      setHeld((prev) => {
         if (!prev.has(e.code)) return prev;
         const next = new Set(prev);
         next.delete(e.code);
@@ -126,7 +132,7 @@ export function useMachine(): Machine {
     };
 
     // a lost blur would otherwise leave caps stuck down
-    const clear = () => setPressed(new Set());
+    const clear = () => setHeld(new Set());
 
     window.addEventListener("keydown", down);
     window.addEventListener("keyup", up);
@@ -163,6 +169,49 @@ export function useMachine(): Machine {
     return null;
   }, [state]);
 
+  /* typing into the composer plays the machine: each keystroke lights
+     its own cap for a moment, then releases on a timer of its own so a
+     fast typist gets overlapping lights rather than a single stuck one */
+  const flashKey = useCallback((code: string) => {
+    setFlashed((prev) => {
+      if (prev.has(code)) return prev;
+      const next = new Set(prev);
+      next.add(code);
+      return next;
+    });
+
+    const running = flashTimers.current.get(code);
+    if (running) window.clearTimeout(running);
+
+    flashTimers.current.set(
+      code,
+      window.setTimeout(() => {
+        flashTimers.current.delete(code);
+        setFlashed((prev) => {
+          if (!prev.has(code)) return prev;
+          const next = new Set(prev);
+          next.delete(code);
+          return next;
+        });
+      }, 180),
+    );
+  }, []);
+
+  useEffect(() => {
+    const timers = flashTimers.current;
+    return () => {
+      timers.forEach((t) => window.clearTimeout(t));
+      timers.clear();
+    };
+  }, []);
+
+  const pressed = useMemo(() => {
+    if (flashed.size === 0) return held;
+    const merged = new Set(held);
+    flashed.forEach((c) => merged.add(c));
+    return merged;
+  }, [held, flashed]);
+
   const readLevels = useCallback((out: Float32Array) => {
     const e = engineRef.current;
     if (!e || !e.isRunning()) {
@@ -177,6 +226,7 @@ export function useMachine(): Machine {
     targetKey,
     hint: HINTS[state],
     pressed,
+    flashKey,
     powerOn,
     descend,
     activate,

@@ -1,100 +1,111 @@
 /* ============================================================
-   a spotlight-shaped composer, sitting under the machine.
+   spotlight, in black.
 
-   deliberately quiet: it is the third thing you notice, after
-   the name and the machine. glass on paper, one hairline, and
-   no accent colour at all until you have actually typed
-   something worth sending.
+   capsule, frosted, large light type on a dark ground — the same
+   proportions as the real thing, which is mostly about how tall
+   the bar is relative to its text and how far the type sits from
+   the icon. the send affordance is a keycap borrowed from the
+   machine sitting directly above it.
    ============================================================ */
 
 .composer {
   display: flex;
-  width: min(400px, 78vw);
+  width: min(520px, 84vw);
+  height: 58px;
   align-items: center;
-  padding: 0 6px 0 14px;
-  border: 1px solid rgb(0 0 0 / 0.08);
-  border-radius: 14px;
+  padding: 0 9px 0 22px;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 999px;
   margin-top: clamp(22px, 3.4vh, 40px);
-  background: rgb(255 255 255 / 0.66);
+  background:
+    linear-gradient(
+      180deg,
+      rgb(52 52 57 / 0.86) 0%,
+      rgb(30 30 34 / 0.9) 46%,
+      rgb(22 22 25 / 0.92) 100%
+    );
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.9),
-    0 1px 2px rgb(0 0 0 / 0.04),
-    0 10px 28px -14px rgb(0 0 0 / 0.22);
-  backdrop-filter: blur(20px) saturate(1.6);
-  gap: 10px;
+    inset 0 1px 0 rgb(255 255 255 / 0.11),
+    inset 0 0 0 1px rgb(0 0 0 / 0.4),
+    0 2px 6px rgb(0 0 0 / 0.22),
+    0 22px 46px -20px rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(26px) saturate(1.7);
+  gap: 14px;
   transition:
     border-color 0.28s var(--ease-out),
-    box-shadow 0.28s var(--ease-out),
-    background 0.28s var(--ease-out);
+    box-shadow 0.28s var(--ease-out);
 }
 
 .composer:focus-within {
-  border-color: rgb(26 107 255 / 0.42);
-  background: rgb(255 255 255 / 0.86);
+  border-color: rgb(26 107 255 / 0.55);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.9),
-    0 0 0 3px rgb(26 107 255 / 0.1),
-    0 10px 28px -14px rgb(0 0 0 / 0.22);
+    inset 0 1px 0 rgb(255 255 255 / 0.11),
+    inset 0 0 0 1px rgb(0 0 0 / 0.4),
+    0 0 0 4px rgb(26 107 255 / 0.16),
+    0 22px 46px -20px rgb(0 0 0 / 0.55);
 }
 
 .icon {
-  width: 17px;
-  height: 17px;
+  width: 21px;
+  height: 21px;
   flex: 0 0 auto;
-  color: var(--text-dim);
+  color: rgb(255 255 255 / 0.44);
 }
 
 .input {
   min-width: 0;
-  height: 46px;
+  height: 100%;
   flex: 1;
   border: 0;
   background: none;
-  color: var(--text);
+  color: #f2f2f5;
   font-family: inherit;
-  font-size: 15px;
-  font-weight: 450;
-  letter-spacing: -0.011em;
+  /* spotlight's type is large relative to the bar — that ratio is
+     most of what makes it read as spotlight */
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.012em;
   outline: none;
 }
 
 .input::placeholder {
-  color: var(--text-dim);
+  color: rgb(255 255 255 / 0.38);
   transition: color 0.3s var(--ease-out);
 }
 
 .input[data-sent="true"]::placeholder {
-  color: var(--blue);
+  color: var(--blue-lit);
 }
 
-/* the send key stays out of the way until it has a job to do */
+/* a keycap, the same construction as the ones on the machine */
 .send {
   display: flex;
-  width: 30px;
-  height: 30px;
+  width: 42px;
+  height: 42px;
   align-items: center;
   justify-content: center;
   padding: 0;
   border: 0;
-  border-radius: 9px;
-  background: none;
-  color: var(--text-dim);
+  border-radius: 13px;
+  background: linear-gradient(180deg, #26262b 0%, #17171a 52%, #0f0f12 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    inset 0 0 0 1px rgb(255 255 255 / 0.03),
+    0 1px 2px rgb(0 0 0 / 0.6);
+  color: rgb(255 255 255 / 0.55);
   cursor: default;
+  font-size: 15px;
+  line-height: 1;
   opacity: 0;
-  transform: scale(0.86);
+  transform: scale(0.88);
   transition:
     opacity 0.24s var(--ease-out),
     transform 0.34s var(--spring),
-    background 0.24s var(--ease-out);
-}
-
-.send svg {
-  width: 15px;
-  height: 15px;
+    box-shadow 0.24s var(--ease-out),
+    color 0.24s var(--ease-out);
 }
 
 .send[data-ready="true"] {
-  background: var(--blue);
   color: #fff;
   cursor: pointer;
   opacity: 1;
@@ -102,11 +113,24 @@
 }
 
 .send[data-ready="true"]:hover {
-  background: #0f56e0;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    inset 0 0 0 1px rgb(26 107 255 / 0.4),
+    inset 0 0 16px rgb(26 107 255 / 0.4),
+    0 1px 2px rgb(0 0 0 / 0.6),
+    0 0 18px rgb(26 107 255 / 0.34);
+}
+
+.send[data-ready="true"]:active {
+  transform: scale(0.96) translateY(1px);
 }
 
 @media (max-width: 700px) {
   .composer {
-    width: 86vw;
+    height: 52px;
+  }
+
+  .input {
+    font-size: 17px;
   }
 }

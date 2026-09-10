@@ -52,12 +52,13 @@ export function Composer() {
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
         aria-hidden="true"
       >
-        <path d="M20.5 11.5a7.5 7.5 0 0 1-10.9 6.7L4.5 19.5l1.3-4.6A7.5 7.5 0 1 1 20.5 11.5z" />
+        <circle cx="10.6" cy="10.6" r="6.6" />
+        <path d="m15.5 15.5 4.6 4.6" />
       </svg>
 
       <input
@@ -79,18 +80,7 @@ export function Composer() {
         disabled={!ready || busy}
         aria-label="Send"
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 19V5" />
-          <path d="m5.5 11.5 6.5-6.5 6.5 6.5" />
-        </svg>
+        <span aria-hidden="true">⏎</span>
       </button>
     </form>
   );

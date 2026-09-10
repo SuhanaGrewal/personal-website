@@ -24,7 +24,12 @@ async function deliver(message: string): Promise<boolean> {
   return true;
 }
 
-export function Composer() {
+interface Props {
+  /** light the matching cap on the machine as each key is struck */
+  onType?: (code: string) => void;
+}
+
+export function Composer({ onType }: Props) {
   const [value, setValue] = useState("");
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -46,33 +51,24 @@ export function Composer() {
   }
 
   return (
-    <form className={s.composer} onSubmit={onSubmit}>
-      <svg
-        className={s.icon}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <circle cx="10.6" cy="10.6" r="6.6" />
-        <path d="m15.5 15.5 4.6 4.6" />
-      </svg>
-
+    <form className={s.composer} onSubmit={onSubmit} data-open={ready || undefined}>
       <input
         className={s.input}
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder={sent ? "thanks — that reached me" : "send me a message"}
+        onKeyDown={(e) => {
+          // e.code lines up with the cap ids on the machine
+          onType?.(e.code);
+          if (e.shiftKey) onType?.("ShiftLeft");
+        }}
+        placeholder={sent ? "thanks — sent" : "say hi"}
         aria-label="Send Suhana a message"
         data-sent={sent || undefined}
         maxLength={1000}
       />
 
-      {/* the send key only appears once there is something to send */}
+      {/* a keycap, borrowed from the machine below */}
       <button
         type="submit"
         className={s.send}

@@ -21,7 +21,8 @@ const PULSE_HIDES = 0.3;
 const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);
 
 export function Hero() {
-  const { state, targetKey, hint, pressed, activate, readLevels } = useMachine();
+  const { state, targetKey, hint, pressed, flashKey, activate, readLevels } =
+    useMachine();
   const [box, setBox] = useState<CapBox | null>(null);
   const [introOpen, setIntroOpen] = useState(false);
   const [pulseGone, setPulseGone] = useState(false);
@@ -101,7 +102,7 @@ export function Hero() {
         <header className={s.top}>
           <div className={s.mark} aria-hidden="true" />
           <p className={s.intro}>{INTRO}</p>
-          <span aria-hidden="true" />
+          <Composer onType={flashKey} />
         </header>
 
         <div className={s.stage}>
@@ -125,12 +126,6 @@ export function Hero() {
                 onPress={() => targetKey && activate(targetKey)}
               />
               </Keyboard>
-            </div>
-
-            {/* rides off to the left with the machine — they belong
-                to each other */}
-            <div className={s.composerSlot}>
-              <Composer />
             </div>
           </div>
         </div>

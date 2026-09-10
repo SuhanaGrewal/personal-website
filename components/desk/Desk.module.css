@@ -255,9 +255,52 @@
   flex: 1;
 }
 
+/* Anything that scrolls inside a window.
+
+   Deliberately NOT overscroll-behavior: contain. Containing it would
+   stop the page scrolling entirely whenever the pointer sat over a
+   window — and since the windows cover almost the whole display, the
+   section would feel stuck. Letting the scroll chain means a window
+   scrolls to its end and then hands the rest to the page, which is
+   what people expect from a scrollable region on a page. */
+.scroller {
+  overflow-y: auto;
+  scrollbar-color: rgb(0 0 0 / 0.24) transparent;
+  scrollbar-width: thin;
+}
+
+/* macOS overlay scrollbars: no track, a thumb inset from the edge */
+.scroller::-webkit-scrollbar {
+  width: 0.62cqw;
+}
+
+.scroller::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  border: 0.16cqw solid transparent;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.22);
+  background-clip: content-box;
+}
+
+.scroller::-webkit-scrollbar-thumb:hover {
+  background: rgb(0 0 0 / 0.4);
+  background-clip: content-box;
+}
+
+/* a viewport onto a tall image, the way Preview shows one */
+.mediaWrap {
+  min-height: 0;
+  flex: 1;
+  padding: 0.55cqw;
+}
+
 .sidebar {
   display: flex;
   width: 32%;
+  min-height: 0;
   flex-direction: column;
   padding: 0.6cqw 0.45cqw;
   border-right: 1px solid rgb(0 0 0 / 0.07);
@@ -267,6 +310,7 @@
 
 .sideRow {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   padding: 0.2cqw 0.42cqw;
   border-radius: 0.3cqw;
@@ -290,6 +334,7 @@
 
 .files {
   display: flex;
+  min-height: 0;
   flex: 1;
   flex-direction: column;
   padding: 0.55cqw 0.6cqw;
@@ -298,6 +343,7 @@
 
 .fileRow {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   color: #2e2e36;
   font-size: 0.8cqw;
@@ -315,6 +361,7 @@
 
 .doc {
   display: flex;
+  min-height: 0;
   flex: 1;
   flex-direction: column;
   padding: 0.9cqw 1cqw;
@@ -322,6 +369,7 @@
 }
 
 .textLine {
+  flex: 0 0 auto;
   color: #2b2b33;
   font-size: 0.84cqw;
   line-height: 1.4;
@@ -329,6 +377,7 @@
 
 .rule {
   height: 0.34cqw;
+  flex: 0 0 auto;
   border-radius: 999px;
   background: rgb(0 0 0 / 0.07);
 }
@@ -339,8 +388,7 @@
 .rule[data-w="52"] { width: 52%; }
 
 .mediaFrame {
-  flex: 1;
-  margin: 0.55cqw;
+  height: 42cqw;
   border-radius: 0.4cqw;
   background:
     radial-gradient(60% 80% at 28% 18%, rgb(26 107 255 / 0.2), transparent 68%),

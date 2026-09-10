@@ -37,7 +37,17 @@ const PROJECTS: Project[] = [
     y: 6,
     w: 38,
     h: 52,
-    lines: ["readme.md", "moodboard.png", "demo.mov", "index.tsx", "notes.txt"],
+    lines: [
+      "readme.md",
+      "moodboard.png",
+      "demo.mov",
+      "index.tsx",
+      "notes.txt",
+      "sketches.fig",
+      "changelog.md",
+      "todo.txt",
+      "archive/",
+    ],
     blurb: "everything, in one place.",
     tags: ["finder"],
   },
@@ -53,6 +63,11 @@ const PROJECTS: Project[] = [
       "a thing i built, and why",
       "the part that was hard",
       "what i would do differently",
+      "how it started",
+      "the first version was wrong",
+      "what the users actually did",
+      "the rewrite",
+      "what shipped",
     ],
     blurb: "the write-up: what it is, why it exists, and what broke on the way.",
     tags: ["writing", "process"],
@@ -76,7 +91,7 @@ const PROJECTS: Project[] = [
     y: 39,
     w: 23,
     h: 26,
-    lines: ["ideas", "half-finished"],
+    lines: ["ideas", "half-finished", "someday", "abandoned", "revisit", "maybe not"],
     blurb: "the scratchpad. mostly bad ideas, occasionally not.",
     tags: ["notes"],
   },
@@ -88,7 +103,15 @@ const PROJECTS: Project[] = [
     y: 68,
     w: 23,
     h: 26,
-    lines: ["export default", "  function Thing()"],
+    lines: [
+      "export default",
+      "  function Thing()",
+      "    const [x, setX]",
+      "    useEffect(() =>",
+      "    return <div />",
+      "  }",
+      "}",
+    ],
     blurb: "the code behind it.",
     tags: ["code"],
   },
@@ -210,7 +233,7 @@ export function Desk() {
               <div className={s.body}>
                 {p.kind === "finder" ? (
                   <div className={s.finder}>
-                    <div className={s.sidebar}>
+                    <div className={`${s.sidebar} ${s.scroller}`}>
                       {["recents", "work", "play", "archive"].map((r) => (
                         <span key={r} className={s.sideRow}>
                           <i className={s.sideDot} aria-hidden="true" />
@@ -218,7 +241,7 @@ export function Desk() {
                         </span>
                       ))}
                     </div>
-                    <div className={s.files}>
+                    <div className={`${s.files} ${s.scroller}`}>
                       {p.lines?.map((f) => (
                         <span key={f} className={s.fileRow}>
                           <i className={s.fileIcon} aria-hidden="true" />
@@ -228,22 +251,25 @@ export function Desk() {
                     </div>
                   </div>
                 ) : p.kind === "media" ? (
-                  <div className={s.mediaFrame} />
+                  <div className={`${s.mediaWrap} ${s.scroller}`}>
+                    <div className={s.mediaFrame} />
+                  </div>
                 ) : (
-                  <div className={s.doc}>
+                  <div className={`${s.doc} ${s.scroller}`}>
                     {p.lines?.map((l) => (
                       <span key={l} className={s.textLine}>
                         {l}
                       </span>
                     ))}
-                    <span className={s.rule} data-w="88" />
-                    <span className={s.rule} data-w="72" />
-                    <span className={s.rule} data-w="94" />
-                    <span className={s.rule} data-w="52" />
+                    {["88", "72", "94", "52", "88", "72", "94", "52", "88", "72"].map(
+                      (w, i) => (
+                        <span key={i} className={s.rule} data-w={w} />
+                      ),
+                    )}
                   </div>
                 )}
 
-                <div className={s.detail}>
+                <div className={`${s.detail} ${s.scroller}`}>
                   <div className={s.detailMedia} />
                   <h3 className={s.detailTitle}>{p.title}</h3>
                   <p className={s.detailBlurb}>{p.blurb}</p>

@@ -1,27 +1,27 @@
-.next {
+.work {
   display: flex;
   min-height: 100svh;
   flex-direction: column;
-  justify-content: center;
-  padding: clamp(24px, 6vw, 96px);
+  padding: clamp(24px, 3.2vw, 40px);
   background: #fff;
 }
 
-.eyebrow {
-  margin: 0 0 clamp(16px, 2vw, 28px);
-  color: var(--blue);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: clamp(11px, 0.9vw, 13px);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+/* the same face and treatment as the name in the hero */
+.heading {
+  margin: 0;
+  text-align: center;
+  color: var(--word);
+  font-size: clamp(30px, 7vw, 120px);
+  font-weight: 400;
+  letter-spacing: -0.052em;
+  line-height: 0.86;
+  white-space: nowrap;
 }
 
-.heading {
-  max-width: 16ch;
-  margin: 0;
-  color: var(--word);
-  font-size: clamp(38px, 7vw, 108px);
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+.deskWrap {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(18px, 3vh, 44px) 0 0;
 }

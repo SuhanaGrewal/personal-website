@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero/Hero";
+import { Desk } from "@/components/desk/Desk";
 import s from "./page.module.css";
 
 export default function Home() {
@@ -6,12 +7,12 @@ export default function Home() {
     <main>
       <Hero />
 
-      {/* the machine tips away to reveal this. sections to be
-          designed in the next round — this is the landing pad
-          so the ▼ key has somewhere real to go. */}
-      <section id="after-hero" className={s.next}>
-        <p className={s.eyebrow}>01 — selected work</p>
-        <h2 className={s.heading}>Still building this part.</h2>
+      {/* the machine slides away to reveal this */}
+      <section id="after-hero" className={s.work}>
+        <h2 className={s.heading}>stuff i&rsquo;ve made</h2>
+        <div className={s.deskWrap}>
+          <Desk />
+        </div>
       </section>
     </main>
   );

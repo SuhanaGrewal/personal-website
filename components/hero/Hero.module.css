@@ -1,0 +1,200 @@
+/* ============================================================
+   hero staging — the reference's composition.
+
+   machine floating above, the name enormous underneath, and the
+   machine's cast shadow falling across the top of the letters.
+   on paper the shadow does the separating, which is the whole
+   reason this reads as an object in a room.
+   ============================================================ */
+
+.hero {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  min-height: 100svh;
+  flex-direction: column;
+  padding: clamp(20px, 3.2vw, 40px);
+  background: var(--paper);
+}
+
+/* the faintest lift toward the centre, like a lit studio wall */
+.hero::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 50% 34%,
+    #f4f4f2 0%,
+    var(--paper) 46%,
+    var(--paper-lo) 100%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+/* ── top chrome ────────────────────────────────────────── */
+
+.top {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.mark {
+  width: clamp(30px, 3.4vw, 46px);
+  height: clamp(30px, 3.4vw, 46px);
+  border-radius: 50%;
+  background: linear-gradient(
+    170deg,
+    var(--blue-lit) 0%,
+    var(--blue) 34%,
+    var(--blue) 74%,
+    #0f4fd8 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.3),
+    0 6px 18px -6px rgb(26 107 255 / 0.6);
+}
+
+.intro {
+  max-width: 32ch;
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(13px, 1.15vw, 18px);
+  font-weight: 500;
+  letter-spacing: -0.014em;
+  line-height: 1.3;
+}
+
+.menu {
+  display: flex;
+  width: clamp(30px, 3.2vw, 42px);
+  height: clamp(30px, 3.2vw, 42px);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(0 0 0 / 0.14);
+  border-radius: 11px;
+  background: rgb(255 255 255 / 0.6);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition:
+    background 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out);
+}
+
+.menu:hover {
+  border-color: rgb(26 107 255 / 0.55);
+  background: rgb(26 107 255 / 0.08);
+}
+
+/* ── the stage: machine stacked over the name ──────────── */
+
+.stage {
+  position: relative;
+  z-index: 1;
+  min-height: 0;
+  flex: 1;
+}
+
+/* the machine floats over the name, centred in the frame */
+.machine {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  transform: translateX(-50%);
+}
+
+/* placed as in the reference: left-aligned, anchored to the
+   bottom, and large enough that the machine covers nearly all of
+   line 1 while line 2 runs the width of the frame with its top
+   edge tucked under the machine. */
+.wordmark {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: var(--word);
+  font-size: clamp(56px, 21vw, 340px);
+  font-weight: 600;
+  letter-spacing: -0.052em;
+  line-height: 0.82;
+  padding-bottom: 0.13em;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* ── bottom chrome ─────────────────────────────────────── */
+
+.bottom {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: clamp(10px, 2.2vh, 26px);
+  gap: 24px;
+}
+
+.tagline {
+  color: var(--text);
+  font-size: clamp(13px, 1.15vw, 18px);
+  font-weight: 500;
+  letter-spacing: -0.014em;
+}
+
+/* the reference's terminal voice, without inventing a screen */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: clamp(10px, 0.85vw, 12px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition:
+    background 0.6s var(--ease-out),
+    box-shadow 0.6s var(--ease-out);
+}
+
+.hero[data-state="live"] .statusDot,
+.hero[data-state="departed"] .statusDot {
+  background: var(--blue);
+  box-shadow: 0 0 10px var(--blue-glow);
+}
+
+.copyright {
+  color: var(--text-mid);
+  font-size: clamp(12px, 1vw, 16px);
+  font-weight: 450;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 700px) {
+  .intro {
+    max-width: 20ch;
+    font-size: 12px;
+  }
+
+  .status {
+    display: none;
+  }
+}

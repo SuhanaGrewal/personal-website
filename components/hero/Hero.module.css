@@ -133,7 +133,7 @@
 .machine {
   position: absolute;
   z-index: 2;
-  top: 7%;
+  top: 5%;
   left: 50%;
   display: flex;
   justify-content: center;
@@ -148,20 +148,22 @@
   z-index: 1;
   bottom: 0;
   left: 0;
-  display: flex;
-  flex-direction: column;
   margin: 0;
-  padding-bottom: 0.13em;
+  padding-bottom: 0.12em;
   color: var(--word);
-  font-size: clamp(52px, 24vw, 400px);
-  font-weight: 500;
+  /* one line, sized to run the width of the frame — the reference's
+     "engineering" works because it is a single long line, and two
+     six-letter lines cannot both fill the frame in one viewport */
+  font-size: clamp(38px, 15.6vw, 268px);
+  font-weight: 400;
   letter-spacing: -0.052em;
-  line-height: 0.7;
+  line-height: 0.84;
   text-align: left;
-  /* travels its own full height plus the gap above it, so the name
-     is entirely off the top of the frame at --p-name 1 — the -100%
-     term keeps that true whatever the type scales to */
-  transform: translateY(calc(var(--p-name) * -100% + var(--p-name) * -24vh));
+  /* the name is anchored to the bottom of the frame, so its own bottom
+     always sits within one viewport height — travelling a full 100vh
+     therefore clears it off the top whatever the type scales to, and
+     stays correct if the line count ever changes */
+  transform: translateY(calc(var(--p-name) * -100vh));
   white-space: nowrap;
   will-change: transform;
 }

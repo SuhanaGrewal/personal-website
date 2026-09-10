@@ -1,0 +1,208 @@
+/* ============================================================
+   one keycap — built as real geometry, not a drawing of it.
+
+   .cell is the key *pitch*: a transparent box at exactly
+   (u × w) by (u × h). .cap is the keycap's top face, lifted
+   off the deck by --cap-h in Z. Its ::after is the cap's front
+   wall, folded down 90° so it actually connects the top face to
+   the deck below. Because the deck is tilted toward the viewer,
+   that wall is what you see — and it is what makes the caps read
+   as objects with height instead of rounded rectangles.
+   ============================================================ */
+
+.cell {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(var(--u) * var(--w));
+  height: calc(var(--u) * var(--h));
+  padding: calc(var(--gap) / 2);
+  transform-style: preserve-3d;
+}
+
+.cap {
+  --lit: 0;
+  --cap-h: calc(var(--u) * 0.17);
+
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--u) * 0.09) calc(var(--u) * 0.11);
+  border: 0;
+  border-radius: calc(var(--u) * 0.15);
+  margin: 0;
+  background:
+    /* the dish — caps are very slightly concave */
+    radial-gradient(
+      116% 150% at 50% -20%,
+      rgb(255 255 255 / 0.07) 0%,
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      var(--key-hi) 0%,
+      var(--key) 52%,
+      #131316 100%
+    );
+  box-shadow:
+    /* the moulded chamfer around the top face */
+    inset 0 1px 0 var(--key-edge),
+    inset 0 0 0 1px rgb(255 255 255 / 0.022),
+    /* backlight, driven by --lit */
+    inset 0 0 calc(var(--u) * 0.3) rgb(26 107 255 / calc(var(--lit) * 0.45)),
+    0 0 calc(var(--u) * 0.42) rgb(26 107 255 / calc(var(--lit) * 0.3));
+  color: var(--cap-legend);
+  font: inherit;
+  transform: translateZ(var(--cap-h));
+  transform-style: preserve-3d;
+  transition:
+    --cap-h 130ms var(--ease-out),
+    box-shadow 180ms var(--ease-out),
+    filter 180ms var(--ease-out);
+}
+
+/* the front wall of the cap, folded down onto the deck */
+.cap::after {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  height: var(--cap-h);
+  border-radius: 0 0 calc(var(--u) * 0.05) calc(var(--u) * 0.05);
+  background: linear-gradient(180deg, #131317 0%, #0a0a0c 55%, #050506 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  content: "";
+  transform: rotateX(-90deg);
+  transform-origin: 50% 0%;
+}
+
+/* hover: the whole deck is alive, every cap answers */
+.cap:hover {
+  filter: brightness(1.3);
+}
+
+/* pressed — the cap genuinely travels down into the deck */
+.cap[data-pressed="true"],
+.cap:active {
+  --cap-h: calc(var(--u) * 0.045);
+
+  filter: brightness(1.45);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    inset 0 0 0 1px rgb(255 255 255 / 0.02),
+    inset 0 0 calc(var(--u) * 0.34) rgb(26 107 255 / 0.55),
+    0 0 calc(var(--u) * 0.5) rgb(26 107 255 / 0.4);
+  transition-duration: 45ms;
+}
+
+/* the key the pulse is currently sitting on */
+.cap[data-armed="true"] {
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.11),
+    inset 0 0 0 1px rgb(26 107 255 / 0.24),
+    inset 0 0 calc(var(--u) * 0.3) rgb(26 107 255 / 0.16);
+}
+
+/* ── legends ───────────────────────────────────────────── */
+
+.stack {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 0.02);
+  line-height: 1;
+}
+
+.stack[data-align="left"] {
+  align-items: flex-start;
+}
+
+.stack[data-align="right"] {
+  align-items: flex-end;
+}
+
+.letter {
+  font-size: calc(var(--u) * 0.3);
+  font-weight: 450;
+  letter-spacing: 0.01em;
+}
+
+.shifted {
+  font-size: calc(var(--u) * 0.235);
+  font-weight: 450;
+}
+
+.primary {
+  font-size: calc(var(--u) * 0.235);
+  font-weight: 450;
+}
+
+.glyph {
+  font-size: calc(var(--u) * 0.2);
+  line-height: 1;
+}
+
+.word {
+  font-size: calc(var(--u) * 0.145);
+  font-weight: 450;
+  letter-spacing: 0.012em;
+  white-space: nowrap;
+}
+
+.miniIcon {
+  width: calc(var(--u) * 0.17);
+  height: calc(var(--u) * 0.17);
+}
+
+.arrow {
+  font-size: calc(var(--u) * 0.17);
+  line-height: 1;
+}
+
+/* ── function row ──────────────────────────────────────── */
+
+.fnCap {
+  padding: calc(var(--u) * 0.045) calc(var(--u) * 0.06);
+}
+
+.fnNum {
+  position: absolute;
+  top: calc(var(--u) * 0.05);
+  left: calc(var(--u) * 0.07);
+  color: var(--cap-legend-dim);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: calc(var(--u) * 0.1);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.icon {
+  width: calc(var(--u) * 0.235);
+  height: calc(var(--u) * 0.235);
+  margin-top: calc(var(--u) * 0.035);
+}
+
+.escLabel {
+  font-size: calc(var(--u) * 0.14);
+  font-weight: 450;
+}
+
+/* the fingerprint sits in its own recessed, ringed button */
+.touchId {
+  background:
+    radial-gradient(
+      116% 150% at 50% -20%,
+      rgb(255 255 255 / 0.06) 0%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, #1d1d21 0%, #141417 52%, #0c0c0e 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    inset 0 0 0 1px rgb(255 255 255 / 0.055),
+    inset 0 0 calc(var(--u) * 0.14) rgb(0 0 0 / 0.8);
+}

@@ -4,9 +4,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createEngine, type AudioEngine } from "@/lib/audio/engine";
 import { POWER_KEY, SCROLL_KEY } from "@/components/keyboard/layout";
 
-/*  dormant  ──click F8──▶  live  ──press ▼──▶  departed
-    the pulse moves with the state; it is never in two places  */
-export type MachineState = "dormant" | "live" | "departed";
+/*  dormant  ──click F8──▶  live
+    the machine only ever powers on. everything after that — the name
+    rising, the deck dissolving — is a pure function of scroll offset,
+    so scrolling back up rewinds it exactly.  */
+export type MachineState = "dormant" | "live";
 
 export interface Machine {
   state: MachineState;
@@ -26,7 +28,6 @@ export interface Machine {
 const HINTS: Record<MachineState, string> = {
   dormant: "some of my music as you scroll",
   live: "scroll",
-  departed: "",
 };
 
 export function useMachine(): Machine {
@@ -51,11 +52,14 @@ export function useMachine(): Machine {
     setState("live");
   }, [getEngine]);
 
+  /* run the sticky sequence to its end; the scroll itself animates it */
   const descend = useCallback(() => {
-    if (stateRef.current !== "live") return;
-    setState("departed");
-    const next = document.getElementById("after-hero");
-    next?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const hero = document.getElementById("hero");
+    if (!hero) return;
+    window.scrollTo({
+      top: hero.offsetTop + hero.offsetHeight - window.innerHeight,
+      behavior: "smooth",
+    });
   }, []);
 
   /** a cap was clicked — only two of them actually do anything */
@@ -85,7 +89,8 @@ export function useMachine(): Machine {
         else void engineRef.current?.start();
       }
 
-      if (code === "ArrowDown" && stateRef.current === "live") {
+      // only hijack ▼ at the very top; further down it must scroll normally
+      if (code === "ArrowDown" && stateRef.current === "live" && window.scrollY < 8) {
         e.preventDefault();
         descend();
       }

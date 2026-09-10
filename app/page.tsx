@@ -9,7 +9,7 @@ export default function Home() {
 
       {/* the machine slides away to reveal this */}
       <section id="after-hero" className={s.work}>
-        <h2 className={s.heading}>stuff i&rsquo;ve made</h2>
+        <h2 className={s.heading}>some stuff i&rsquo;ve made</h2>
         <div className={s.deskWrap}>
           <Desk />
         </div>

@@ -71,7 +71,7 @@
     0 0 calc(var(--dot) * 0.34) rgb(26 107 255 / 0.42),
     0 0 calc(var(--dot) * 0.9) rgb(26 107 255 / 0.18);
   cursor: pointer;
-  animation: breathe 2.6s var(--ease-inout) infinite;
+  animation: reveal 3.8s var(--ease-inout) infinite;
   transform: translateZ(calc(var(--u) * 0.55));
 }
 
@@ -86,13 +86,29 @@
   pointer-events: none;
 }
 
-@keyframes breathe {
+/* the dot swells, then clears away entirely for a beat so the
+   play/pause key underneath it is readable, then returns */
+@keyframes reveal {
   0%,
-  100% {
+  32% {
+    opacity: 1;
     scale: 1;
   }
-  50% {
-    scale: 1.06;
+  48% {
+    opacity: 1;
+    scale: 1.07;
+  }
+  64% {
+    opacity: 0;
+    scale: 0.94;
+  }
+  82% {
+    opacity: 0;
+    scale: 0.94;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
   }
 }
 
@@ -145,6 +161,15 @@
   transition:
     opacity 0.28s var(--ease-out),
     scale 0.42s var(--spring);
+}
+
+/* hovering holds the dot open — it should not blink out from under
+   the cursor while the label is being read */
+.anchor:hover .dot,
+.anchor[data-open="true"] .dot {
+  animation: none;
+  opacity: 1;
+  scale: 1;
 }
 
 /* opens leftward when the key is near the right edge of the deck */

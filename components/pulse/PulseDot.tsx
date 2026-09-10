@@ -22,18 +22,24 @@ export function PulseDot({ box, label, open = false, onPress }: Props) {
      corner on load. So: place first, enable the transition after. */
   const placed = useRef(false);
   const [ready, setReady] = useState(false);
+  const [shown, setShown] = useState(false);
 
   useEffect(() => {
     if (!box || placed.current) return;
     placed.current = true;
     const id = requestAnimationFrame(() => setReady(true));
-    return () => cancelAnimationFrame(id);
+    // let the machine be looked at before anything asks to be pressed
+    const reveal = setTimeout(() => setShown(true), 1900);
+    return () => {
+      cancelAnimationFrame(id);
+      clearTimeout(reveal);
+    };
   }, [box]);
 
   return (
     <div
       className={s.anchor}
-      data-placed={placed.current || undefined}
+      data-placed={shown || undefined}
       data-animate={ready || undefined}
       data-hidden={hidden || undefined}
       data-open={open || undefined}

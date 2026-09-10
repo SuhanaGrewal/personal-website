@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Keyboard, type CapBox } from "@/components/keyboard/Keyboard";
 import { PulseDot } from "@/components/pulse/PulseDot";
+import { Composer } from "@/components/composer/Composer";
 import { useMachine } from "@/lib/machine/useMachine";
 import s from "./Hero.module.css";
 
@@ -124,6 +125,12 @@ export function Hero() {
                 onPress={() => targetKey && activate(targetKey)}
               />
               </Keyboard>
+            </div>
+
+            {/* rides off to the left with the machine — they belong
+                to each other */}
+            <div className={s.composerSlot}>
+              <Composer />
             </div>
           </div>
         </div>

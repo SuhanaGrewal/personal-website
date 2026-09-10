@@ -138,6 +138,16 @@
   will-change: transform;
 }
 
+/* the composer travels with the machine rather than with the name */
+.composerSlot {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  transform: translateX(calc(var(--p-exit) * -122vw));
+  will-change: transform;
+}
+
 /* the name starts tucked behind the machine and rises out of it */
 .wordmark {
   position: relative;

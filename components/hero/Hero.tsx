@@ -10,9 +10,10 @@ const INTRO = "half ai engineer, half design nerd.";
 const TAGLINE = "& occasional musician";
 
 /* where each beat of the sticky sequence sits along the scroll range */
-const NAME_ENDS = 0.46; // the name has finished rising
-const DROP_BEGINS = 0.54; // the machine starts travelling down
-const DROP_ENDS = 0.86; // it has cleared the bottom of the name
+const NAME_ENDS = 0.5; // the name has finished rising, ground is white
+const EXIT_BEGINS = 0.52; // the machine starts moving left
+const EXIT_ENDS = 0.88; // it is fully off-frame; the rest is a beat of
+//                         held white before the next section arrives
 /* past this much of the rise the pulse is out of the way */
 const PULSE_HIDES = 0.3;
 
@@ -45,12 +46,12 @@ export function Hero() {
   }, [state]);
 
   /* ── the sticky sequence ──────────────────────────────────
-     Three normalised clocks written straight to CSS variables:
-     --p-name raises the name past the machine, --p-drop then
-     carries the machine down until it sits clear below the
-     name, and only then does --p-fade take it away. All three
+     Two normalised clocks written straight to CSS variables:
+     --p-name raises the name while the ground washes white,
+     then --p-exit carries the machine off to the left. Both
      are pure functions of scroll offset, so scrolling back up
-     plays it in reverse with no state to unwind.              */
+     plays it in reverse with no state to unwind. Writing them
+     from inside a rAF keeps the whole thing on one frame.     */
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
@@ -61,13 +62,10 @@ export function Hero() {
       const p = range > 0 ? clamp01((window.scrollY - el.offsetTop) / range) : 0;
 
       const pName = clamp01(p / NAME_ENDS);
-      const pDrop = clamp01((p - DROP_BEGINS) / (DROP_ENDS - DROP_BEGINS));
-      // it only disappears once it is all the way below the name
-      const pFade = clamp01((p - DROP_ENDS) / (1 - DROP_ENDS));
+      const pExit = clamp01((p - EXIT_BEGINS) / (EXIT_ENDS - EXIT_BEGINS));
 
       el.style.setProperty("--p-name", pName.toFixed(4));
-      el.style.setProperty("--p-drop", pDrop.toFixed(4));
-      el.style.setProperty("--p-fade", pFade.toFixed(4));
+      el.style.setProperty("--p-exit", pExit.toFixed(4));
 
       // the pulse steps aside once the name starts moving, and comes
       // back if you scroll up again

@@ -67,6 +67,13 @@
   box-sizing: border-box;
 }
 
+html {
+  /* the ▼ key and any anchor jump glide rather than snap; wheel and
+     trackpad scrolling stay native, which is smoother than anything
+     scripted would be */
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   margin: 0;

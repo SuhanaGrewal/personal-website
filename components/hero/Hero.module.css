@@ -6,10 +6,8 @@
 
      --p-name  0→1   the name rises up past the machine while
                      the ground washes to pure white
-     --p-drop  0→1   the machine travels down until it sits
-                     clear below the bottom of the name
-     --p-fade  0→1   only then does it disappear, handing off
-                     to the next section
+     --p-exit  0→1   the machine shifts off to the left,
+                     handing over to the next section
 
    both are pure functions of scroll offset, so scrolling back
    up runs the whole thing in reverse.
@@ -17,11 +15,10 @@
 
 .hero {
   --p-name: 0;
-  --p-drop: 0;
-  --p-fade: 0;
+  --p-exit: 0;
 
   position: relative;
-  height: 280vh;
+  height: 320vh;
 }
 
 .viewport {
@@ -132,8 +129,7 @@
 }
 
 /* the machine holds its place while the name travels past it, then
-   descends until it is clear below the name — and only once it is
-   all the way down does it fade out */
+   shifts away to the left */
 .machine {
   position: absolute;
   z-index: 2;
@@ -141,9 +137,9 @@
   left: 50%;
   display: flex;
   justify-content: center;
-  opacity: calc(1 - var(--p-fade));
-  /* -50% keeps it centred horizontally while it drops */
-  transform: translateX(-50%) translateY(calc(var(--p-drop) * 48vh));
+  /* -50% keeps it centred; the second term carries it off-frame */
+  transform: translateX(calc(-50% - var(--p-exit) * 122vw));
+  will-change: transform;
 }
 
 /* the name starts tucked behind the machine and rises out of it */
@@ -164,6 +160,7 @@
   text-align: left;
   transform: translateY(calc(var(--p-name) * -34vh));
   white-space: nowrap;
+  will-change: transform;
 }
 
 /* ── bottom chrome ─────────────────────────────────────── */

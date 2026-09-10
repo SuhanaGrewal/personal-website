@@ -9,8 +9,11 @@
    ============================================================ */
 
 .stage {
-  /* the third term keeps the machine from eating a short viewport */
-  --deck-w: min(1220px, 74vw, 112vh);
+  /* the third term keeps the machine from eating a short viewport.
+     it also has to stay wider than the name's first line, which sits
+     behind it — otherwise the tail of "suhana" pokes out past the
+     right edge and reads as a rendering glitch rather than a letter. */
+  --deck-w: min(1160px, 70vw, 110vh);
   --tilt-x: 9.5deg;
   --tilt-y: 0deg;
 
@@ -91,8 +94,10 @@
 .deck::after {
   position: absolute;
   top: 100%;
-  right: 0;
-  left: 0;
+  /* inset to clear the deck's corner radius — at full width the
+     square corners of this face poke out past the rounded body */
+  right: calc(var(--u) * 0.34);
+  left: calc(var(--u) * 0.34);
   height: var(--front);
   border-radius: 0 0 calc(var(--u) * 0.16) calc(var(--u) * 0.16);
   background: linear-gradient(
@@ -145,15 +150,7 @@
   transform-style: preserve-3d;
 }
 
-/* ── departure ─────────────────────────────────────────────
-   pressing ▼ tips the machine back over the horizon and lifts
-   it out of frame, revealing what is behind it.              */
-.stage[data-state="departed"] .deck {
-  opacity: 0;
-  filter: blur(6px);
-  transform: translateY(-52vh) rotateX(52deg) scale(0.84);
-}
-
+/* the exit itself is driven by scroll progress in Hero.module.css */
 .stage[data-state="departed"] .bloom {
   opacity: 0;
   transition-duration: 0.6s;

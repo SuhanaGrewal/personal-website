@@ -11,7 +11,7 @@
 .imac {
   /* the artwork is 1880.57 x 1554.7, so it stands 0.827x its own
      width tall; the third term caps that against the viewport */
-  --w: min(1000px, 80vw, 90vh);
+  --w: min(1150px, 64vw, 106vh);
 
   position: relative;
   width: var(--w);

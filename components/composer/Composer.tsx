@@ -62,7 +62,7 @@ export function Composer({ onType }: Props) {
           onType?.(e.code);
           if (e.shiftKey) onType?.("ShiftLeft");
         }}
-        placeholder={sent ? "thanks — sent" : "say hi"}
+        placeholder={sent ? "thanks :)" : "say hi"}
         aria-label="Send Suhana a message"
         data-sent={sent || undefined}
         maxLength={1000}

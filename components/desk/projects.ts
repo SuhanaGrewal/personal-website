@@ -10,7 +10,10 @@
 
 export interface Section {
   heading: string;
-  body: string;
+  /** free prose; blank lines split paragraphs */
+  body?: string;
+  /** tight rows, for a spec list rather than prose */
+  lines?: string[];
 }
 
 export interface Project {
@@ -26,8 +29,6 @@ export interface Project {
   image?: string;
   /** wide artwork across the top of the opened view */
   header?: string;
-  /** renders the foresite benchmark chart in "the result" */
-  chart?: boolean;
   oneLiner?: string;
   year?: string;
   role?: string;
@@ -41,35 +42,37 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    id: "preface",
-    title: "preface",
+    id: "foresite",
+    title: "foresite",
     kind: "project",
     x: 2.2,
     y: 6,
     w: 38,
     h: 52,
-    image: "/projects/preface.png",
+    image: "/projects/foresite.png",
     header: "/projects/foresite-header.svg",
-    chart: true,
-    oneLiner: "a cache eviction policy that learns what an agent will need next.",
-    year: "2026",
-    role: "Engineer",
-    stack: ["Python", "XGBoost", "scikit-learn", "Ollama", "asyncio", "SQLite"],
     sections: [
       {
+        heading: "preface",
+        lines: [
+          "Year: 2026",
+          "Role: Engineer",
+          "Languages: Python",
+          "Tools: Ollama, XGBoost, asyncio, scikit-learn, SQLite",
+        ],
+      },
+      {
         heading: "the problem",
-        body: "Agent workloads — multi-step tool use, orchestration — grow KV caches fast, and re-send large amounts of overlapping context on every step. Existing eviction policies decide what to drop from recency (LRU) or frequency (LFU) alone. Neither uses any signal about what the agent is actually doing.\n\nLRU performs near-optimally when the cache is large relative to the working set: there is enough room that eviction barely matters. Its accuracy degrades as cache pressure rises and recency stops predicting what is needed next.",
+        body: "Agent workloads comprising multi-step tool use and agent orchestration grow KV caches fast, and re-send large amounts of overlapping context on every step. Existing eviction policies decide what to evict based purely on recency (LRU) or frequency (LFU) of information use. Neither uses any signal about what an agent is actually doing.\n\nLRU performs near-optimally when the cache is large relative to the working set: there's enough room that eviction decisions barely matter. Its accuracy degrades as cache pressure increases and recency alone becomes a poor predictor of what's needed next.",
       },
       {
         heading: "the product",
-        body: "A model that predicts each cached item's reuse likelihood from behavioural signals in the agent's execution trace — recency, position in the task's dependency graph (agent depth, fanout), task progress as a fraction of the DAG completed, and content and event features. An XGBoost classifier turns those into a reuse probability per item, which drives eviction.",
-      },
-      {
-        heading: "the trade",
-        body: "At larger cache sizes LRU is just as effective, and cheaper. So the shipped policy is hybrid: it measures live cache pressure — cache size against item count — and switches between the predictor and plain LRU as that pressure moves.",
+        body: "A model that predicts each cached item's reuse likelihood using behavioral signals from the agent's execution trace like recency, position in the task's dependency graph (agent depth, fanout), task progress (DAG completion fraction), and content/event features. These features train an XGBoost classifier that outputs a reuse probability per item, which drives eviction.\n\nIn higher cache sizes though LRU is just as effective and cheaper.\n\nSo, the final solution is a hybrid eviction algorithm that measures live cache pressure (cache size relative to number of items) and adaptively switches between the predictor and standard LRU.",
       },
     ],
-    links: [{ label: "github", href: "https://github.com/SuhanaGrewal/foresite" }],
+    links: [
+      { label: "git/foresite", href: "https://github.com/SuhanaGrewal/foresite" },
+    ],
   },
 
   /* ── the rest are scaffolding: same shape, your content ── */
@@ -81,14 +84,10 @@ export const PROJECTS: Project[] = [
     y: 61,
     w: 38,
     h: 33,
-    oneLiner: "one line on what it is.",
-    year: "2026",
-    role: "Engineer",
-    stack: ["—"],
     sections: [
+      { heading: "preface", lines: ["Year: 2026", "Role: Engineer"] },
       { heading: "the problem", body: "what you hit." },
       { heading: "the product", body: "what you built." },
-      { heading: "the trade", body: "what you gave up, and why." },
     ],
   },
   {
@@ -99,10 +98,6 @@ export const PROJECTS: Project[] = [
     y: 6,
     w: 23,
     h: 30,
-    oneLiner: "one line on what it is.",
-    year: "2026",
-    role: "Engineer",
-    stack: ["—"],
     sections: [{ heading: "the problem", body: "what you hit." }],
   },
   {
@@ -113,10 +108,6 @@ export const PROJECTS: Project[] = [
     y: 39,
     w: 23,
     h: 26,
-    oneLiner: "one line on what it is.",
-    year: "2026",
-    role: "Engineer",
-    stack: ["—"],
     sections: [{ heading: "the problem", body: "what you hit." }],
   },
   {
@@ -127,7 +118,7 @@ export const PROJECTS: Project[] = [
     y: 68,
     w: 23,
     h: 26,
-    files: ["preface", "project two", "project three", "project four", "archive/"],
+    files: ["foresite", "project two", "project three", "project four", "archive/"],
   },
   {
     id: "five",
@@ -137,13 +128,6 @@ export const PROJECTS: Project[] = [
     y: 6,
     w: 30.6,
     h: 88,
-    oneLiner: "one line on what it is.",
-    year: "2026",
-    role: "Engineer",
-    stack: ["—"],
-    sections: [
-      { heading: "the problem", body: "what you hit." },
-      { heading: "the product", body: "what you built." },
-    ],
+    sections: [{ heading: "the problem", body: "what you hit." }],
   },
 ];

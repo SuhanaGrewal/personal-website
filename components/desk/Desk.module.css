@@ -378,16 +378,20 @@
    rather than running the full width of the screen */
 .header {
   display: block;
-  width: 44%;
+  width: 72%;
   height: auto;
-  margin: 2.4cqw 0 2cqw;
+  margin: 2.4cqw auto 2.6cqw;
   border-radius: 0.6cqw;
 }
 
 /* everything below the artwork sits in a reading column */
-.detail > * {
+.detail > *:not(.header) {
   margin-right: 4cqw;
   margin-left: 4cqw;
+}
+
+.detail {
+  padding-top: 0;
 }
 
 @keyframes reveal {
@@ -396,43 +400,7 @@
   }
 }
 
-.detailTitle {
-  margin: 0;
-  color: var(--word);
-  font-size: 3.4cqw;
-  font-weight: 500;
-  letter-spacing: -0.032em;
-}
-
-.oneLiner {
-  margin: 0.5cqw 0 0;
-  color: #3a3a44;
-  font-size: 2cqw;
-  line-height: 1.45;
-}
-
 /* year / role / stack, as a spec sheet */
-.meta {
-  display: grid;
-  margin: 1.6cqw 0;
-  padding: 1cqw 0;
-  border-top: 1px solid rgb(0 0 0 / 0.09);
-  border-bottom: 1px solid rgb(0 0 0 / 0.09);
-  gap: 0.35cqw 1cqw;
-  grid-template-columns: auto 1fr;
-}
-
-.meta dt {
-  color: #8a8a94;
-  font-size: 1.55cqw;
-}
-
-.meta dd {
-  margin: 0;
-  color: #2b2b33;
-  font-size: 1.55cqw;
-}
-
 .section {
   margin-bottom: 1.4cqw;
 }
@@ -443,6 +411,15 @@
   font-size: 1.7cqw;
   font-weight: 500;
   letter-spacing: 0.01em;
+}
+
+/* the preface rows: label and value on one line, flush left,
+   no rules and no second column to align to */
+.specLine {
+  margin: 0 0 0.35cqw;
+  color: #3d3d47;
+  font-size: 1.6cqw;
+  line-height: 1.5;
 }
 
 .para {

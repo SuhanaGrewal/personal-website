@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { PROJECTS, type Project } from "./projects";
-import { ForesiteChart } from "./Chart";
 import s from "./Desk.module.css";
 
 const MENUS = ["Finder", "File", "Edit", "View", "Go", "Window", "Help"];
@@ -81,34 +80,17 @@ function Detail({ p }: { p: Project }) {
         <img className={s.header} src={p.header} alt="" aria-hidden="true" />
       ) : null}
 
-      <h3 className={s.detailTitle}>{p.title}</h3>
-      {p.oneLiner ? <p className={s.oneLiner}>{p.oneLiner}</p> : null}
-
-      <dl className={s.meta}>
-        {p.year ? (
-          <>
-            <dt>year</dt>
-            <dd>{p.year}</dd>
-          </>
-        ) : null}
-        {p.role ? (
-          <>
-            <dt>role</dt>
-            <dd>{p.role}</dd>
-          </>
-        ) : null}
-        {p.stack ? (
-          <>
-            <dt>stack</dt>
-            <dd>{p.stack.join(" \u00b7 ")}</dd>
-          </>
-        ) : null}
-      </dl>
-
       {p.sections?.map((sec) => (
         <section key={sec.heading} className={s.section}>
           <h4 className={s.sectionHeading}>{sec.heading}</h4>
-          {sec.body.split("\n\n").map((para, i) => (
+
+          {sec.lines?.map((l) => (
+            <p key={l} className={s.specLine}>
+              {l}
+            </p>
+          ))}
+
+          {sec.body?.split("\n\n").map((para, i) => (
             <p key={i} className={s.para}>
               {para}
             </p>
@@ -116,27 +98,23 @@ function Detail({ p }: { p: Project }) {
         </section>
       ))}
 
-      {p.chart ? (
-        <section className={s.section}>
-          <h4 className={s.sectionHeading}>the result</h4>
-          <ForesiteChart />
-        </section>
-      ) : null}
-
       {p.links?.length ? (
-        <div className={s.links}>
-          {p.links.map((l) => (
-            <a
-              key={l.href}
-              className={s.link}
-              href={l.href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {l.label} \u2197
-            </a>
-          ))}
-        </div>
+        <section className={s.section}>
+          <h4 className={s.sectionHeading}>try it</h4>
+          <div className={s.links}>
+            {p.links.map((l) => (
+              <a
+                key={l.href}
+                className={s.link}
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+        </section>
       ) : null}
     </div>
   );

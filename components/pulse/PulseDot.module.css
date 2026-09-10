@@ -1,0 +1,170 @@
+/* ============================================================
+   the electric blue pulse.
+   sits on a key, breathes, and moves when the machine changes
+   state. It is the only thing on the page that asks to be
+   touched, which is why it is the only thing that moves.
+   ============================================================ */
+
+.anchor {
+  --dot: calc(var(--u) * 1.05);
+
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transform-style: preserve-3d;
+  /* no transform transition until the first placement has landed,
+     otherwise the pulse flies in from the deck corner on load */
+  transition: opacity 0.7s var(--ease-out);
+}
+
+.anchor[data-placed="true"] {
+  opacity: 1;
+}
+
+/* from here on the anchor glides when the target key changes */
+.anchor[data-animate="true"] {
+  transition:
+    transform 0.95s var(--spring),
+    opacity 0.7s var(--ease-out);
+}
+
+.anchor[data-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dot {
+  position: absolute;
+  top: calc(var(--dot) / -2);
+  left: calc(var(--dot) / -2);
+  width: var(--dot);
+  height: var(--dot);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background:
+    /* concentric machining, as in the reference */
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0%,
+      transparent 25%,
+      rgb(255 255 255 / 0.13) 26%,
+      transparent 28%,
+      transparent 43%,
+      rgb(255 255 255 / 0.1) 44%,
+      transparent 46%
+    ),
+    /* nearly flat — a printed dot, lit from above by a hair */
+    linear-gradient(
+      170deg,
+      var(--blue-lit) 0%,
+      var(--blue) 34%,
+      var(--blue) 74%,
+      #0f4fd8 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.28),
+    0 0 calc(var(--dot) * 0.34) rgb(26 107 255 / 0.42),
+    0 0 calc(var(--dot) * 0.9) rgb(26 107 255 / 0.18);
+  cursor: pointer;
+  animation: breathe 2.6s var(--ease-inout) infinite;
+  transform: translateZ(calc(var(--u) * 0.55));
+}
+
+/* the expanding ring — the thing that says "press me" */
+.dot::after {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  content: "";
+  animation: ping 2.6s var(--ease-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.06;
+  }
+}
+
+@keyframes ping {
+  0% {
+    opacity: 0.75;
+    scale: 1;
+  }
+  70% {
+    opacity: 0;
+    scale: 2.1;
+  }
+  100% {
+    opacity: 0;
+    scale: 2.1;
+  }
+}
+
+/* ── the hover label ───────────────────────────────────────
+   the dot overlaps the pill's left end, exactly as in the
+   reference — the label reads as sliding out from under it. */
+.pill {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--dot) * -0.2);
+  display: flex;
+  height: calc(var(--dot) * 0.86);
+  align-items: center;
+  padding-right: calc(var(--dot) * 0.42);
+  padding-left: calc(var(--dot) * 0.74);
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: rgb(6 6 8 / 0.94);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    0 10px 30px -6px rgb(0 0 0 / 1),
+    0 0 0 6px rgb(0 0 0 / 0.28);
+  color: #f4f4f6;
+  font-size: clamp(11px, calc(var(--u) * 0.29), 17px);
+  font-weight: 450;
+  letter-spacing: -0.006em;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  scale: 0.92 1;
+  transform: translateZ(calc(var(--u) * 0.55));
+  transform-origin: left center;
+  translate: 0 -50%;
+  transition:
+    opacity 0.28s var(--ease-out),
+    scale 0.42s var(--spring);
+}
+
+/* opens leftward when the key is near the right edge of the deck */
+.pill[data-flip="true"] {
+  right: calc(var(--dot) * -0.2);
+  left: auto;
+  padding-right: calc(var(--dot) * 0.86);
+  padding-left: calc(var(--dot) * 0.42);
+  transform-origin: right center;
+}
+
+.anchor:hover .pill,
+.anchor[data-open="true"] .pill {
+  opacity: 1;
+  scale: 1 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .dot::after {
+    animation: none;
+  }
+}

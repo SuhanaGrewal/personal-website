@@ -102,42 +102,56 @@
 .stage {
   position: relative;
   z-index: 2;
+  display: flex;
   min-height: 0;
   flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The name and the machine are one object. Both sit in normal flow so
+   the group has a real height — name plus machine minus the overlap —
+   and centring that height is what centres the pair together. The
+   scroll transforms do not affect layout, so the machine holds still
+   while the name travels up past it. */
+.group {
+  --name-size: clamp(38px, 15.6vw, 268px);
+
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* the machine holds its place while the name travels past it, then
    shifts away to the left */
 .machine {
-  position: absolute;
+  position: relative;
   z-index: 2;
-  /* far enough down that the deck's top edge crosses the bottom of the
-     letters — the machine sits in front of the name, not behind it */
-  top: 21%;
-  left: 50%;
   display: flex;
   justify-content: center;
-  /* -50% keeps it centred; the second term carries it off-frame */
-  transform: translateX(calc(-50% - var(--p-exit) * 122vw));
+  /* rides up over the bottom of the letters — the machine sits in
+     front of the name, not behind it */
+  margin-top: calc(var(--name-size) * -0.3);
+  transform: translateX(calc(var(--p-exit) * -122vw));
   will-change: transform;
 }
 
 /* the name starts tucked behind the machine and rises out of it */
 .wordmark {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  top: 0;
-  left: 0;
+  align-self: flex-start;
   margin: 0;
   color: var(--word);
   /* one line, running the width of the frame */
-  font-size: clamp(38px, 15.6vw, 268px);
+  font-size: var(--name-size);
   font-weight: 400;
   letter-spacing: -0.052em;
   line-height: 0.86;
   text-align: left;
-  /* the name sits at the top of the frame, so a full 100vh of travel
-     always carries it clear off the top */
+  /* a full 100vh of travel always carries it clear off the top */
   transform: translateY(calc(var(--p-name) * -100vh));
   white-space: nowrap;
   will-change: transform;

@@ -104,9 +104,11 @@ export function Hero() {
         </header>
 
         <div className={s.stage}>
-          <h1 className={s.wordmark}>suhana grewal</h1>
+          {/* name and machine are one composite, centred together */}
+          <div className={s.group}>
+            <h1 className={s.wordmark}>suhana grewal</h1>
 
-          <div className={s.machine}>
+            <div className={s.machine}>
             <Keyboard
               state={state}
               targetKey={targetKey}
@@ -121,7 +123,8 @@ export function Hero() {
                 open={introOpen}
                 onPress={() => targetKey && activate(targetKey)}
               />
-            </Keyboard>
+              </Keyboard>
+            </div>
           </div>
         </div>
 

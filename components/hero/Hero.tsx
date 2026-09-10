@@ -10,10 +10,10 @@ const INTRO = "half ai engineer, half design nerd.";
 const TAGLINE = "& occasional musician";
 
 /* where each beat of the sticky sequence sits along the scroll range */
-const NAME_ENDS = 0.5; // the name has finished rising, ground is white
-const EXIT_BEGINS = 0.52; // the machine starts moving left
-const EXIT_ENDS = 0.88; // it is fully off-frame; the rest is a beat of
-//                         held white before the next section arrives
+const NAME_ENDS = 0.55; // the name has cleared the top of the frame
+const EXIT_BEGINS = 0.6; // only then does the machine start moving left
+const EXIT_ENDS = 0.9; // it is fully off-frame; the rest is a beat of
+//                        held white before the next section arrives
 /* past this much of the rise the pulse is out of the way */
 const PULSE_HIDES = 0.3;
 

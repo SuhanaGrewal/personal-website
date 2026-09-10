@@ -154,11 +154,14 @@
   padding-bottom: 0.13em;
   color: var(--word);
   font-size: clamp(52px, 24vw, 400px);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.052em;
   line-height: 0.7;
   text-align: left;
-  transform: translateY(calc(var(--p-name) * -34vh));
+  /* travels its own full height plus the gap above it, so the name
+     is entirely off the top of the frame at --p-name 1 — the -100%
+     term keeps that true whatever the type scales to */
+  transform: translateY(calc(var(--p-name) * -100% + var(--p-name) * -24vh));
   white-space: nowrap;
   will-change: transform;
 }

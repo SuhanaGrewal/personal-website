@@ -67,7 +67,11 @@ export const PROJECTS: Project[] = [
       },
       {
         heading: "the product",
-        body: "A model that predicts each cached item's reuse likelihood using behavioral signals from the agent's execution trace like recency, position in the task's dependency graph (agent depth, fanout), task progress (DAG completion fraction), and content/event features. These features train an XGBoost classifier that outputs a reuse probability per item, which drives eviction.\n\nIn higher cache sizes though LRU is just as effective and cheaper.\n\nSo, the final solution is a hybrid eviction algorithm that measures live cache pressure (cache size relative to number of items) and adaptively switches between the predictor and standard LRU.",
+        body: "A model that predicts each cached item's reuse likelihood using behavioral signals from the agent's execution trace like recency, position in the task's dependency graph (agent depth, fanout), task progress (DAG completion fraction), and content/event features. These features train an XGBoost classifier that outputs a reuse probability per item, which drives eviction.",
+      },
+      {
+        heading: "the trade",
+        body: "In higher cache sizes though LRU is just as effective and cheaper.\n\nSo, the final solution is a hybrid eviction algorithm that measures live cache pressure (cache size relative to number of items) and adaptively switches between the predictor and standard LRU.",
       },
     ],
     links: [

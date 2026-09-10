@@ -63,10 +63,11 @@
 .top {
   position: relative;
   z-index: 5;
-  display: flex;
+  display: grid;
   align-items: flex-start;
-  justify-content: space-between;
   gap: 24px;
+  /* keeps the line centred on the page now that the right slot is empty */
+  grid-template-columns: 1fr auto 1fr;
   opacity: calc(1 - var(--p-name));
 }
 
@@ -96,29 +97,6 @@
   white-space: nowrap;
 }
 
-.menu {
-  display: flex;
-  width: clamp(30px, 3.2vw, 42px);
-  height: clamp(30px, 3.2vw, 42px);
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgb(0 0 0 / 0.14);
-  border-radius: 11px;
-  background: rgb(255 255 255 / 0.6);
-  color: var(--text);
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 1;
-  transition:
-    background 0.25s var(--ease-out),
-    border-color 0.25s var(--ease-out);
-}
-
-.menu:hover {
-  border-color: rgb(26 107 255 / 0.55);
-  background: rgb(26 107 255 / 0.08);
-}
-
 /* ── the stage: machine over the name ──────────────────── */
 
 .stage {
@@ -133,7 +111,9 @@
 .machine {
   position: absolute;
   z-index: 2;
-  top: 5%;
+  /* far enough down that the deck's top edge crosses the bottom of the
+     letters — the machine sits in front of the name, not behind it */
+  top: 21%;
   left: 50%;
   display: flex;
   justify-content: center;
@@ -146,27 +126,18 @@
 .wordmark {
   position: absolute;
   z-index: 1;
-  bottom: 0;
+  top: 0;
   left: 0;
-  display: flex;
-  flex-direction: column;
   margin: 0;
-  padding-bottom: 0.1em;
   color: var(--word);
-  /* stacked, so the width is capped by what the machine can hide:
-     "suhana" is the wider of the two lines at 3.0em and has to sit
-     entirely behind the deck, top and right */
-  font-size: clamp(46px, 23vw, 380px);
+  /* one line, running the width of the frame */
+  font-size: clamp(38px, 15.6vw, 268px);
   font-weight: 400;
   letter-spacing: -0.052em;
-  /* the l of grewal reaches 0.71em above its baseline (measured off
-     the actual face), so anything tighter than that climbs into
-     suhana. this is that floor plus a hair of clearance. */
-  line-height: 0.76;
+  line-height: 0.86;
   text-align: left;
-  /* the name is anchored to the bottom of the frame, so its own bottom
-     always sits within one viewport height — travelling a full 100vh
-     therefore clears it off the top whatever the type scales to */
+  /* the name sits at the top of the frame, so a full 100vh of travel
+     always carries it clear off the top */
   transform: translateY(calc(var(--p-name) * -100vh));
   white-space: nowrap;
   will-change: transform;
@@ -177,29 +148,18 @@
 .bottom {
   position: relative;
   z-index: 5;
-  display: grid;
-  align-items: flex-end;
+  display: flex;
+  justify-content: center;
   margin-top: clamp(10px, 2.2vh, 26px);
-  gap: 24px;
-  grid-template-columns: 1fr auto 1fr;
   opacity: calc(1 - var(--p-name));
 }
 
 .tagline {
-  justify-self: center;
   color: var(--text);
   font-size: clamp(13px, 1.15vw, 18px);
   font-weight: 500;
   letter-spacing: -0.014em;
   text-align: center;
-}
-
-.copyright {
-  justify-self: end;
-  color: var(--text-mid);
-  font-size: clamp(12px, 1vw, 16px);
-  font-weight: 450;
-  letter-spacing: -0.01em;
 }
 
 @media (max-width: 700px) {

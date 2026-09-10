@@ -6,7 +6,7 @@ import { PulseDot } from "@/components/pulse/PulseDot";
 import { useMachine } from "@/lib/machine/useMachine";
 import s from "./Hero.module.css";
 
-const INTRO = "half ai engineer, half design nerd.";
+const INTRO = "half ai engineer, half design nerd";
 const TAGLINE = "& occasional musician";
 
 /* where each beat of the sticky sequence sits along the scroll range */
@@ -100,12 +100,12 @@ export function Hero() {
         <header className={s.top}>
           <div className={s.mark} aria-hidden="true" />
           <p className={s.intro}>{INTRO}</p>
-          <button type="button" className={s.menu} aria-label="Menu">
-            ⋮
-          </button>
+          <span aria-hidden="true" />
         </header>
 
         <div className={s.stage}>
+          <h1 className={s.wordmark}>suhana grewal</h1>
+
           <div className={s.machine}>
             <Keyboard
               state={state}
@@ -123,17 +123,10 @@ export function Hero() {
               />
             </Keyboard>
           </div>
-
-          <h1 className={s.wordmark} aria-label="Suhana Grewal">
-            <span aria-hidden="true">suhana</span>
-            <span aria-hidden="true">grewal</span>
-          </h1>
         </div>
 
         <footer className={s.bottom}>
-          <span aria-hidden="true" />
           <span className={s.tagline}>{TAGLINE}</span>
-          <span className={s.copyright}>© 2026 suhana grewal</span>
         </footer>
       </div>
     </section>

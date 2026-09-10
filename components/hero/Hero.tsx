@@ -7,10 +7,7 @@ import { useMachine } from "@/lib/machine/useMachine";
 import s from "./Hero.module.css";
 
 /* tODO(suhana): your words. these are mine, standing in. */
-const INTRO_LINES = [
-  "Software engineer. Local-first AI,",
-  "grounded systems, and some music.",
-];
+const INTRO_LINES = ["half AI engineer,", "half design nerd."];
 const TAGLINE = "& some music";
 
 const STATUS: Record<string, string> = {
@@ -33,8 +30,8 @@ export function Hero() {
       setIntroOpen(false);
       return;
     }
-    const show = setTimeout(() => setIntroOpen(true), 1400);
-    const hide = setTimeout(() => setIntroOpen(false), 5200);
+    const show = setTimeout(() => setIntroOpen(true), 3200);
+    const hide = setTimeout(() => setIntroOpen(false), 7400);
     return () => {
       clearTimeout(show);
       clearTimeout(hide);

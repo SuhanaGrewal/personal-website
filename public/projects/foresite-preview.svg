@@ -6,7 +6,7 @@
 <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
   <circle cx="0.8" cy="0.8" r="0.75" fill="#b6bdc3" opacity="0.5"/>
 </pattern></defs>
-<rect width="860" height="420" fill="url(#paper)"/>
+
 <rect width="860" height="420" fill="url(#grid)" opacity="0.45"/>
 
 <!-- title -->

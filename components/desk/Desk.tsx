@@ -41,9 +41,19 @@ function useClock() {
 
 /* the image sits as a background over a gradient, so a project with no
    shot yet shows the gradient instead of a broken-image icon */
+/* the artwork sits on the paper it was drawn on, supplied here rather
+   than inside the SVG — layered this way the two cannot disagree at any
+   size, and `contain` leaves no band of a different colour */
+const PAPER = "linear-gradient(145deg, #fbfbfc 0%, #eceef0 100%)";
+
 function shot(p: Project) {
   return p.image
-    ? { backgroundImage: `url(${p.image})` }
+    ? {
+        backgroundImage: `url(${p.image}), ${PAPER}`,
+        backgroundSize: "contain, cover",
+        backgroundRepeat: "no-repeat, no-repeat",
+        backgroundPosition: "center, center",
+      }
     : undefined;
 }
 

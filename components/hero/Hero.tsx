@@ -1,25 +1,30 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Keyboard, type CapBox } from "@/components/keyboard/Keyboard";
 import { PulseDot } from "@/components/pulse/PulseDot";
 import { useMachine } from "@/lib/machine/useMachine";
 import s from "./Hero.module.css";
 
-/* tODO(suhana): your words. these are mine, standing in. */
-const INTRO_LINES = ["half AI engineer,", "half design nerd."];
+const INTRO = "half ai engineer, half design nerd.";
 const TAGLINE = "& some music";
 
-const STATUS: Record<string, string> = {
-  dormant: "system status: dormant",
-  live: "system status: playing",
-  departed: "system status: playing",
-};
+/* where each beat of the sticky sequence sits along the scroll range */
+const NAME_ENDS = 0.46; // the name has finished rising
+const EXIT_BEGINS = 0.6; // the machine starts to dissolve
+/* past this much of the rise the pulse is out of the way */
+const PULSE_HIDES = 0.3;
+
+const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);
 
 export function Hero() {
   const { state, targetKey, hint, pressed, activate, readLevels } = useMachine();
   const [box, setBox] = useState<CapBox | null>(null);
   const [introOpen, setIntroOpen] = useState(false);
+  const [pulseGone, setPulseGone] = useState(false);
+
+  const heroRef = useRef<HTMLElement>(null);
+  const goneRef = useRef(false);
 
   const onTargetBox = useCallback((b: CapBox | null) => setBox(b), []);
 
@@ -38,53 +43,99 @@ export function Hero() {
     };
   }, [state]);
 
-  return (
-    <section className={s.hero} data-state={state}>
-      <header className={s.top}>
-        <div className={s.mark} aria-hidden="true" />
-        <p className={s.intro}>
-          {INTRO_LINES[0]}
-          <br />
-          {INTRO_LINES[1]}
-        </p>
-        <button type="button" className={s.menu} aria-label="Menu">
-          ⋮
-        </button>
-      </header>
+  /* ── the sticky sequence ──────────────────────────────────
+     Two normalised clocks written straight to CSS variables:
+     --p-name raises the name past the machine, --p-exit
+     dissolves the machine afterwards. Both are pure functions
+     of scroll offset, so scrolling back up plays it in reverse
+     with no state to unwind.                                  */
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
 
-      <div className={s.stage}>
-        <div className={s.machine}>
-        <Keyboard
-          state={state}
-          targetKey={targetKey}
-          pressed={pressed}
-          onActivate={activate}
-          readLevels={readLevels}
-          onTargetBox={onTargetBox}
-        >
-          <PulseDot
-            box={box}
-            label={hint}
-            open={introOpen}
-            onPress={() => targetKey && activate(targetKey)}
-          />
-        </Keyboard>
+    let raf = 0;
+    const update = () => {
+      const range = el.offsetHeight - window.innerHeight;
+      const p = range > 0 ? clamp01((window.scrollY - el.offsetTop) / range) : 0;
+
+      const pName = clamp01(p / NAME_ENDS);
+      const pExit = clamp01((p - EXIT_BEGINS) / (1 - EXIT_BEGINS));
+
+      el.style.setProperty("--p-name", pName.toFixed(4));
+      el.style.setProperty("--p-exit", pExit.toFixed(4));
+
+      // the pulse steps aside once the name starts moving, and comes
+      // back if you scroll up again
+      const gone = pName > PULSE_HIDES;
+      if (gone !== goneRef.current) {
+        goneRef.current = gone;
+        setPulseGone(gone);
+      }
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <section id="hero" ref={heroRef} className={s.hero} data-state={state}>
+      <div className={s.viewport}>
+        {/* the ground washes to pure white as the name rises */}
+        <div className={s.wash} aria-hidden="true" />
+
+        <header className={s.top}>
+          <div className={s.mark} aria-hidden="true" />
+          <p className={s.intro}>{INTRO}</p>
+          <button type="button" className={s.menu} aria-label="Menu">
+            ⋮
+          </button>
+        </header>
+
+        <div className={s.stage}>
+          <div className={s.machine}>
+            <Keyboard
+              state={state}
+              targetKey={targetKey}
+              pressed={pressed}
+              onActivate={activate}
+              readLevels={readLevels}
+              onTargetBox={onTargetBox}
+            >
+              <PulseDot
+                box={box}
+                label={pulseGone ? "" : hint}
+                open={introOpen}
+                onPress={() => targetKey && activate(targetKey)}
+              />
+            </Keyboard>
+          </div>
+
+          <h1 className={s.wordmark} aria-label="Suhana Grewal">
+            <span aria-hidden="true">suhana</span>
+            <span aria-hidden="true">grewal</span>
+          </h1>
         </div>
 
-        <h1 className={s.wordmark} aria-label="Suhana Grewal">
-          <span aria-hidden="true">suhana</span>
-          <span aria-hidden="true">grewal</span>
-        </h1>
+        <footer className={s.bottom}>
+          <span className={s.tagline}>{TAGLINE}</span>
+          <span className={s.status}>
+            <i className={s.statusDot} aria-hidden="true" />
+            system status: {state === "live" ? "playing" : "dormant"}
+          </span>
+          <span className={s.copyright}>© 2026 suhana grewal</span>
+        </footer>
       </div>
-
-      <footer className={s.bottom}>
-        <span className={s.tagline}>{TAGLINE}</span>
-        <span className={s.status}>
-          <i className={s.statusDot} aria-hidden="true" />
-          {STATUS[state]}
-        </span>
-        <span className={s.copyright}>© 2026 suhana grewal</span>
-      </footer>
     </section>
   );
 }

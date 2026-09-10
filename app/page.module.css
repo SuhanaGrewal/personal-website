@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(24px, 6vw, 96px);
-  background: linear-gradient(180deg, #000 0%, #06070a 100%);
+  background: #fff;
 }
 
 .eyebrow {
@@ -19,7 +19,7 @@
 .heading {
   max-width: 16ch;
   margin: 0;
-  color: var(--legend-bright);
+  color: var(--word);
   font-size: clamp(38px, 7vw, 108px);
   font-weight: 600;
   letter-spacing: -0.04em;

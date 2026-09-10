@@ -1,24 +1,39 @@
 /* ============================================================
-   hero staging — the reference's composition.
+   hero staging + the sticky scroll sequence.
 
-   machine floating above, the name enormous underneath, and the
-   machine's cast shadow falling across the top of the letters.
-   on paper the shadow does the separating, which is the whole
-   reason this reads as an object in a room.
+   the section is tall; the frame inside it is sticky. two
+   scroll-driven clocks do all the work:
+
+     --p-name  0→1   the name rises up past the machine while
+                     the ground washes to pure white
+     --p-exit  0→1   the machine dissolves and slides away,
+                     handing off to the next section
+
+   both are pure functions of scroll offset, so scrolling back
+   up runs the whole thing in reverse.
    ============================================================ */
 
 .hero {
+  --p-name: 0;
+  --p-exit: 0;
+
   position: relative;
+  height: 280vh;
+}
+
+.viewport {
+  position: sticky;
+  top: 0;
   display: flex;
   overflow: hidden;
-  min-height: 100svh;
+  height: 100svh;
   flex-direction: column;
   padding: clamp(20px, 3.2vw, 40px);
   background: var(--paper);
 }
 
 /* the faintest lift toward the centre, like a lit studio wall */
-.hero::before {
+.viewport::before {
   position: absolute;
   z-index: 0;
   inset: 0;
@@ -32,15 +47,27 @@
   pointer-events: none;
 }
 
+/* scrolling carries you into a clean white section */
+.wash {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: #fff;
+  content: "";
+  opacity: var(--p-name);
+  pointer-events: none;
+}
+
 /* ── top chrome ────────────────────────────────────────── */
 
 .top {
   position: relative;
-  z-index: 4;
+  z-index: 5;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
+  opacity: calc(1 - var(--p-name));
 }
 
 .mark {
@@ -60,13 +87,13 @@
 }
 
 .intro {
-  max-width: 32ch;
   margin: 0;
   color: var(--text);
-  font-size: clamp(13px, 1.15vw, 18px);
+  font-size: clamp(12px, 1.15vw, 18px);
   font-weight: 500;
   letter-spacing: -0.014em;
   line-height: 1.3;
+  white-space: nowrap;
 }
 
 .menu {
@@ -92,31 +119,29 @@
   background: rgb(26 107 255 / 0.08);
 }
 
-/* ── the stage: machine stacked over the name ──────────── */
+/* ── the stage: machine over the name ──────────────────── */
 
 .stage {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   min-height: 0;
   flex: 1;
 }
 
-/* the machine floats over the name, centred in the frame */
+/* the machine holds its place while the name travels past it, then
+   slides cleanly out to the right once --p-exit starts running */
 .machine {
   position: absolute;
   z-index: 2;
-  /* the reference lets the frame breathe before the machine arrives */
-  top: 11%;
+  top: 7%;
   left: 50%;
   display: flex;
   justify-content: center;
-  transform: translateX(-50%);
+  /* -50% keeps it centred; the second term carries it off-frame */
+  transform: translateX(calc(-50% + var(--p-exit) * 118vw));
 }
 
-/* placed as in the reference: left-aligned, anchored to the
-   bottom, and large enough that the machine covers nearly all of
-   line 1 while line 2 runs the width of the frame with its top
-   edge tucked under the machine. */
+/* the name starts tucked behind the machine and rises out of it */
 .wordmark {
   position: absolute;
   z-index: 1;
@@ -125,13 +150,14 @@
   display: flex;
   flex-direction: column;
   margin: 0;
+  padding-bottom: 0.13em;
   color: var(--word);
-  font-size: clamp(52px, 19vw, 310px);
+  font-size: clamp(52px, 24vw, 400px);
   font-weight: 600;
   letter-spacing: -0.052em;
-  line-height: 0.74;
-  padding-bottom: 0.13em;
+  line-height: 0.7;
   text-align: left;
+  transform: translateY(calc(var(--p-name) * -34vh));
   white-space: nowrap;
 }
 
@@ -139,12 +165,13 @@
 
 .bottom {
   position: relative;
-  z-index: 4;
+  z-index: 5;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   margin-top: clamp(10px, 2.2vh, 26px);
   gap: 24px;
+  opacity: calc(1 - var(--p-name));
 }
 
 .tagline {
@@ -176,8 +203,7 @@
     box-shadow 0.6s var(--ease-out);
 }
 
-.hero[data-state="live"] .statusDot,
-.hero[data-state="departed"] .statusDot {
+.hero[data-state="live"] .statusDot {
   background: var(--blue);
   box-shadow: 0 0 10px var(--blue-glow);
 }
@@ -191,8 +217,7 @@
 
 @media (max-width: 700px) {
   .intro {
-    max-width: 20ch;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .status {

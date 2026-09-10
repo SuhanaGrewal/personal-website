@@ -39,7 +39,7 @@ export function PulseDot({ box, label, open = false, onPress }: Props) {
   return (
     <div
       className={s.anchor}
-      data-placed={shown || undefined}
+      data-placed={(shown && Boolean(box)) || undefined}
       data-animate={ready || undefined}
       data-hidden={hidden || undefined}
       data-open={open || undefined}

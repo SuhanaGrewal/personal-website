@@ -10,7 +10,7 @@
 
 .stage {
   /* the third term keeps the machine from eating a short viewport */
-  --deck-w: min(1240px, 78vw, 116vh);
+  --deck-w: min(1220px, 74vw, 112vh);
   --tilt-x: 9.5deg;
   --tilt-y: 0deg;
 
@@ -51,13 +51,13 @@
   --u: calc(var(--deck-w) / 15);
   --gap: calc(var(--u) * 0.085);
   /* the wedge: how deep the front lip is */
-  --front: calc(var(--u) * 0.26);
+  --front: calc(var(--u) * 0.46);
 
   position: relative;
   z-index: 1;
   width: fit-content;
-  padding: calc(var(--u) * 0.32) calc(var(--u) * 0.28) calc(var(--u) * 0.55);
-  border-radius: calc(var(--u) * 0.4);
+  padding: calc(var(--u) * 0.4) calc(var(--u) * 0.34) calc(var(--u) * 0.62);
+  border-radius: calc(var(--u) * 0.5);
   background:
     /* machined chamfer along the back edge, catching the light */
     linear-gradient(
@@ -76,7 +76,7 @@
     inset 0 1px 0 rgb(255 255 255 / 0.2),
     inset 0 0 0 1px rgb(255 255 255 / 0.05),
     /* contact shadow, then the room */
-    0 2px 6px rgb(0 0 0 / 0.28),
+    0 3px 8px rgb(0 0 0 / 0.3),
     0 26px 40px -16px rgb(0 0 0 / 0.44),
     0 60px 90px -40px rgb(0 0 0 / 0.4);
   transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
@@ -94,7 +94,7 @@
   right: 0;
   left: 0;
   height: var(--front);
-  border-radius: 0 0 calc(var(--u) * 0.12) calc(var(--u) * 0.12);
+  border-radius: 0 0 calc(var(--u) * 0.16) calc(var(--u) * 0.16);
   background: linear-gradient(
     180deg,
     #26262b 0%,

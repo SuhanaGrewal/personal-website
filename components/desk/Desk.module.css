@@ -375,6 +375,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* explicit rather than relying on the default, since this is the
+     thing that keeps a cover-cropped clip visually centred in its
+     tile regardless of which edge ends up trimmed */
+  object-position: center;
 }
 
 /* ── the opened view ───────────────────────────────────── */

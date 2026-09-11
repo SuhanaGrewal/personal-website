@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PROJECTS, type Project } from "./projects";
 import { ForesiteBars } from "./Bars";
 import s from "./Desk.module.css";
@@ -63,16 +63,50 @@ function shot(p: Project) {
    because a landing-page recording usually reads better full-bleed
    than letterboxed; switch to `contain` here if a given clip's crop
    looks wrong once it is in. */
-function Clip({ src, className }: { src: string; className?: string }) {
+function Clip({
+  src,
+  poster,
+  className,
+}: {
+  src: string;
+  poster?: string;
+  className?: string;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  // The `muted` JSX attribute is unreliable for autoplay in React: it
+  // lands as the `defaultMuted` HTML attribute, and depending on paint
+  // timing the browser can evaluate the mute policy before that has
+  // taken effect as the live `.muted` property, silently refusing to
+  // autoplay a video that LOOKS muted in the markup but was not, from
+  // the browser's point of view, at the moment it checked. Setting it
+  // imperatively and then calling play() is the reliable version.
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    v.muted = true;
+    void v.play().catch(() => {
+      /* a genuine autoplay block — leave it on its poster frame */
+    });
+  }, [src]);
+
+  // Nothing in the UI ever pauses this on purpose (there are no visible
+  // controls), so any pause is unintended — resume it.
+  const onPause = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    void e.currentTarget.play().catch(() => {});
+  };
+
   return (
     <video
+      ref={ref}
       className={className}
       src={src}
-      autoPlay
+      poster={poster}
       loop
       muted
       playsInline
-      preload="metadata"
+      preload="auto"
+      onPause={onPause}
     />
   );
 }
@@ -103,7 +137,7 @@ function Collapsed({ p }: { p: Project }) {
   if (p.video) {
     return (
       <div className={s.thumb}>
-        <Clip src={p.video} className={s.thumbVideo} />
+        <Clip src={p.video} poster={p.videoPoster} className={s.thumbVideo} />
       </div>
     );
   }
@@ -115,7 +149,7 @@ function Detail({ p }: { p: Project }) {
   return (
     <div className={`${s.detail} ${s.scroller}`}>
       {p.video ? (
-        <Clip src={p.video} className={s.header} />
+        <Clip src={p.video} poster={p.videoPoster} className={s.header} />
       ) : p.header ? (
         <img className={s.header} src={p.header} alt="" aria-hidden="true" />
       ) : null}

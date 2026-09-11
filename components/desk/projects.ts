@@ -38,6 +38,8 @@ export interface Project {
       it reads as live everywhere without duplicating any setup.
       takes priority over `image` when both are set. */
   video?: string;
+  /** shown until the video's own first frame is decoded */
+  videoPoster?: string;
   oneLiner?: string;
   year?: string;
   role?: string;
@@ -89,17 +91,28 @@ export const PROJECTS: Project[] = [
 
   /* ── the rest are scaffolding: same shape, your content ── */
   {
-    id: "two",
-    title: "project two",
+    // TODO(suhana): swap this placeholder copy for the real write-up,
+    // same as foresite got — preface (year/role/stack) + the problem
+    // + the product (+ the trade if there is one) + a real link.
+    id: "ori",
+    title: "ori",
     kind: "project",
     x: 2.2,
     y: 61,
     w: 38,
     h: 33,
+    video: "/projects/ori-preview.mp4",
+    videoPoster: "/projects/ori-preview-poster.jpg",
     sections: [
-      { heading: "preface", lines: ["Year: 2026", "Role: Engineer"] },
-      { heading: "the problem", body: "what you hit." },
-      { heading: "the product", body: "what you built." },
+      { heading: "preface", lines: ["Year: —", "Role: —"] },
+      {
+        heading: "the problem",
+        body: "what you hit.",
+      },
+      {
+        heading: "the product",
+        body: "an assistant that watches your calendar and inbox and surfaces conflicts with a fix already drafted — reschedule a meeting, reply to a thread, remember a gift — rather than another list of notifications to triage yourself.",
+      },
     ],
   },
   {

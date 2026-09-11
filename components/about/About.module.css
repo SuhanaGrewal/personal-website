@@ -1,35 +1,25 @@
 /* ============================================================
-   about me — the copy on the left, the heading on the right in
-   the same face as the other two sections, sitting right beside
-   the copy. tall padding top and bottom keeps this whole block
-   floating in its own whitespace, clear of the sections either
-   side of it.
+   about me — a plain stack: the heading on its own line in the
+   same face as the other two section headings, the copy below
+   it, both flush left. tall padding keeps the whole block in
+   its own whitespace, clear of the sections either side of it.
    ============================================================ */
 
 .about {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(160px, 26vh, 320px) clamp(24px, 3.2vw, 40px);
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(96px, 16vh, 220px) clamp(24px, 3.2vw, 40px);
   background: #fff;
-  gap: clamp(12px, 1.6vw, 28px);
 }
 
-/* the same face and treatment as the other two section headings,
-   stacked one word per line and set tight enough that the lines touch */
 .heading {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  margin: 0;
+  margin: 0 0 0.4em;
   color: var(--word);
-  /* sized so the two-line heading lands at roughly the same height as
-     the bio column beside it, rather than dwarfing or shrinking under
-     it the way the other sections' full-width headings would */
-  font-size: clamp(28px, 12.5vw, 220px);
+  font-size: clamp(28px, 9vw, 160px);
   font-weight: 400;
   letter-spacing: -0.052em;
-  line-height: 0.76;
+  line-height: 1;
   text-align: left;
 }
 
@@ -37,19 +27,13 @@
   color: var(--blue);
 }
 
-/* sized to its own content rather than stretched to fill — that's what
-   lets the heading sit right beside it instead of across a gap left by
-   flex:1 filling the row */
 .copy {
   display: flex;
-  flex: 0 1 auto;
   flex-direction: column;
-  align-items: flex-end;
-  max-width: 58ch;
-  text-align: right;
 }
 
 .name {
+  max-width: 62ch;
   margin: 0 0 1.1em;
   color: var(--text);
   font-family: var(--ui-font);
@@ -63,11 +47,12 @@
 }
 
 .bio {
-  margin: 0 0 1em;
+  max-width: 62ch;
+  margin: 0 0 1.1em;
   color: var(--text-mid);
   font-family: var(--ui-font);
-  font-size: clamp(14px, 1.15vw, 17px);
-  line-height: 1.6;
+  font-size: clamp(15px, 1.28vw, 19px);
+  line-height: 1.75;
 }
 
 .bio:last-child {
@@ -75,16 +60,8 @@
 }
 
 @media (max-width: 900px) {
-  .about {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-
-  .heading {
-    text-align: left;
-  }
-
-  .copy {
+  .name,
+  .bio {
     max-width: none;
   }
 }

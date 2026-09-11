@@ -3,6 +3,10 @@ import s from "./About.module.css";
 export function About() {
   return (
     <section className={s.about}>
+      <h2 className={s.heading}>
+        about <span className={s.accent}>me</span>
+      </h2>
+
       <div className={s.copy}>
         <p className={s.name}>
           Hi, I&rsquo;m Suhana Grewal, pronounced{" "}
@@ -27,11 +31,6 @@ export function About() {
           national-level equestrian :)
         </p>
       </div>
-
-      <h2 className={s.heading}>
-        <span>about</span>
-        <span className={s.accent}>me</span>
-      </h2>
     </section>
   );
 }

@@ -54,25 +54,52 @@
 
 /* the closing beat — the white of the work section carries straight
    through, and the board is cropped by the bottom of the viewport
-   rather than sitting fully inside it: it runs on past the edge, so
-   the page reads as resting on hardware that continues below. the
-   heading takes the free space above via margin:auto, which keeps
-   that crop at the same place whatever the viewport height. */
+   rather than sitting fully inside it. the order in the column is
+   heading, glow, board: the glow is a real block with height, so the
+   heading sits exactly where the gradient fades out instead of being
+   positioned against a guess. */
 .contact {
   display: flex;
   min-height: 100svh;
   flex-direction: column;
   overflow: hidden;
-  padding: clamp(48px, 9vh, 104px) 0 0;
+  padding: clamp(40px, 7vh, 88px) 0 0;
   background: #fff;
 }
 
 .contactHeading {
-  margin: auto;
-  padding: 0 clamp(24px, 3.2vw, 40px);
+  margin: auto auto 0;
+  padding: 0 clamp(24px, 3.2vw, 40px) clamp(14px, 2vh, 26px);
   color: var(--word);
   font-size: clamp(36px, 8vw, 108px);
   font-weight: 400;
   letter-spacing: -0.048em;
   text-align: center;
+}
+
+/* rises out of the board's top edge and fades into the page, the way
+   the reference's glow comes up off its module */
+.glow {
+  width: 100%;
+  height: clamp(90px, 19vh, 210px);
+  flex: 0 0 auto;
+  /* narrower than the board on purpose: spread the full width it
+     reads as a flat blue band, and the point is a glow coming up out
+     of the middle of the thing */
+  opacity: 0.86;
+  transition: opacity 0.45s var(--ease-out);
+  background: radial-gradient(
+    58% 122% at 50% 100%,
+    rgb(26 107 255 / 0.38) 0%,
+    rgb(26 107 255 / 0.2) 34%,
+    rgb(26 107 255 / 0.07) 62%,
+    transparent 82%
+  );
+}
+
+/* touching a link draws a little more power: the only links inside
+   this section are the six on the board, so hovering any of them
+   lifts the glow it is sitting in */
+.contact:has(a:hover) .glow {
+  opacity: 1;
 }

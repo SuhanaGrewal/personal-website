@@ -33,8 +33,6 @@ export function Chip() {
 
   return (
     <div className={s.card}>
-      <div className={s.groundShadow} aria-hidden="true" />
-
       <div className={s.pcb}>
         {/* the board's own furniture. a bare stretch of pcb between the
             big parts is what makes a render look like a diagram, so the

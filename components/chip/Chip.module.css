@@ -14,32 +14,14 @@
 
 .card {
   position: relative;
-  width: min(1340px, 95vw);
+  width: min(1900px, 98vw);
   /* the ratio counts the whole board, including the part below the
      fold — the negative margin is what crops it */
   aspect-ratio: 1000 / 360;
-  margin: 0 auto clamp(-86px, -4vw, -28px);
+  margin: -1% auto clamp(-86px, -4vw, -28px);
   container-type: inline-size;
   perspective: 2400px;
   perspective-origin: 50% 20%;
-}
-
-/* a soft pool of contact shadow where the board meets the page above
-   its top edge — it no longer sits on the white, it comes up out of it */
-.groundShadow {
-  pointer-events: none;
-  position: absolute;
-  top: -2.4cqw;
-  right: 1%;
-  left: 1%;
-  height: 5cqw;
-  background: radial-gradient(
-    62% 100% at 50% 100%,
-    rgb(8 10 16 / 0.16) 0%,
-    rgb(8 10 16 / 0.06) 52%,
-    transparent 76%
-  );
-  filter: blur(1cqw);
 }
 
 .pcb {
@@ -370,6 +352,50 @@
   border-radius: 50%;
   background: rgb(255 255 255 / 0.24);
   content: "";
+}
+
+@keyframes activity {
+  0%,
+  88%,
+  100% {
+    background: rgb(255 255 255 / 0.24);
+    box-shadow: none;
+  }
+  91% {
+    background: var(--blue);
+    box-shadow: 0 0 0.6cqw var(--blue-glow);
+  }
+  95% {
+    background: rgb(255 255 255 / 0.24);
+    box-shadow: none;
+  }
+}
+
+/* negative delays so they are already mid-cycle on arrival, and prime
+   intervals so the six never fall into step with each other */
+.pkg:nth-child(1)::before {
+  animation: activity 8.5s var(--ease-inout) -0.4s infinite;
+}
+.pkg:nth-child(2)::before {
+  animation: activity 11.3s var(--ease-inout) -3.1s infinite;
+}
+.pkg:nth-child(3)::before {
+  animation: activity 9.7s var(--ease-inout) -5.9s infinite;
+}
+.pkg:nth-child(4)::before {
+  animation: activity 12.1s var(--ease-inout) -1.8s infinite;
+}
+.pkg:nth-child(5)::before {
+  animation: activity 10.3s var(--ease-inout) -7.2s infinite;
+}
+.pkg:nth-child(6)::before {
+  animation: activity 13.7s var(--ease-inout) -4.5s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pkg::before {
+    animation: none;
+  }
 }
 
 .pkg:hover {

@@ -28,6 +28,11 @@ export default function Home() {
         <h2 className={s.contactHeading}>
           let&rsquo;s <span className={s.accent}>talk</span>
         </h2>
+
+        {/* the glow the board sits in — a real block in the column, so
+            the heading lands exactly on top of where it fades out */}
+        <div className={s.glow} aria-hidden="true" />
+
         <Chip />
       </section>
     </main>

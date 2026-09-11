@@ -201,6 +201,12 @@ function Detail({ p }: { p: Project }) {
               ))}
             </div>
           ))}
+
+          {sec.list?.map((item) => (
+            <p key={item.term} className={s.listItem}>
+              <span className={s.listTerm}>{item.term}</span> {item.body}
+            </p>
+          ))}
         </section>
       ))}
 

@@ -26,6 +26,10 @@ export interface Section {
       runs the width of the column, a row of several share it equally
       and are resized to a common height so nothing looks mismatched */
   gallery?: GalleryImage[][];
+  /** a feature list: each item's lead-in term set apart from its own
+      description — tighter than prose, but a term + sentence rather
+      than the bare label/value rows `lines` is for */
+  list?: { term: string; body: string }[];
 }
 
 export interface Project {
@@ -99,11 +103,7 @@ export const PROJECTS: Project[] = [
     ],
   },
 
-  /* ── the rest are scaffolding: same shape, your content ── */
   {
-    // TODO(suhana): swap this placeholder copy for the real write-up,
-    // same as foresite got — preface (year/role/stack) + the problem
-    // + the product (+ the trade if there is one) + a real link.
     id: "ori",
     title: "ori",
     kind: "project",
@@ -113,21 +113,80 @@ export const PROJECTS: Project[] = [
     h: 38,
     video: "/projects/ori-preview.mp4",
     videoPoster: "/projects/ori-preview-poster.jpg",
+    oneLiner:
+      "Ori is an agentic personal assistant. It answers questions about your emails, calendars, and events through a RAG system with 92% accuracy across 860 tests — and it can act: spawning agents to check flights, draft emails, compare shopping options, flag potential fraud, and catch what you'd forget.",
     sections: [
-      { heading: "preface", lines: ["Year: —", "Role: —"] },
       {
-        heading: "the problem",
-        body: "what you hit.",
+        heading: "preface",
+        cols: [
+          ["Year: 2026", "Role: Full-Stack Developer"],
+          [
+            "Languages: Python, JavaScript, SQL",
+            "AI/ML: LangGraph, sentence-transformers, Presidio, spaCy, RAG",
+          ],
+        ],
       },
       {
-        heading: "the product",
-        body: "an assistant that watches your calendar and inbox and surfaces conflicts with a fix already drafted — reschedule a meeting, reply to a thread, remember a gift — rather than another list of notifications to triage yourself.",
+        heading: "what it can do",
+        list: [
+          {
+            term: "morning digests:",
+            body: "a rundown of what changed while you were away, and what your day ahead looks like.",
+          },
+          {
+            term: "proactive drafts:",
+            body: "replies get drafted before you ask — not just answers when prompted.",
+          },
+          {
+            term: "soft-commitment tracking:",
+            body: "an “I’ll get back to you Friday” becomes a follow-up or a to-do item automatically.",
+          },
+          {
+            term: "calendar management:",
+            body: "flags overlaps, proposes reschedules, creates events.",
+          },
+          {
+            term: "web-facing agents:",
+            body: "ask it to find flights, compare prices, or add a desk chair to your Amazon cart.",
+          },
+        ],
+      },
+      {
+        // TODO(suhana): gallery rows go here once the screenshots
+        // arrive — same shape as ryng's ui/ux preview.
+        heading: "ui/ux preview",
+      },
+      {
+        heading: "how it’s different from what’s out there",
+        list: [
+          {
+            term: "writes in your voice:",
+            body: "it learns how you actually write to each person, so a drafted reply to your manager doesn’t sound like the one to a friend.",
+          },
+          {
+            term: "reads inside your files:",
+            body: "most systems stop at the message body — Ori extracts and indexes what’s in attachments too.",
+          },
+          {
+            term: "retrieval and action in one pass:",
+            body: "most tools either search your data or act on the web, so you have to bridge the two yourself. Ori’s agents skip that step, pulling from what it knows about you and finishing the task without you re-typing the context.",
+          },
+        ],
+      },
+      {
+        heading: "what’s coming",
+        lines: [
+          "Multi-agent orchestration for complex, multi-step tasks — running your GTM, or planning your next trip.",
+          "Text Ori on iMessage.",
+          "Smarter threading that auto-clusters related questions into topics.",
+        ],
       },
     ],
+    // TODO(suhana): no live url yet — swap href for the real one
+    // once ori has somewhere to be tried.
+    links: [{ label: "ori", href: "#" }],
   },
   {
-    // TODO(suhana): real preface/problem/product write-up, once it
-    // exists — same pattern as foresite and o  {
     id: "ryng",
     title: "ryng",
     kind: "project",

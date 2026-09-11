@@ -458,11 +458,13 @@
 /* the opening line of a case study — same family as body copy, set a
    step larger and darker so it reads as a standfirst rather than as a
    first paragraph that happens to have no heading */
+/* matched to .listItem's size — the standfirst reads as the same
+   scale as the body content beneath it, not a separate display size */
 .lead {
   margin: 0 0 2.6cqw;
   color: #23232b;
   font-family: var(--ui-font);
-  font-size: 1.72cqw;
+  font-size: 1.42cqw;
   line-height: 1.62;
 }
 
@@ -520,6 +522,23 @@
   font-size: 1.15cqw;
   line-height: 1.5;
   text-align: left;
+}
+
+/* a feature list: same body-copy family and size as .para, but each
+   item is its own tight line and the lead-in term is pulled out of
+   the muted body ink into full dark, so it reads as a label the
+   sentence hangs off rather than the sentence's own first word. */
+.listItem {
+  margin: 0 0 0.85cqw;
+  color: #3d3d47;
+  font-family: var(--ui-font);
+  font-size: 1.42cqw;
+  line-height: 1.62;
+}
+
+.listTerm {
+  color: var(--text);
+  font-weight: 600;
 }
 
 .links {

@@ -117,7 +117,7 @@ export const PROJECTS: Project[] = [
   },
   {
     // TODO(suhana): real preface/problem/product write-up, once it
-    // exists — same pattern as foresite and ori.
+    // exists — same pattern as foresite and o  {
     id: "ryng",
     title: "ryng",
     kind: "project",
@@ -127,15 +127,29 @@ export const PROJECTS: Project[] = [
     h: 53,
     video: "/projects/ryng-preview.mp4",
     videoPoster: "/projects/ryng-preview-poster.jpg",
-    oneLiner: "give your agent a phone number, and let it take the call.",
+    oneLiner:
+      "Ryng lets you give any AI agent a working phone number. It handles the hard parts — carrier connections, low-latency audio streaming, and a synchronized speech-to-text / LLM / text-to-speech pipeline. Developers integrate with a single webhook; everyone else can build a voice agent with a few clicks and some context.",
     sections: [
-      { heading: "preface", lines: ["Year: —", "Role: —"] },
-      { heading: "the problem", body: "what you hit." },
       {
-        heading: "the product",
-        body: "an AI sales agent that answers and makes real phone calls — your agent, on the line, the way the product's own hero line puts it.",
+        heading: "preface",
+        cols: [
+          ["Year: 2025", "Role: Full-stack developer"],
+          [
+            "Languages: JavaScript",
+            "Tools & Frameworks: React, Tailwind CSS, Supabase, Node.js, PostgreSQL",
+          ],
+        ],
+      },
+      {
+        heading: "the problem",
+        body: "Before Ryng, giving an AI agent a phone number meant building a low-latency stack of telephony carriers, real-time audio streaming, and synchronized STT/LLM/TTS pipelines just to make a single call work. Ryng turns that into a webhook for developers, and a few clicks to create a customized voice agent with context for everyone else.",
+      },
+      {
+        heading: "why it’s different from generic “automated phone call” tools",
+        body: "Ryng closes the loop between commerce and conversation. Users can set up agents (or connect an existing one) and hook it up to a phone number in a few clicks.\n\nIts context pipeline lets users upload information the agent can reference during calls, and after each call, transcripts are run through an LLM to detect whether follow-up is needed (e.g. was an order placed?). The agent can then act on it automatically (e.g. sending an SMS with an order summary and payment details).\n\nDevelopers with existing AI/CRM logic can use Ryng as a telephony layer alone.",
       },
     ],
+    links: [{ label: "ryng.online", href: "https://ryng.online" }],
   },
   {
     id: "three",

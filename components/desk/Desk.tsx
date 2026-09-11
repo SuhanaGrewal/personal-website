@@ -154,6 +154,11 @@ function Detail({ p }: { p: Project }) {
         <img className={s.header} src={p.header} alt="" aria-hidden="true" />
       ) : null}
 
+      {/* the lead: what the thing is, before the case study proper.
+          foresite opens straight on `preface` because it has no such
+          line; this renders only when one is set. */}
+      {p.oneLiner ? <p className={s.lead}>{p.oneLiner}</p> : null}
+
       {p.sections?.map((sec) => (
         <section key={sec.heading} className={s.section}>
           <h4 className={s.sectionHeading}>{sec.heading}</h4>

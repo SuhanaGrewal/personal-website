@@ -455,6 +455,17 @@
   grid-template-columns: auto 1fr;
 }
 
+/* the opening line of a case study — same family as body copy, set a
+   step larger and darker so it reads as a standfirst rather than as a
+   first paragraph that happens to have no heading */
+.lead {
+  margin: 0 0 2.6cqw;
+  color: #23232b;
+  font-family: var(--ui-font);
+  font-size: 1.72cqw;
+  line-height: 1.62;
+}
+
 .para {
   margin: 0 0 1.15cqw;
   color: #3d3d47;

@@ -55,6 +55,8 @@
     0 0 calc(var(--u) * 0.42) rgb(26 107 255 / calc(var(--lit) * 0.3));
   color: var(--cap-legend);
   font: inherit;
+  /* a cap rendered as a link must not arrive with an underline */
+  text-decoration: none;
   transform: translateZ(var(--cap-h));
   transform-style: preserve-3d;
   transition:
@@ -95,6 +97,21 @@
     inset 0 0 calc(var(--u) * 0.34) rgb(26 107 255 / 0.55),
     0 0 calc(var(--u) * 0.5) rgb(26 107 255 / 0.4);
   transition-duration: 45ms;
+}
+
+/* a cap that is also a link: lit, and its legend brought up out of
+   the grey so the wordmark reads against the glow */
+.cap[data-linked="true"] {
+  color: #dce9ff;
+  cursor: pointer;
+}
+
+.cap[data-linked="true"]:hover,
+.cap[data-linked="true"]:focus-visible {
+  --lit: 1.9;
+
+  color: #fff;
+  outline: none;
 }
 
 /* the key the pulse is currently sitting on */

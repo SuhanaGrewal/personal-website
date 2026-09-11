@@ -1,6 +1,6 @@
 import { Hero } from "@/components/hero/Hero";
 import { Desk } from "@/components/desk/Desk";
-import { Chip } from "@/components/chip/Chip";
+import { Laptop } from "@/components/laptop/Laptop";
 import s from "./page.module.css";
 
 export default function Home() {
@@ -23,17 +23,17 @@ export default function Home() {
       </section>
 
       {/* the closing beat: the same white as the work section, with a
-          full-bleed accelerator card flush to the bottom of the page */}
+          space grey machine whose live keys are the links */}
       <section id="contact" className={s.contact}>
         <h2 className={s.contactHeading}>
           let&rsquo;s <span className={s.accent}>talk</span>
         </h2>
 
-        {/* the glow the board sits in — a real block in the column, so
-            the heading lands exactly on top of where it fades out */}
+        {/* the glow the machine sits in — a real block in the column,
+            so the heading lands exactly on top of where it fades out */}
         <div className={s.glow} aria-hidden="true" />
 
-        <Chip />
+        <Laptop />
       </section>
     </main>
   );

@@ -53,17 +53,16 @@
 }
 
 /* the closing beat — the white of the work section carries straight
-   through, and the board is cropped by the bottom of the viewport
-   rather than sitting fully inside it. the order in the column is
-   heading, glow, board: the glow is a real block with height, so the
-   heading sits exactly where the gradient fades out instead of being
-   positioned against a guess. */
+   through. the order in the column is heading, glow, machine: the glow
+   is a real block with height, so the heading sits exactly where the
+   gradient fades out rather than being positioned against a guess, and
+   the machine is pulled up into it so it sits in the light rather than
+   below a band of it. */
 .contact {
   display: flex;
   min-height: 100svh;
   flex-direction: column;
-  overflow: hidden;
-  padding: clamp(40px, 7vh, 88px) 0 0;
+  padding: clamp(28px, 5vh, 64px) 0 clamp(36px, 7vh, 88px);
   background: #fff;
 }
 
@@ -77,29 +76,31 @@
   text-align: center;
 }
 
-/* rises out of the board's top edge and fades into the page, the way
-   the reference's glow comes up off its module */
 .glow {
-  width: 100%;
-  height: clamp(90px, 19vh, 210px);
+  /* held to the machine's own width. a radial's first value is a
+     radius, not a diameter, so a full-width block let the light spill
+     past the body and terminate as a hard edge out in the white */
+  width: min(940px, 92vw);
+  margin-inline: auto;
+  height: clamp(96px, 19vh, 200px);
   flex: 0 0 auto;
-  /* narrower than the board on purpose: spread the full width it
-     reads as a flat blue band, and the point is a glow coming up out
-     of the middle of the thing */
+  /* the machine overlaps it: the negative margin is what puts the
+     light behind the thing rather than above it */
+  margin-bottom: clamp(-150px, -14vh, -64px);
   opacity: 0.86;
   transition: opacity 0.45s var(--ease-out);
   background: radial-gradient(
-    58% 122% at 50% 100%,
-    rgb(26 107 255 / 0.38) 0%,
-    rgb(26 107 255 / 0.2) 34%,
-    rgb(26 107 255 / 0.07) 62%,
+    42% 116% at 50% 100%,
+    rgb(26 107 255 / 0.34) 0%,
+    rgb(26 107 255 / 0.18) 34%,
+    rgb(26 107 255 / 0.06) 62%,
     transparent 82%
   );
 }
 
 /* touching a link draws a little more power: the only links inside
-   this section are the six on the board, so hovering any of them
-   lifts the glow it is sitting in */
+   this section are the live keys, so hovering any of them lifts the
+   glow the machine is sitting in */
 .contact:has(a:hover) .glow {
   opacity: 1;
 }

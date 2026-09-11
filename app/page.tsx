@@ -1,5 +1,6 @@
 import { Hero } from "@/components/hero/Hero";
 import { Desk } from "@/components/desk/Desk";
+import { Macropad } from "@/components/macropad/Macropad";
 import s from "./page.module.css";
 
 export default function Home() {
@@ -19,6 +20,15 @@ export default function Home() {
         <div className={s.deskWrap}>
           <Desk />
         </div>
+      </section>
+
+      {/* the closing beat: keyboard, then monitor, then this — a
+          third, deliberately smaller hardware object */}
+      <section className={s.contact}>
+        <h2 className={s.contactHeading}>
+          let&rsquo;s <span className={s.accent}>talk</span>
+        </h2>
+        <Macropad />
       </section>
     </main>
   );

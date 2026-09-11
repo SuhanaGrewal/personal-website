@@ -16,7 +16,6 @@ import {
   type RowDef,
 } from "@/components/keyboard/layout";
 import { Key } from "@/components/keyboard/Key";
-import { MagicMouse } from "./MagicMouse";
 import { TARGETS, KEY_TARGETS, RELABEL } from "./links";
 import s from "./Laptop.module.css";
 
@@ -102,10 +101,14 @@ export function Laptop() {
       {/* the machine is centred on the page; the mouse sits beside it
           without pulling it off centre */}
       <div className={s.body} ref={bodyRef}>
-        <div className={s.upper}>
-          <span className={s.grille} aria-hidden="true" />
+        {/* the machine is the photograph, cut off its backdrop. the
+            deck below is laid over the well at the coordinates that
+            photograph was measured at, and paints its own recess, so
+            it covers the keys already in the picture rather than
+            doubling them. */}
+        <img className={s.shell} src="/macbook.webp" alt="" aria-hidden="true" />
 
-          <div className={s.deck}>
+        <div className={s.deck}>
           {ROWS.map((row, i) => (
             <div key={i} className={s.row} style={{ "--h": row.h } as React.CSSProperties}>
               {row.keys.map((k) => {
@@ -129,7 +132,6 @@ export function Laptop() {
                 );
               })}
 
-              {/* the inverted-T closes the bottom row */}
               {i === ROWS.length - 1 ? (
                 <div className={s.arrows}>
                   <Key def={ARROW_LEFT} h={1} />
@@ -142,10 +144,6 @@ export function Laptop() {
               ) : null}
             </div>
           ))}
-
-          </div>
-
-          <span className={s.grille} aria-hidden="true" />
         </div>
 
         <span
@@ -162,12 +160,6 @@ export function Laptop() {
         >
           {tip?.label}
         </span>
-
-        {/* the trackpad: one sheet of glass, no buttons */}
-        <div className={s.trackpad} aria-hidden="true" />
-
-        {/* the indent you lift the lid by */}
-        <span className={s.notch} aria-hidden="true" />
       </div>
 
       <button
@@ -176,7 +168,7 @@ export function Laptop() {
         onClick={toTop}
         aria-label="back to the top"
       >
-        <MagicMouse className={s.mouseArt} />
+        <img className={s.mouseArt} src="/magic-mouse.webp" alt="" aria-hidden="true" />
         <span className={s.mouseTip} aria-hidden="true">
           {atTop ? "going up" : "back to the top"}
         </span>

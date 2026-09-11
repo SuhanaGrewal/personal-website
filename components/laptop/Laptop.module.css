@@ -11,14 +11,13 @@
   position: relative;
   z-index: 2;
   display: flex;
-  width: min(1180px, 95vw);
+  width: min(1480px, 98vw);
   align-items: center;
   justify-content: center;
   /* clear of the type, not over it. kept as one declaration: a
      `margin: 0 auto` after a `margin-top` silently resets it. */
   margin: clamp(20px, 3.5vh, 52px) auto 0;
   container-type: inline-size;
-  gap: 3cqw;
 }
 
 /* the light the machine sits in, behind it rather than above it */
@@ -44,7 +43,7 @@
 
 .body {
   position: relative;
-  width: 78cqw;
+  width: 66cqw;
   aspect-ratio: 1840 / 1105;
 }
 
@@ -61,9 +60,9 @@
 .deck {
   --u: calc(var(--well-w) / 15);
   --gap: calc(var(--u) * 0.085);
-  /* 65.68% of the body, and the body is 78cqw — cqw resolves against
+  /* 65.68% of the body, and the body is 66cqw — cqw resolves against
      the scene rather than the body, so this has to be composed */
-  --well-w: calc(78cqw * 0.6568);
+  --well-w: calc(66cqw * 0.6568);
 
   /* the well, measured off the photograph: x17.13% y12.23%,
      65.68% x 44.96% */
@@ -143,16 +142,21 @@
 /* ── the mouse ─────────────────────────────────────────── */
 
 .mouse {
+  /* out of flow: in the row it pushed the laptop right of centre, and
+     the laptop is what should line up under the wordmark. the body is
+     66cqw, so its left edge is 17cqw in — this parks the mouse just
+     clear of that, and on screen at narrower widths. */
+  position: absolute;
+  top: 50%;
+  right: calc(50% + 36cqw);
   display: block;
   width: 13.5cqw;
-  flex: 0 0 auto;
-  order: -1;
   padding: 0;
   border: 0;
   background: none;
   cursor: grab;
   touch-action: none;
-  transform: translate(var(--nx, 0), var(--ny, 0));
+  transform: translate(var(--nx, 0), calc(-50% + var(--ny, 0px)));
   transition: transform 0.35s var(--spring);
 }
 
@@ -174,7 +178,7 @@
 .mouse:hover,
 .mouse:focus-visible {
   outline: none;
-  transform: translate(var(--nx, 0), calc(var(--ny, 0px) - 0.5cqw));
+  transform: translate(var(--nx, 0), calc(-50% + var(--ny, 0px) - 0.5cqw));
 }
 
 .mouse:hover .mouseArt,
@@ -252,11 +256,14 @@
   }
 
   .body {
-    width: 74cqw;
+    width: 92cqw;
   }
 
   .mouse {
+    position: static;
     width: 22cqw;
+    margin: 5cqw auto 0;
+    transform: translate(var(--nx, 0), var(--ny, 0));
   }
 
   .mouseTip {

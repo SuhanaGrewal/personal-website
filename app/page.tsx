@@ -22,10 +22,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* the closing beat: black again, bookending the white work
-          section between two dark ones — a chip large enough that
-          it runs on past the bottom of the viewport on arrival */}
-      <section className={s.contact}>
+      {/* the closing beat: the same white as the work section, with a
+          full-bleed accelerator card flush to the bottom of the page */}
+      <section id="contact" className={s.contact}>
         <h2 className={s.contactHeading}>
           let&rsquo;s <span className={s.accent}>talk</span>
         </h2>

@@ -1,12 +1,13 @@
 /* ── YOUR LINKS ────────────────────────────────────────────
-   one entry per contact pad. `legend` is what's etched on the
-   pad — short, matching a real chip's own printed pin labels.
+   one entry per memory package on the board. `legend` is what
+   is silkscreened on the package — short, the way a real part
+   carries a printed part number rather than a word.
 
    TODO(suhana): only github is a real link below. swap the
    rest for your actual linkedin/x/substack/email/résumé.
    ────────────────────────────────────────────────────────── */
 
-export interface PadLink {
+export interface KeyLink {
   id: string;
   legend: string;
   label: string;
@@ -15,7 +16,7 @@ export interface PadLink {
   sameTab?: boolean;
 }
 
-export const LINKS: PadLink[] = [
+export const LINKS: KeyLink[] = [
   { id: "github", legend: "GH", label: "github", href: "https://github.com/SuhanaGrewal" },
   { id: "linkedin", legend: "IN", label: "linkedin", href: "#" },
   { id: "x", legend: "X", label: "x", href: "#" },

@@ -1,81 +1,77 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { LINKS } from "./links";
 import s from "./Chip.module.css";
 
-/* a large chip package, viewed from above. the lid sits over the
-   upper portion of a dense contact-pad field; almost all of those
-   pads are inert texture — real density, the way a real package's
-   pinout is mostly not individually meaningful — and exactly six,
-   in a single row just below the lid, are actual links. */
+/* an inference accelerator card, seen straight on, spanning the full
+   width of the page and sitting flush to the bottom of the viewport.
 
-const COLS = 18;
-const ROWS = 14;
-/* the row the real pads sit in — close enough to the lid to be the
-   first thing you notice, far enough that the bottom rows are free
-   to run on as pure texture past the edge of the viewport */
-const LINK_ROW = 6;
-
-function linkSlots(count: number) {
-  // evenly spaced across the row, with a margin so none sit at the
-  // very edge of the grid
-  const margin = 1.5;
-  const span = COLS - 1 - margin * 2;
-  return Array.from({ length: count }, (_, i) =>
-    Math.round(margin + (span * i) / (count - 1)),
-  );
-}
+   the zones follow the same left-to-right reading as any piece of
+   rack hardware — a bank of parts, a heatsink, the main package —
+   except every one of them is a real thing a board like this has:
+   the six memory packages on the left are the links, the fin stack
+   in the middle is the cooler, and the die on the right carries the
+   mark. black pcb and brushed metal, same material language as the
+   keyboard and the imac. */
 
 export function Chip() {
   const [pressed, setPressed] = useState<string | null>(null);
 
-  const cells = useMemo(() => {
-    const cols = linkSlots(LINKS.length);
-    const linkByCol = new Map(cols.map((c, i) => [c, LINKS[i]]));
-
-    return Array.from({ length: COLS * ROWS }, (_, i) => {
-      const row = Math.floor(i / COLS);
-      const col = i % COLS;
-      const link = row === LINK_ROW ? linkByCol.get(col) : undefined;
-      return { key: i, link };
-    });
-  }, []);
-
   return (
-    <div className={s.chip}>
-      <div className={s.grid} style={{ ["--cols" as string]: COLS }}>
-        {cells.map(({ key, link }) =>
-          link ? (
+    <div className={s.card}>
+      <div className={s.pcb}>
+        {/* board status led — a real feature of a card like this,
+            and the one place the site's accent shows up here */}
+        <div className={s.status}>
+          <i className={s.led} aria-hidden="true" />
+          <span className={s.statusText}>available for freelance</span>
+        </div>
+
+        {/* the links, as the memory bank flanking the die */}
+        <div className={s.bank}>
+          {LINKS.map((l) => (
             <a
-              key={key}
-              href={link.href}
-              target={link.sameTab ? undefined : "_blank"}
-              rel={link.sameTab ? undefined : "noreferrer"}
-              className={s.padLink}
-              aria-label={link.label}
-              data-pressed={pressed === link.id || undefined}
-              onPointerDown={() => setPressed(link.id)}
+              key={l.id}
+              href={l.href}
+              target={l.sameTab ? undefined : "_blank"}
+              rel={l.sameTab ? undefined : "noreferrer"}
+              className={s.pkg}
+              aria-label={l.label}
+              data-pressed={pressed === l.id || undefined}
+              onPointerDown={() => setPressed(l.id)}
               onPointerUp={() => setPressed(null)}
               onPointerLeave={() => setPressed(null)}
             >
-              <span className={s.padLegend}>{link.legend}</span>
-              <span className={s.padTooltip}>{link.label}</span>
+              <span className={s.legend}>{l.legend}</span>
+              <span className={s.tooltip}>{l.label}</span>
             </a>
-          ) : (
-            <i key={key} className={s.pad} aria-hidden="true" />
-          ),
-        )}
-      </div>
+          ))}
+        </div>
 
-      <div className={s.lid}>
-        <svg className={s.traces} viewBox="0 0 400 200" aria-hidden="true">
-          <path d="M0 100 H140 M260 100 H400" />
-          <path d="M60 0 V60 M60 60 H340 M340 60 V0" />
-          <path d="M340 200 V140 M340 140 H60 M60 140 V200" />
-          <path d="M200 0 V45 M200 155 V200" />
-        </svg>
-        <span className={s.mark}>S1</span>
+        {/* the cooler */}
+        <div className={s.fins} aria-hidden="true" />
+
+        <div className={s.smd} aria-hidden="true" />
+
+        {/* the main package */}
+        <div className={s.die} aria-hidden="true">
+          <i className={s.screw} data-c="tl" />
+          <i className={s.screw} data-c="tr" />
+          <i className={s.screw} data-c="bl" />
+          <i className={s.screw} data-c="br" />
+          <div className={s.lid}>
+            <span className={s.mark}>S1</span>
+            <span className={s.sub}>suhana grewal</span>
+          </div>
+        </div>
+
+        <span className={s.silk} aria-hidden="true">
+          SG-1 &middot; REV.A
+        </span>
+
+        {/* the pcie edge, meeting the bottom of the page */}
+        <div className={s.fingers} aria-hidden="true" />
       </div>
     </div>
   );

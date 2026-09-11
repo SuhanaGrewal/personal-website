@@ -52,24 +52,24 @@
   }
 }
 
-/* the closing beat — black again, bookending the white work section
-   between two dark ones. the chip is given real height of its own
-   (see Chip.module.css), so this section does not need to force a
-   tall min-height itself; padding-bottom is intentionally small,
-   since the chip is meant to run on past the fold rather than sit
-   fully contained with a margin underneath it. */
+/* the closing beat — the white of the work section carries straight
+   through, and the card is full-bleed and flush to the bottom edge:
+   no padding under it, so the pcie contacts meet the end of the page
+   rather than floating above a margin. the heading takes the free
+   space above via margin:auto, which leaves the card anchored down
+   however tall the viewport is. */
 .contact {
   display: flex;
+  min-height: 100svh;
   flex-direction: column;
-  align-items: center;
-  padding: clamp(48px, 8vh, 96px) clamp(24px, 3.2vw, 40px) 0;
-  background: #000;
-  gap: clamp(28px, 5vh, 56px);
+  padding: clamp(48px, 8vh, 96px) 0 0;
+  background: #fff;
 }
 
 .contactHeading {
-  margin: 0;
-  color: #f2f2f5;
+  margin: auto;
+  padding: 0 clamp(24px, 3.2vw, 40px);
+  color: var(--word);
   font-size: clamp(36px, 8vw, 108px);
   font-weight: 400;
   letter-spacing: -0.048em;

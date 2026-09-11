@@ -1,0 +1,181 @@
+/* ============================================================
+   a large chip package, viewed from above.
+
+   deliberately given real height (min-height, not sized purely
+   by its own content) so it genuinely extends past the bottom
+   of the viewport on load — the page reads as built on top of
+   it, only the top portion in view until you scroll.
+   ============================================================ */
+
+.chip {
+  position: relative;
+  width: min(1400px, 92vw);
+  min-height: 82vh;
+  margin: 0 auto;
+  perspective: 2400px;
+}
+
+.grid {
+  display: grid;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(14, 1fr);
+  gap: 0.35vw;
+  padding: 1.4vw;
+  border-radius: 1.1vw;
+  background: linear-gradient(178deg, #131316 0%, #0c0c0e 40%, #08080a 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    inset 0 0 0 1px rgb(255 255 255 / 0.03),
+    0 60px 120px -50px rgb(0 0 0 / 0.9);
+  transform: rotateX(7deg);
+  transform-style: preserve-3d;
+}
+
+/* an inert pad — cheap on purpose: no transition, no per-pad JS.
+   the density is the point, not any single one of these. */
+.pad {
+  border-radius: 0.16vw;
+  background: linear-gradient(180deg, #232327 0%, #1a1a1d 100%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.03);
+}
+
+.padLink {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0.22vw;
+  background: linear-gradient(180deg, #26262b 0%, #18181b 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    inset 0 0 0 1px rgb(255 255 255 / 0.05);
+  color: var(--cap-legend);
+  cursor: pointer;
+  text-decoration: none;
+  /* pops slightly out of the uniform grid — this is one of the six
+     that actually does something, and it should read that way before
+     anyone even hovers it */
+  transform: scale(1.7);
+  transition:
+    box-shadow 180ms var(--ease-out),
+    color 180ms var(--ease-out),
+    transform 120ms var(--ease-out);
+}
+
+.padLink:hover,
+.padLink[data-pressed="true"] {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    inset 0 0 0 1px rgb(26 107 255 / 0.5),
+    inset 0 0 0.6vw rgb(26 107 255 / 0.35),
+    0 0 1vw rgb(26 107 255 / 0.4);
+  color: #fff;
+}
+
+.padLink[data-pressed="true"] {
+  transform: scale(1.55);
+}
+
+.padLegend {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.62vw;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.padTooltip {
+  position: absolute;
+  bottom: calc(100% + 0.9vw);
+  left: 50%;
+  padding: 0.35vw 0.8vw;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 999px;
+  background: rgb(10 10 12 / 0.95);
+  box-shadow: 0 8px 20px -8px rgb(0 0 0 / 0.9);
+  color: #f2f2f5;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.85vw;
+  font-weight: 450;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition:
+    opacity 0.2s var(--ease-out),
+    transform 0.2s var(--spring);
+}
+
+.padLink:hover .padTooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ── the lid ───────────────────────────────────────────── */
+
+.lid {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  overflow: hidden;
+  width: 34%;
+  height: 34%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.6vw;
+  background:
+    radial-gradient(120% 140% at 30% -10%, rgb(255 255 255 / 0.1) 0%, transparent 55%),
+    linear-gradient(165deg, #333338 0%, #202024 42%, #131315 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    inset 0 0 0 1px rgb(255 255 255 / 0.06),
+    inset 0 -2px 6px rgb(0 0 0 / 0.5),
+    0 30px 60px -20px rgb(0 0 0 / 0.85);
+  transform: translateX(-50%) translateZ(0.6vw);
+  transform-style: preserve-3d;
+}
+
+/* faint etched traces, same hairline-diagram language as the
+   foresite/ryng artwork — texture, not a literal circuit */
+.traces {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  stroke: #5f676e;
+  stroke-width: 1;
+  opacity: 0.3;
+}
+
+.mark {
+  position: relative;
+  z-index: 1;
+  color: rgb(255 255 255 / 0.5);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 2.2vw;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 1px 0 rgb(255 255 255 / 0.12),
+    0 -1px 1px rgb(0 0 0 / 0.6);
+}
+
+@media (max-width: 700px) {
+  .chip {
+    min-height: 60vh;
+  }
+
+  .padLegend {
+    font-size: 1.6vw;
+  }
+
+  .mark {
+    font-size: 5vw;
+  }
+}

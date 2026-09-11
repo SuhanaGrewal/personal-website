@@ -1,6 +1,6 @@
 import { Hero } from "@/components/hero/Hero";
 import { Desk } from "@/components/desk/Desk";
-import { Macropad } from "@/components/macropad/Macropad";
+import { Chip } from "@/components/chip/Chip";
 import s from "./page.module.css";
 
 export default function Home() {
@@ -22,13 +22,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* the closing beat: keyboard, then monitor, then this — a
-          third, deliberately smaller hardware object */}
+      {/* the closing beat: black again, bookending the white work
+          section between two dark ones — a chip large enough that
+          it runs on past the bottom of the viewport on arrival */}
       <section className={s.contact}>
         <h2 className={s.contactHeading}>
           let&rsquo;s <span className={s.accent}>talk</span>
         </h2>
-        <Macropad />
+        <Chip />
       </section>
     </main>
   );

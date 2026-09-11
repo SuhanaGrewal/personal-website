@@ -52,25 +52,24 @@
   }
 }
 
-/* the closing beat — quieter and smaller than the work section on
-   purpose. the macropad is a dense little object, not something
-   that should be stretched to fill a full screen the way the iMac
-   is; the whitespace around it is doing the same job the reference's
-   own generous margins did. */
+/* the closing beat — black again, bookending the white work section
+   between two dark ones. the chip is given real height of its own
+   (see Chip.module.css), so this section does not need to force a
+   tall min-height itself; padding-bottom is intentionally small,
+   since the chip is meant to run on past the fold rather than sit
+   fully contained with a margin underneath it. */
 .contact {
   display: flex;
-  min-height: 70svh;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: clamp(24px, 6vw, 96px) clamp(24px, 3.2vw, 40px);
-  background: #fff;
-  gap: clamp(28px, 5vh, 64px);
+  padding: clamp(48px, 8vh, 96px) clamp(24px, 3.2vw, 40px) 0;
+  background: #000;
+  gap: clamp(28px, 5vh, 56px);
 }
 
 .contactHeading {
   margin: 0;
-  color: var(--word);
+  color: #f2f2f5;
   font-size: clamp(36px, 8vw, 108px);
   font-weight: 400;
   letter-spacing: -0.048em;

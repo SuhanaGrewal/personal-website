@@ -169,6 +169,16 @@ function Detail({ p }: { p: Project }) {
             </p>
           ))}
 
+          {sec.bullets ? (
+            <ul className={s.bulletList}>
+              {sec.bullets.map((b) => (
+                <li key={b} className={s.bulletItem}>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+
           {sec.cols ? (
             <div className={s.specCols}>
               {sec.cols.map((col, i) => (

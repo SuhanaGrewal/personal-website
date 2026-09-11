@@ -505,16 +505,6 @@
     0 0.6cqw 1.6cqw -0.6cqw rgb(0 0 0 / 0.3);
 }
 
-/* every image in a multi-image row is set to the same aspect ratio
-   rather than a guessed pixel height — the two source shots were
-   already padded to match each other exactly at processing time
-   (900x883), so sizing the box by that same ratio means cover never
-   has anything to crop and the box is never wider than the picture */
-.galleryRow:has(.galleryItem + .galleryItem) .galleryImg {
-  aspect-ratio: 900 / 883;
-  object-fit: cover;
-}
-
 /* the same size and ink as .para — a caption reads as a continuation
    of normal body text, not a smaller, dimmer footnote under it */
 .galleryCaption {
@@ -541,6 +531,25 @@
 .listTerm {
   color: var(--text);
   font-weight: 600;
+}
+
+/* genuine bullet points — same size and ink as .para, a marker per
+   item rather than the bare, unmarked rows .specLine renders */
+.bulletList {
+  margin: 0 0 1.15cqw;
+  padding-left: 1.3cqw;
+}
+
+.bulletItem {
+  margin: 0 0 0.5cqw;
+  color: #3d3d47;
+  font-family: var(--ui-font);
+  font-size: 1.62cqw;
+  line-height: 1.72;
+}
+
+.bulletItem::marker {
+  color: var(--text-dim);
 }
 
 .links {
@@ -585,14 +594,16 @@
   margin: 0.4cqw 0 1.6cqw;
 }
 
+/* sized and set in the same face as .para — a caption that reads at
+   normal text size, left-aligned with the rest of the column rather
+   than centred under the chart as its own separate display element */
 .chartCaption {
-  max-width: 46cqw;
-  margin: 1cqw auto 0;
+  margin: 1cqw 0 0;
   color: #6a6a74;
   font-family: var(--ui-font);
-  font-size: 1.25cqw;
+  font-size: 1.62cqw;
   line-height: 1.55;
-  text-align: center;
+  text-align: left;
 }
 
 /* the finder window cannot be opened, so its green light is inert */

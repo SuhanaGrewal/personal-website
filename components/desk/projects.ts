@@ -20,6 +20,10 @@ export interface Section {
   body?: string;
   /** tight rows, for a spec list rather than prose */
   lines?: string[];
+  /** genuine bullet points — body-copy size, a marker per item.
+      distinct from `lines`, which has no marker and is for label/value
+      rows like preface's Year/Role rather than free-standing items */
+  bullets?: string[];
   /** the same, split into side-by-side columns */
   cols?: string[][];
   /** screenshots, laid out one row per inner array — a row of one
@@ -131,19 +135,19 @@ export const PROJECTS: Project[] = [
         list: [
           {
             term: "morning digests:",
-            body: "a rundown of what changed while you were away, and what your day ahead looks like.",
+            body: "A rundown of what changed while you were away, and what your day ahead looks like.",
           },
           {
             term: "proactive drafts:",
-            body: "replies get drafted before you ask — not just answers when prompted.",
+            body: "Replies get drafted before you ask — not just answers when prompted.",
           },
           {
             term: "soft-commitment tracking:",
-            body: "an “I’ll get back to you Friday” becomes a follow-up or a to-do item automatically.",
+            body: "An “I’ll get back to you Friday” becomes a follow-up or a to-do item automatically.",
           },
           {
             term: "calendar management:",
-            body: "flags overlaps, proposes reschedules, creates events.",
+            body: "Flags overlaps, proposes reschedules, creates events.",
           },
         ],
       },
@@ -166,12 +170,6 @@ export const PROJECTS: Project[] = [
               caption: "Recent threads, each auto-labelled with what it's actually about.",
             },
           ],
-          [
-            {
-              src: "/projects/ori-ui-queue.webp",
-              caption: "The approval queue: drafted replies and proposed reschedules, held until you approve them.",
-            },
-          ],
         ],
       },
       {
@@ -179,21 +177,21 @@ export const PROJECTS: Project[] = [
         list: [
           {
             term: "writes in your voice:",
-            body: "it learns how you actually write to each person, so a drafted reply to your manager doesn’t sound like the one to a friend.",
+            body: "It learns how you actually write to each person, so a drafted reply to your manager doesn’t sound like the one to a friend.",
           },
           {
             term: "reads inside your files:",
-            body: "most systems stop at the message body — Ori extracts and indexes what’s in attachments too.",
+            body: "Most systems stop at the message body — Ori extracts and indexes what’s in attachments too.",
           },
           {
             term: "retrieval and action in one pass:",
-            body: "most tools either search your data or act on the web, so you have to bridge the two yourself. Ori’s agents skip that step, pulling from what it knows about you and finishing the task without you re-typing the context.",
+            body: "Most tools either search your data or act on the web, so you have to bridge the two yourself. Ori’s agents skip that step, pulling from what it knows about you and finishing the task without you re-typing the context.",
           },
         ],
       },
       {
         heading: "what’s coming",
-        lines: [
+        bullets: [
           "Multi-agent orchestration for complex, multi-step tasks — running your GTM, or planning your next trip.",
           "Text Ori on iMessage.",
           "Smarter threading that auto-clusters related questions into topics.",
@@ -265,7 +263,7 @@ export const PROJECTS: Project[] = [
     y: 59,
     w: 23.27,
     h: 38,
-    sections: [{ heading: "the problem", body: "what you hit." }],
+    sections: [{ heading: "the problem", body: "What you hit." }],
   },
   {
     id: "index",

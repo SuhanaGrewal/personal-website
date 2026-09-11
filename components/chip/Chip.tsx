@@ -60,10 +60,7 @@ export function Chip() {
           <i className={s.screw} data-c="tr" />
           <i className={s.screw} data-c="bl" />
           <i className={s.screw} data-c="br" />
-          <div className={s.lid}>
-            <span className={s.mark}>S1</span>
-            <span className={s.sub}>suhana grewal</span>
-          </div>
+          <div className={s.lid} />
         </div>
 
         <span className={s.silk} aria-hidden="true">

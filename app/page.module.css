@@ -53,22 +53,23 @@
 }
 
 /* the closing beat — the white of the work section carries straight
-   through. heading and card are centred together as one group, with
-   white on every side: the board is a contained object sitting on the
-   page, not a full-bleed panel filling the viewport. */
+   through, and the board is cropped by the bottom of the viewport
+   rather than sitting fully inside it: it runs on past the edge, so
+   the page reads as resting on hardware that continues below. the
+   heading takes the free space above via margin:auto, which keeps
+   that crop at the same place whatever the viewport height. */
 .contact {
   display: flex;
   min-height: 100svh;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(48px, 9vh, 104px) clamp(24px, 3.2vw, 40px);
+  overflow: hidden;
+  padding: clamp(48px, 9vh, 104px) 0 0;
   background: #fff;
-  gap: clamp(32px, 7vh, 76px);
 }
 
 .contactHeading {
-  margin: 0;
+  margin: auto;
+  padding: 0 clamp(24px, 3.2vw, 40px);
   color: var(--word);
   font-size: clamp(36px, 8vw, 108px);
   font-weight: 400;

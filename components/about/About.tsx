@@ -19,7 +19,7 @@ export function About() {
         <p className={s.bio}>
           I love working in AI consulting too &mdash; having interned with
           Ernst &amp; Young and 180 Degrees Consulting on AI optimization for
-          existing workflow.
+          organizational workflows.
         </p>
 
         <p className={s.bio}>

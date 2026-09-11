@@ -115,7 +115,7 @@
   padding: 0 1cqw;
   background: rgb(0 0 0 / 0.34);
   color: rgb(255 255 255 / 0.92);
-  font-size: 0.8cqw;
+  font-size: 0.87cqw;
   gap: 1.15cqw;
   backdrop-filter: blur(18px) saturate(1.6);
   transition: opacity 0.4s var(--ease-out);
@@ -233,7 +233,7 @@
   right: 0;
   left: 0;
   color: #34343c;
-  font-size: 0.86cqw;
+  font-size: 0.94cqw;
   font-weight: 600;
   letter-spacing: -0.006em;
   text-align: center;
@@ -306,7 +306,7 @@
   padding: 0.2cqw 0.42cqw;
   border-radius: 0.3cqw;
   color: #55555e;
-  font-size: 0.8cqw;
+  font-size: 0.87cqw;
   gap: 0.4cqw;
 }
 
@@ -337,7 +337,7 @@
   flex: 0 0 auto;
   align-items: center;
   color: #2e2e36;
-  font-size: 0.8cqw;
+  font-size: 0.87cqw;
   gap: 0.45cqw;
 }
 

@@ -136,7 +136,7 @@ export const PROJECTS: Project[] = [
           ["Year: 2025", "Role: Full-stack developer"],
           [
             "Languages: JavaScript",
-            "Tools & Frameworks: React, Tailwind CSS, Supabase, Node.js, PostgreSQL",
+            "Tools: React, Tailwind CSS, Supabase, Node.js, PostgreSQL",
           ],
         ],
       },

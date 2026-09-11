@@ -52,35 +52,31 @@
   }
 }
 
-/* the closing beat — the white of the work section carries straight
-   through, and the composition is the hero's: the words run the width
-   of the frame and the machine rides up over the bottom of them, so
-   it sits in front of the type rather than under it. */
+/* the closing beat — the machine on the left, the wordmark and the
+   mouse stacked down the right of it. */
 .contact {
-  /* the hero's exact value, so both wordmarks on the page are set
-     at the same size */
-  --name-size: clamp(38px, 15.6vw, 268px);
-
   display: flex;
   min-height: 100svh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: clamp(28px, 5vh, 64px) 0 clamp(36px, 7vh, 88px);
+  padding: clamp(28px, 5vh, 64px) 0;
   background: #fff;
 }
 
-/* the same face and treatment as the name in the hero */
+/* stacked, one word per line, set tight enough that the lines touch */
 .contactHeading {
-  position: relative;
-  z-index: 1;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   color: var(--word);
-  font-size: var(--name-size);
+  /* sized so the side column's full height — both lines plus the
+     mouse under them — matches the machine's, which is what sets the
+     machine's width in turn */
+  font-size: 11.5cqw;
   font-weight: 400;
   letter-spacing: -0.052em;
   line-height: 0.86;
-  text-align: center;
-  white-space: nowrap;
+  text-align: left;
 }

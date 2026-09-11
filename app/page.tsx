@@ -25,11 +25,14 @@ export default function Home() {
       {/* the closing beat: the same white as the work section, with a
           space grey machine whose live keys are the links */}
       <section id="contact" className={s.contact}>
-        <h2 className={s.contactHeading}>
-          let&rsquo;s <span className={s.accent}>talk</span>
-        </h2>
-
-        <Laptop />
+        <Laptop
+          heading={
+            <h2 className={s.contactHeading}>
+              let&rsquo;s
+              <span className={s.accent}>talk</span>
+            </h2>
+          }
+        />
       </section>
     </main>
   );

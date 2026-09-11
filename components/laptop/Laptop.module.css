@@ -11,16 +11,29 @@
   position: relative;
   z-index: 2;
   display: flex;
-  width: min(1480px, 98vw);
+  width: min(1560px, 98vw);
   align-items: center;
   justify-content: center;
-  /* clear of the type, not over it. kept as one declaration: a
-     `margin: 0 auto` after a `margin-top` silently resets it. */
-  margin: clamp(20px, 3.5vh, 52px) auto 0;
+  margin: 0 auto;
   container-type: inline-size;
+  gap: 2.5cqw;
 }
 
-/* the light the machine sits in, behind it rather than above it */
+/* the wordmark and the mouse, stacked down the right of the machine.
+   the type is left-aligned, so the column is too — the mouse keeps its
+   own centring under the words rather than under the column. */
+.side {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4cqw;
+}
+
+.side > button {
+  align-self: center;
+}
+
 .scene::before {
   position: absolute;
   top: 6%;
@@ -43,7 +56,8 @@
 
 .body {
   position: relative;
-  width: 66cqw;
+  width: 69.5cqw;
+  flex: 0 0 auto;
   aspect-ratio: 1840 / 1105;
 }
 
@@ -60,9 +74,9 @@
 .deck {
   --u: calc(var(--well-w) / 15);
   --gap: calc(var(--u) * 0.085);
-  /* 65.68% of the body, and the body is 66cqw — cqw resolves against
+  /* 65.68% of the body, and the body is 69.5cqw — cqw resolves against
      the scene rather than the body, so this has to be composed */
-  --well-w: calc(66cqw * 0.6568);
+  --well-w: calc(69.5cqw * 0.6568);
 
   /* the well, measured off the photograph: x17.13% y12.23%,
      65.68% x 44.96% */
@@ -110,30 +124,29 @@
   top: var(--y, 0);
   left: var(--x, 0);
   z-index: 20;
-  padding: 0.42cqw 0.95cqw;
+  padding: 0.36cqw 0.85cqw;
   border-radius: 999px;
-  /* light on purpose: a near-black pill on a near-black deck is
-     invisible, which left the label reading as bare text floating
-     over the keys */
-  background: #f4f5f7;
+  /* the site's accent rather than white: it has to carry against a
+     near-black deck, and blue does that while staying on palette */
+  background: var(--blue);
   box-shadow:
-    0 0.15cqw 0.3cqw rgb(0 0 0 / 0.35),
-    0 0.7cqw 1.6cqw rgb(0 0 0 / 0.45);
-  color: #101014;
+    0 0.15cqw 0.3cqw rgb(0 0 0 / 0.3),
+    0 0.5cqw 1.2cqw rgb(26 107 255 / 0.35);
+  color: #fff;
   font-family: var(--ui-font);
   font-size: 0.78cqw;
   font-weight: 500;
   letter-spacing: -0.005em;
   white-space: nowrap;
   pointer-events: none;
-  transform: translate(-50%, calc(-100% - 1.1cqw));
+  transform: translate(-50%, calc(-100% - 0.1cqw));
   transition:
     opacity 0.18s var(--ease-out),
     transform 0.22s var(--spring);
 }
 
 .tip[data-on="true"] {
-  transform: translate(-50%, calc(-100% - 1.9cqw));
+  transform: translate(-50%, calc(-100% - 0.55cqw));
 }
 
 /* ── the trackpad ──────────────────────────────────────── */
@@ -142,21 +155,14 @@
 /* ── the mouse ─────────────────────────────────────────── */
 
 .mouse {
-  /* out of flow: in the row it pushed the laptop right of centre, and
-     the laptop is what should line up under the wordmark. the body is
-     66cqw, so its left edge is 17cqw in — this parks the mouse just
-     clear of that, and on screen at narrower widths. */
-  position: absolute;
-  top: 50%;
-  right: calc(50% + 36cqw);
   display: block;
-  width: 13.5cqw;
+  width: 10.5cqw;
   padding: 0;
   border: 0;
   background: none;
   cursor: grab;
   touch-action: none;
-  transform: translate(var(--nx, 0), calc(-50% + var(--ny, 0px)));
+  transform: translate(var(--nx, 0), var(--ny, 0));
   transition: transform 0.35s var(--spring);
 }
 
@@ -178,7 +184,7 @@
 .mouse:hover,
 .mouse:focus-visible {
   outline: none;
-  transform: translate(var(--nx, 0), calc(-50% + var(--ny, 0px) - 0.5cqw));
+  transform: translate(var(--nx, 0), calc(var(--ny, 0px) - 0.5cqw));
 }
 
 .mouse:hover .mouseArt,
@@ -219,20 +225,23 @@
 
 .mouseTip {
   position: absolute;
-  bottom: calc(100% + 1.2cqw);
+  top: calc(100% + 1.1cqw);
   left: 50%;
-  padding: 0.5cqw 1.1cqw;
-  border: 1px solid rgb(255 255 255 / 0.1);
+  padding: 0.36cqw 0.85cqw;
   border-radius: 999px;
-  background: rgb(10 10 12 / 0.96);
-  color: #f2f2f5;
+  background: var(--blue);
+  box-shadow:
+    0 0.15cqw 0.3cqw rgb(0 0 0 / 0.3),
+    0 0.5cqw 1.2cqw rgb(26 107 255 / 0.35);
+  color: #fff;
   font-family: var(--ui-font);
-  font-size: 0.86cqw;
-  font-weight: 450;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: -0.005em;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, 0.4cqw);
+  transform: translate(-50%, -0.4cqw);
   transition:
     opacity 0.2s var(--ease-out),
     transform 0.22s var(--spring);
@@ -260,13 +269,11 @@
   }
 
   .mouse {
-    position: static;
-    width: 22cqw;
-    margin: 5cqw auto 0;
-    transform: translate(var(--nx, 0), var(--ny, 0));
+    width: 24cqw;
   }
 
   .mouseTip {
-    font-size: 2.2cqw;
+    font-size: 2.4cqw;
+    padding: 1cqw 2.2cqw;
   }
 }

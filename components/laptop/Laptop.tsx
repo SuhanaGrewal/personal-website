@@ -58,7 +58,7 @@ interface Tip {
   y: number;
 }
 
-export function Laptop() {
+export function Laptop({ heading }: { heading?: React.ReactNode }) {
   const [tip, setTip] = useState<Tip | null>(null);
   const [atTop, setAtTop] = useState(false);
   const caps = useRef(new Map<string, HTMLElement>());
@@ -193,7 +193,10 @@ export function Laptop() {
         </span>
       </div>
 
-      <button
+      <aside className={s.side}>
+        {heading}
+
+        <button
         type="button"
         className={s.mouse}
         data-dragging={drag.current ? true : undefined}
@@ -212,9 +215,10 @@ export function Laptop() {
       >
         <img className={s.mouseArt} src="/magic-mouse.webp" alt="" aria-hidden="true" />
         <span className={s.mouseTip} aria-hidden="true">
-          {atTop ? "going up" : "drag me \u00b7 click for the top"}
+          {atTop ? "going up" : "click to scroll back"}
         </span>
-      </button>
+        </button>
+      </aside>
     </div>
   );
 }

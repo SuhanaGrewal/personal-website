@@ -9,13 +9,37 @@
 
 .scene {
   position: relative;
+  /* in front of the type, riding up over the bottom of the letters —
+     the same relationship the hero's machine has to the name */
+  z-index: 2;
   display: flex;
   width: min(1180px, 95vw);
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  /* one declaration: a `margin: 0 auto` after a `margin-top` silently
+     resets it, which is what kept the machine off the type */
+  margin: calc(var(--name-size, 0px) * -0.343) auto 0;
   container-type: inline-size;
   gap: 3cqw;
+}
+
+/* the light the machine sits in, behind it rather than above it */
+.scene::before {
+  position: absolute;
+  top: 6%;
+  right: 4%;
+  bottom: -6%;
+  left: 4%;
+  z-index: -1;
+  background: radial-gradient(
+    46% 52% at 50% 52%,
+    rgb(26 107 255 / 0.3) 0%,
+    rgb(26 107 255 / 0.13) 40%,
+    transparent 74%
+  );
+  content: "";
+  filter: blur(3cqw);
+  pointer-events: none;
 }
 
 /* ── the unibody ───────────────────────────────────────── */
@@ -128,8 +152,17 @@
   padding: 0;
   border: 0;
   background: none;
-  cursor: pointer;
-  transition: transform 0.3s var(--ease-out);
+  cursor: grab;
+  touch-action: none;
+  transform: translate(var(--nx, 0), var(--ny, 0));
+  transition: transform 0.35s var(--spring);
+}
+
+/* while it is being pushed it tracks the pointer exactly — a spring
+   here would make it lag behind the hand */
+.mouse[data-dragging="true"] {
+  cursor: grabbing;
+  transition: none;
 }
 
 .mouseArt {
@@ -143,7 +176,7 @@
 .mouse:hover,
 .mouse:focus-visible {
   outline: none;
-  transform: translateY(-0.5cqw);
+  transform: translate(var(--nx, 0), calc(var(--ny, 0px) - 0.5cqw));
 }
 
 .mouse:hover .mouseArt,

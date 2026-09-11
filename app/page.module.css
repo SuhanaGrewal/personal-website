@@ -53,54 +53,34 @@
 }
 
 /* the closing beat — the white of the work section carries straight
-   through. the order in the column is heading, glow, machine: the glow
-   is a real block with height, so the heading sits exactly where the
-   gradient fades out rather than being positioned against a guess, and
-   the machine is pulled up into it so it sits in the light rather than
-   below a band of it. */
+   through, and the composition is the hero's: the words run the width
+   of the frame and the machine rides up over the bottom of them, so
+   it sits in front of the type rather than under it. */
 .contact {
+  /* the hero's exact value, so both wordmarks on the page are set
+     at the same size */
+  --name-size: clamp(38px, 15.6vw, 268px);
+
   display: flex;
   min-height: 100svh;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   padding: clamp(28px, 5vh, 64px) 0 clamp(36px, 7vh, 88px);
   background: #fff;
 }
 
+/* the same face and treatment as the name in the hero */
 .contactHeading {
-  margin: auto auto 0;
-  padding: 0 clamp(24px, 3.2vw, 40px) clamp(14px, 2vh, 26px);
+  position: relative;
+  z-index: 1;
+  margin: 0;
   color: var(--word);
-  font-size: clamp(36px, 8vw, 108px);
+  font-size: var(--name-size);
   font-weight: 400;
-  letter-spacing: -0.048em;
+  letter-spacing: -0.052em;
+  line-height: 0.86;
   text-align: center;
-}
-
-.glow {
-  /* held to the machine's own width. a radial's first value is a
-     radius, not a diameter, so a full-width block let the light spill
-     past the body and terminate as a hard edge out in the white */
-  width: min(940px, 92vw);
-  margin-inline: auto;
-  height: clamp(96px, 19vh, 200px);
-  flex: 0 0 auto;
-  /* the machine overlaps it: the negative margin is what puts the
-     light behind the thing rather than above it */
-  margin-bottom: clamp(-150px, -14vh, -64px);
-  opacity: 0.86;
-  transition: opacity 0.45s var(--ease-out);
-  background: radial-gradient(
-    42% 116% at 50% 100%,
-    rgb(26 107 255 / 0.34) 0%,
-    rgb(26 107 255 / 0.18) 34%,
-    rgb(26 107 255 / 0.06) 62%,
-    transparent 82%
-  );
-}
-
-/* touching a link draws a little more power: the only links inside
-   this section are the live keys, so hovering any of them lifts the
-   glow the machine is sitting in */
-.contact:has(a:hover) .glow {
-  opacity: 1;
+  white-space: nowrap;
 }

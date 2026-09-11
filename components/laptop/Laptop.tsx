@@ -96,6 +96,37 @@ export function Laptop() {
     window.setTimeout(() => setAtTop(false), 1400);
   };
 
+  /* the mouse can be pushed around its patch of desk. it is still a
+     button: a drag that never really moved is a click, so picking it
+     up and putting it down does not fire the scroll. */
+  const RANGE = { x: 150, y: 90 };
+  const [nudge, setNudge] = useState({ x: 0, y: 0 });
+  const drag = useRef<{ px: number; py: number; ox: number; oy: number; moved: number } | null>(null);
+
+  const onMouseDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+    e.currentTarget.setPointerCapture(e.pointerId);
+    drag.current = { px: e.clientX, py: e.clientY, ox: nudge.x, oy: nudge.y, moved: 0 };
+  };
+
+  const onMouseMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const d = drag.current;
+    if (!d) return;
+    const dx = e.clientX - d.px;
+    const dy = e.clientY - d.py;
+    d.moved = Math.max(d.moved, Math.abs(dx) + Math.abs(dy));
+    const clamp = (v: number, r: number) => Math.max(-r, Math.min(r, v));
+    setNudge({ x: clamp(d.ox + dx, RANGE.x), y: clamp(d.oy + dy, RANGE.y) });
+  };
+
+  const onMouseUp = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const d = drag.current;
+    drag.current = null;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+    if (d && d.moved < 5) toTop();
+  };
+
   return (
     <div className={s.scene}>
       {/* the machine is centred on the page; the mouse sits beside it
@@ -165,12 +196,23 @@ export function Laptop() {
       <button
         type="button"
         className={s.mouse}
-        onClick={toTop}
+        data-dragging={drag.current ? true : undefined}
+        style={{ "--nx": `${nudge.x}px`, "--ny": `${nudge.y}px` } as React.CSSProperties}
+        onPointerDown={onMouseDown}
+        onPointerMove={onMouseMove}
+        onPointerUp={onMouseUp}
+        onPointerCancel={onMouseUp}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toTop();
+          }
+        }}
         aria-label="back to the top"
       >
         <img className={s.mouseArt} src="/magic-mouse.webp" alt="" aria-hidden="true" />
         <span className={s.mouseTip} aria-hidden="true">
-          {atTop ? "going up" : "back to the top"}
+          {atTop ? "going up" : "drag me \u00b7 click for the top"}
         </span>
       </button>
     </div>

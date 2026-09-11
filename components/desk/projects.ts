@@ -114,7 +114,7 @@ export const PROJECTS: Project[] = [
     video: "/projects/ori-preview.mp4",
     videoPoster: "/projects/ori-preview-poster.jpg",
     oneLiner:
-      "Ori is an agentic personal assistant. It answers questions about your emails, calendars, and events through a RAG system with 92% accuracy across 860 tests — and it can act: spawning agents to check flights, draft emails, compare shopping options, flag potential fraud, and catch what you'd forget.",
+      "Ori is an agentic personal assistant. It answers questions about your emails, calendars, and events through a RAG system with 92% accuracy across 860 tests — and it can act: spawning agents to draft emails, schedule calendar events, flag potential fraud, and catch what you'd forget.",
     sections: [
       {
         heading: "preface",
@@ -145,16 +145,34 @@ export const PROJECTS: Project[] = [
             term: "calendar management:",
             body: "flags overlaps, proposes reschedules, creates events.",
           },
-          {
-            term: "web-facing agents:",
-            body: "ask it to find flights, compare prices, or add a desk chair to your Amazon cart.",
-          },
         ],
       },
       {
-        // TODO(suhana): gallery rows go here once the screenshots
-        // arrive — same shape as ryng's ui/ux preview.
         heading: "ui/ux preview",
+        gallery: [
+          [
+            {
+              src: "/projects/ori-ui-ask.webp",
+              caption: "The landing screen: one question, answered from your own inbox and calendar.",
+            },
+          ],
+          [
+            {
+              src: "/projects/ori-ui-digest.webp",
+              caption: "A morning digest: what changed overnight, what's on the calendar.",
+            },
+            {
+              src: "/projects/ori-ui-recent.webp",
+              caption: "Recent threads, each auto-labelled with what it's actually about.",
+            },
+          ],
+          [
+            {
+              src: "/projects/ori-ui-queue.webp",
+              caption: "The approval queue: drafted replies and proposed reschedules, held until you approve them.",
+            },
+          ],
+        ],
       },
       {
         heading: "how it’s different from what’s out there",
@@ -182,9 +200,7 @@ export const PROJECTS: Project[] = [
         ],
       },
     ],
-    // TODO(suhana): no live url yet — swap href for the real one
-    // once ori has somewhere to be tried.
-    links: [{ label: "ori", href: "#" }],
+    links: [{ label: "tryori.vercel.app", href: "https://tryori.vercel.app" }],
   },
   {
     id: "ryng",

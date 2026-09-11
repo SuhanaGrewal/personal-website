@@ -431,7 +431,7 @@
 .sectionHeading {
   margin: 0 0 1.1cqw;
   color: var(--blue);
-  font-size: 1.7cqw;
+  font-size: 1.85cqw;
   font-weight: 500;
   letter-spacing: 0.01em;
 }
@@ -442,7 +442,7 @@
   margin: 0 0 0.55cqw;
   color: #3d3d47;
   font-family: var(--ui-font);
-  font-size: 1.42cqw;
+  font-size: 1.55cqw;
   line-height: 1.6;
 }
 
@@ -464,7 +464,7 @@
   margin: 0 0 2.6cqw;
   color: #23232b;
   font-family: var(--ui-font);
-  font-size: 1.42cqw;
+  font-size: 1.55cqw;
   line-height: 1.62;
 }
 
@@ -472,7 +472,7 @@
   margin: 0 0 1.15cqw;
   color: #3d3d47;
   font-family: var(--ui-font);
-  font-size: 1.5cqw;
+  font-size: 1.62cqw;
   line-height: 1.72;
 }
 
@@ -515,12 +515,14 @@
   object-fit: cover;
 }
 
+/* the same size and ink as .para — a caption reads as a continuation
+   of normal body text, not a smaller, dimmer footnote under it */
 .galleryCaption {
   margin-top: 0.7cqw;
-  color: var(--text-dim);
+  color: #3d3d47;
   font-family: var(--ui-font);
-  font-size: 1.15cqw;
-  line-height: 1.5;
+  font-size: 1.62cqw;
+  line-height: 1.6;
   text-align: left;
 }
 
@@ -532,7 +534,7 @@
   margin: 0 0 0.85cqw;
   color: #3d3d47;
   font-family: var(--ui-font);
-  font-size: 1.42cqw;
+  font-size: 1.55cqw;
   line-height: 1.62;
 }
 
@@ -552,7 +554,7 @@
   align-items: center;
   color: #22222a;
   font-family: var(--ui-font);
-  font-size: 1.45cqw;
+  font-size: 1.58cqw;
   gap: 0.45cqw;
   text-decoration: none;
   transition: color 0.2s var(--ease-out);
@@ -588,7 +590,7 @@
   margin: 1cqw auto 0;
   color: #6a6a74;
   font-family: var(--ui-font);
-  font-size: 1.15cqw;
+  font-size: 1.25cqw;
   line-height: 1.55;
   text-align: center;
 }

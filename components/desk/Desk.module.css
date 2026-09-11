@@ -353,18 +353,28 @@
 /* the thumbnail: the shot itself, or the gradient if there is not
    one there yet */
 .thumb {
+  position: relative;
+  overflow: hidden;
   flex: 1;
   /* the same paper the preview artwork is drawn on, so the bands left
-     by `contain` are invisible rather than a white frame around it */
+     by `contain` are invisible rather than a white frame around it.
+     the gradient is the placeholder for a project with no image or
+     video yet — shot()'s inline style overrides it once one is set. */
   background-color: #f4f5f6;
   background-image:
     radial-gradient(60% 80% at 28% 18%, rgb(26 107 255 / 0.2), transparent 68%),
     radial-gradient(52% 70% at 82% 74%, rgb(106 168 255 / 0.24), transparent 70%);
   background-position: center;
   background-repeat: no-repeat;
-  /* contain, not cover: these previews are diagrams, and cropping one
-     to fill the window would cut the middle out of it */
   background-size: contain;
+}
+
+.thumbVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ── the opened view ───────────────────────────────────── */
@@ -485,6 +495,20 @@
 
 .link:hover .extIcon {
   opacity: 1;
+}
+
+.chartBlock {
+  margin: 0.4cqw 0 1.6cqw;
+}
+
+.chartCaption {
+  max-width: 46cqw;
+  margin: 1cqw auto 0;
+  color: #6a6a74;
+  font-family: var(--ui-font);
+  font-size: 1.15cqw;
+  line-height: 1.55;
+  text-align: center;
 }
 
 /* the finder window cannot be opened, so its green light is inert */

@@ -57,6 +57,26 @@ function shot(p: Project) {
     : undefined;
 }
 
+/* a muted, looping clip — used identically in the thumbnail and the
+   opened view, so "the animation shows in both" is just this element
+   rendering twice rather than two things to keep in sync. `cover`
+   because a landing-page recording usually reads better full-bleed
+   than letterboxed; switch to `contain` here if a given clip's crop
+   looks wrong once it is in. */
+function Clip({ src, className }: { src: string; className?: string }) {
+  return (
+    <video
+      className={className}
+      src={src}
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="metadata"
+    />
+  );
+}
+
 function Collapsed({ p }: { p: Project }) {
   if (p.kind === "finder") {
     return (
@@ -80,6 +100,13 @@ function Collapsed({ p }: { p: Project }) {
       </div>
     );
   }
+  if (p.video) {
+    return (
+      <div className={s.thumb}>
+        <Clip src={p.video} className={s.thumbVideo} />
+      </div>
+    );
+  }
   return <div className={s.thumb} style={shot(p)} />;
 }
 
@@ -87,7 +114,9 @@ function Detail({ p }: { p: Project }) {
   if (p.kind === "finder") return null;
   return (
     <div className={`${s.detail} ${s.scroller}`}>
-      {p.header ? (
+      {p.video ? (
+        <Clip src={p.video} className={s.header} />
+      ) : p.header ? (
         <img className={s.header} src={p.header} alt="" aria-hidden="true" />
       ) : null}
 
@@ -123,7 +152,17 @@ function Detail({ p }: { p: Project }) {
         </section>
       ))}
 
-      {p.bars ? <ForesiteBars /> : null}
+      {p.bars ? (
+        <div className={s.chartBlock}>
+          <ForesiteBars />
+          <p className={s.chartCaption}>
+            Percent of reusable context each policy actually kept in cache,
+            across five cache sizes on the same benchmark traces. Every row is
+            foresite ahead of plain LRU &mdash; the gap is biggest when the
+            cache is tightest.
+          </p>
+        </div>
+      ) : null}
 
       {p.links?.length ? (
         <section className={s.section}>

@@ -33,6 +33,11 @@ export interface Project {
   header?: string;
   /** the foresite vs LRU comparison graphic */
   bars?: boolean;
+  /** a short muted looping clip of the thing in motion — same file
+      renders in both the collapsed thumbnail and the opened view, so
+      it reads as live everywhere without duplicating any setup.
+      takes priority over `image` when both are set. */
+  video?: string;
   oneLiner?: string;
   year?: string;
   role?: string;

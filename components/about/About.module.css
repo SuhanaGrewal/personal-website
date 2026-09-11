@@ -1,15 +1,17 @@
 /* ============================================================
    about me — the copy on the left, the heading on the right in
-   the same face as the other two sections.
+   the same face as the other two sections. generous padding
+   above and below keeps the heading from crowding the sections
+   on either side of it.
    ============================================================ */
 
 .about {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: clamp(56px, 9vh, 128px) clamp(24px, 3.2vw, 40px);
+  padding: clamp(96px, 16vh, 200px) clamp(24px, 3.2vw, 40px);
   background: #fff;
-  gap: clamp(24px, 4.5vw, 80px);
+  gap: clamp(20px, 3vw, 48px);
 }
 
 /* the same face and treatment as the other two section headings,
@@ -24,7 +26,7 @@
   font-weight: 400;
   letter-spacing: -0.052em;
   line-height: 0.76;
-  text-align: right;
+  text-align: left;
 }
 
 .accent {
@@ -54,11 +56,15 @@
 
 .bio {
   max-width: 58ch;
-  margin: 0;
+  margin: 0 0 1.1em;
   color: var(--text-mid);
   font-family: var(--ui-font);
   font-size: clamp(15px, 1.28vw, 19px);
   line-height: 1.75;
+}
+
+.bio:last-child {
+  margin-bottom: 0;
 }
 
 @media (max-width: 900px) {

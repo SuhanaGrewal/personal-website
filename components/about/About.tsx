@@ -16,10 +16,17 @@ export function About() {
           I&rsquo;m a sophomore doing Econ &amp; CS @ UChicago, and an
           aspiring AI engineer. Lately I&rsquo;ve been deep into RAG, agentic
           memory, and inference optimization. When I get the time, I like to
-          pair my AI projects with clean UI/UX (hence, a design nerd:). I
-          also work on AI consulting projects, having interned with EY and
-          180 Degrees Consulting on tech projects. In my free time, I enjoy
-          producing music and compete as a national-level equestrian!
+          pair my AI projects with clean UI/UX (hence, a design nerd:).
+        </p>
+
+        <p className={s.bio}>
+          I also work on AI consulting projects, having interned with EY and
+          180 Degrees Consulting on tech projects.
+        </p>
+
+        <p className={s.bio}>
+          In my free time, I enjoy producing music and compete as a
+          national-level equestrian!
         </p>
       </div>
 

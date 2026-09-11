@@ -474,6 +474,54 @@
   line-height: 1.72;
 }
 
+/* the ui/ux preview: each row sits in the same reading column as the
+   prose above it, so it reads as continuous with the case study
+   rather than as a bolted-on strip. a row of several images share the
+   width equally and are all set to one height via object-fit, so a
+   near-square and a wider shot in the same row still line up. */
+.galleryRow {
+  display: flex;
+  margin: 0 0 1.6cqw;
+  gap: 1.2cqw;
+}
+
+.galleryItem {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  margin: 0;
+}
+
+.galleryImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5cqw;
+  box-shadow:
+    0 1px 0 rgb(0 0 0 / 0.06),
+    0 0.6cqw 1.6cqw -0.6cqw rgb(0 0 0 / 0.3);
+}
+
+/* every image in a multi-image row is set to the same aspect ratio
+   rather than a guessed pixel height — the two source shots were
+   already padded to match each other exactly at processing time
+   (900x883), so sizing the box by that same ratio means cover never
+   has anything to crop and the box is never wider than the picture */
+.galleryRow:has(.galleryItem + .galleryItem) .galleryImg {
+  aspect-ratio: 900 / 883;
+  object-fit: cover;
+}
+
+.galleryCaption {
+  margin-top: 0.7cqw;
+  color: var(--text-dim);
+  font-family: var(--ui-font);
+  font-size: 1.15cqw;
+  line-height: 1.5;
+  text-align: left;
+}
+
 .links {
   display: flex;
   margin-top: 0.6cqw;

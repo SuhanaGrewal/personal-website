@@ -8,6 +8,12 @@
    image degrades quietly rather than breaking the window.
    ────────────────────────────────────────────────────────── */
 
+export interface GalleryImage {
+  src: string;
+  /** shown left-aligned under the image, same row it belongs to */
+  caption: string;
+}
+
 export interface Section {
   heading: string;
   /** free prose; blank lines split paragraphs */
@@ -16,6 +22,10 @@ export interface Section {
   lines?: string[];
   /** the same, split into side-by-side columns */
   cols?: string[][];
+  /** screenshots, laid out one row per inner array — a row of one
+      runs the width of the column, a row of several share it equally
+      and are resized to a common height so nothing looks mismatched */
+  gallery?: GalleryImage[][];
 }
 
 export interface Project {
@@ -147,6 +157,27 @@ export const PROJECTS: Project[] = [
       {
         heading: "why it’s different from generic “automated phone call” tools",
         body: "Ryng closes the loop between commerce and conversation. Users can set up agents (or connect an existing one) and hook it up to a phone number in a few clicks.\n\nIts context pipeline lets users upload information the agent can reference during calls, and after each call, transcripts are run through an LLM to detect whether follow-up is needed (e.g. was an order placed?). The agent can then act on it automatically (e.g. sending an SMS with an order summary and payment details).\n\nDevelopers with existing AI/CRM logic can use Ryng as a telephony layer alone.",
+      },
+      {
+        heading: "ui/ux preview",
+        gallery: [
+          [
+            {
+              src: "/projects/ryng-ui-templates.webp",
+              caption: "Industry templates — a pre-built agent for common use cases, customisable after.",
+            },
+          ],
+          [
+            {
+              src: "/projects/ryng-ui-new-agent.webp",
+              caption: "Building an agent from scratch, with a template as a shortcut.",
+            },
+            {
+              src: "/projects/ryng-ui-personality.webp",
+              caption: "Tuning tone, voice, and availability once the agent exists.",
+            },
+          ],
+        ],
       },
     ],
     links: [{ label: "ryng.online", href: "https://ryng.online" }],

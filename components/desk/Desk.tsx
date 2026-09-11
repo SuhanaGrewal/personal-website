@@ -188,6 +188,19 @@ function Detail({ p }: { p: Project }) {
               {para}
             </p>
           ))}
+
+          {sec.gallery?.map((row, i) => (
+            <div key={i} className={s.galleryRow}>
+              {row.map((img) => (
+                <figure key={img.src} className={s.galleryItem}>
+                  <img src={img.src} alt="" className={s.galleryImg} />
+                  <figcaption className={s.galleryCaption}>
+                    {img.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          ))}
         </section>
       ))}
 

@@ -224,10 +224,10 @@ function Detail({ p }: { p: Project }) {
         <div className={s.chartBlock}>
           <ForesiteBars />
           <p className={s.chartCaption}>
-            Percent of reusable context each policy actually kept in cache,
-            across five cache sizes on the same benchmark traces. Every row is
-            foresite ahead of plain LRU &mdash; the gap is biggest when the
-            cache is tightest.
+            The graph shows the percent of reusable context each policy
+            actually kept in cache, across five cache sizes on the same
+            benchmark traces. Every row is foresite ahead of plain LRU
+            &mdash; the gap is biggest when the cache is tightest.
           </p>
         </div>
       ) : null}

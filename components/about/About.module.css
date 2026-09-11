@@ -1,7 +1,8 @@
 /* ============================================================
    about me — the board is suhana's own rendered photograph; the
-   only thing drawn here is the four blocks sitting on its
-   shelves, each a real box with a lit dot-matrix face.
+   only things drawn here are the four chrome picture frames
+   standing on its shelves, each holding a logo as a photograph
+   made out of pixels.
    ============================================================ */
 
 .about {
@@ -26,8 +27,8 @@
   width: 46%;
   flex: 0 0 auto;
   /* the pegboard is a perfect square in the render, and the shelf
-     percentages below were measured against that square — any other
-     ratio here would slide the blocks off their shelves */
+     percentages were measured against that square — any other ratio
+     here would slide the frames off their planks */
   aspect-ratio: 1 / 1;
   container-type: inline-size;
 }
@@ -40,116 +41,165 @@
   object-fit: cover;
 }
 
-/* ── a block on a shelf ────────────────────────────────── */
+/* ── a framed picture on a shelf ───────────────────────── */
 
 .slot {
-  cursor: pointer;
-  --size: 20cqw;
-  --depth: 4.4cqw;
-
   position: absolute;
+  isolation: isolate;
   bottom: var(--shelf-bottom);
   left: var(--shelf-centre);
-  width: var(--size);
-  height: var(--size);
-  /* the base sits on the shelf's top surface, not centred on it */
-  perspective: 62cqw;
+  width: 20cqw;
+  height: 20cqw;
+  cursor: pointer;
+  /* the base sits on the plank's top surface, not centred on it */
   transform: translateX(-50%);
-}
-
-.block {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  /* turned just far enough to show its right-hand wall, the way the
-     reference block is turned */
-  transform: rotateY(-17deg) rotateX(3deg);
-  transition: transform 320ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
-}
-
-.slot:hover .block,
-.slot:focus-visible .block {
-  transform: rotateY(-17deg) rotateX(3deg) translateZ(1.4cqw);
 }
 
 .slot:focus-visible {
   outline: none;
 }
 
-/* the lit face */
-.face {
+/* the dark line where the frame's foot meets the plank — without it the
+   frame reads as floating in front of the shelf rather than standing on
+   it */
+.slot::before {
+  content: "";
   position: absolute;
+  bottom: -0.5%;
+  left: 3%;
+  width: 94%;
+  height: 7%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 55%,
+    rgb(0 0 0 / 0.78) 0%,
+    rgb(0 0 0 / 0.4) 44%,
+    rgb(0 0 0 / 0) 74%
+  );
+  filter: blur(0.35cqw);
+  transition: opacity 300ms var(--ease-out, ease-out);
+}
+
+.slot:hover::before,
+.slot:focus-visible::before {
+  opacity: 0.7;
+}
+
+.frame {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 6.2%;
+  border-radius: 15%;
+  background:
+    /* the gloss the room leaves across a polished face */
+    linear-gradient(
+      158deg,
+      rgb(255 255 255 / 0.5) 0%,
+      rgb(255 255 255 / 0) 34%,
+      rgb(0 0 0 / 0.2) 68%,
+      rgb(255 255 255 / 0.26) 100%
+    ),
+    /* chrome is just a ring of alternating light and dark reflections,
+       so it's a conic sweep rather than a linear ramp */
+    conic-gradient(
+      from 140deg at 50% 45%,
+      #74777e 0deg,
+      #eaecef 26deg,
+      #a9adb4 54deg,
+      #5c5f66 88deg,
+      #cfd2d7 120deg,
+      #f7f8fa 146deg,
+      #8d9198 178deg,
+      #5f6269 212deg,
+      #dcdfe4 246deg,
+      #9b9fa6 280deg,
+      #6a6d74 312deg,
+      #c3c6cc 340deg,
+      #74777e 360deg
+    );
+  box-shadow:
+    inset 0 0 0 0.13cqw rgb(255 255 255 / 0.55),
+    inset 0 -0.12cqw 0.3cqw rgb(0 0 0 / 0.45),
+    0 1cqw 1.8cqw -0.6cqw rgb(0 0 0 / 0.7),
+    0 0.2cqw 0.4cqw rgb(0 0 0 / 0.5);
+  transition:
+    transform 300ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 300ms var(--ease-out, ease-out);
+}
+
+.slot:hover .frame,
+.slot:focus-visible .frame {
+  transform: translateY(-3%) scale(1.035);
+  box-shadow:
+    inset 0 0 0 0.13cqw rgb(255 255 255 / 0.7),
+    inset 0 -0.12cqw 0.3cqw rgb(0 0 0 / 0.45),
+    0 1.8cqw 2.8cqw -0.7cqw rgb(0 0 0 / 0.75),
+    0 0.2cqw 0.4cqw rgb(0 0 0 / 0.5);
+}
+
+/* the step down from the outer face to the mount */
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 4.2%;
+  border-radius: 11.5%;
+  background: conic-gradient(
+    from 320deg at 50% 55%,
+    #4e5158 0deg,
+    #b9bcc2 34deg,
+    #7a7d84 70deg,
+    #3f4248 104deg,
+    #a6aab1 140deg,
+    #e2e4e8 166deg,
+    #6c6f76 198deg,
+    #45484e 232deg,
+    #c0c3c9 266deg,
+    #7f828a 300deg,
+    #4e5158 360deg
+  );
+  box-shadow:
+    inset 0 0 0 0.08cqw rgb(0 0 0 / 0.5),
+    0 0 0.25cqw rgb(0 0 0 / 0.35);
+}
+
+/* the mount behind the glass, recessed inside the bezel */
+.mat {
+  position: relative;
   display: flex;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5cqw;
-  background: linear-gradient(158deg, #131316 0%, #0b0b0d 52%, #060607 100%);
-  box-shadow:
-    inset 0 0 0 0.16cqw #17171a,
-    inset 0 1px 0 rgb(255 255 255 / 0.06),
-    0 1.4cqw 2.4cqw -0.9cqw rgb(0 0 0 / 0.8);
-}
-
-/* the right-hand wall, hinged at the block's right edge */
-.side {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: var(--depth);
-  height: 100%;
-  border-radius: 0 0.4cqw 0.4cqw 0;
-  background: linear-gradient(90deg, #141417 0%, #0a0a0c 60%, #050506 100%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
-  transform-origin: 100% 50%;
-  transform: rotateY(-90deg);
-}
-
-/* the shadow the block casts onto the plank it stands on: laid flat at
-   its base so it foreshortens with the rest of the box */
-.ground {
-  position: absolute;
-  bottom: 0;
-  left: -6%;
-  width: 112%;
-  height: calc(var(--depth) * 1.6);
-  border-radius: 50%;
+  border-radius: 9%;
   background: radial-gradient(
-    ellipse at 50% 40%,
-    rgb(0 0 0 / 0.55) 0%,
-    rgb(0 0 0 / 0.28) 46%,
-    rgb(0 0 0 / 0) 72%
+    124% 124% at 50% 0%,
+    #17171b 0%,
+    #0b0b0d 55%,
+    #060607 100%
   );
-  transform-origin: 50% 100%;
-  transform: rotateX(-90deg);
-}
-
-/* a sliver of top, since the board is seen very slightly from above */
-.top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--depth);
-  border-radius: 0.4cqw 0.4cqw 0 0;
-  background: linear-gradient(180deg, #1d1d21 0%, #101013 100%);
-  transform-origin: 50% 0%;
-  transform: rotateX(-90deg);
+  box-shadow:
+    inset 0 0.18cqw 0.45cqw rgb(0 0 0 / 0.85),
+    inset 0 0 0 0.1cqw rgb(0 0 0 / 0.9),
+    0 0 0 0.09cqw rgb(255 255 255 / 0.16);
 }
 
 .pixelGrid {
   display: grid;
-  width: 82%;
-  height: 82%;
+  width: 88%;
+  height: 88%;
   grid-template-columns: repeat(21, 1fr);
   grid-template-rows: repeat(21, 1fr);
 }
 
 .pixel {
   border-radius: 50%;
-  background: rgb(255 255 255 / 0.05);
-  transform: scale(0.6);
+  background: rgb(255 255 255 / 0.045);
+  transform: scale(0.58);
   transition:
     background 260ms var(--ease-out, ease-out),
     box-shadow 260ms var(--ease-out, ease-out);
@@ -157,17 +207,20 @@
 
 .pixel[data-lit="true"] {
   background: var(--blue, #1a6bff);
+  /* the lit dots read as the picture, so they sit slightly proud of
+     the dark ones rather than matching them */
   box-shadow:
-    0 0 0.35cqw var(--blue, #1a6bff),
-    0 0 0.9cqw var(--blue-glow, rgba(26, 107, 255, 0.55));
+    0 0 0.3cqw var(--blue, #1a6bff),
+    0 0 0.8cqw var(--blue-glow, rgba(26, 107, 255, 0.55));
+  transform: scale(0.72);
 }
 
 .slot:hover .pixel[data-lit="true"],
 .slot:focus-visible .pixel[data-lit="true"] {
   background: var(--blue-lit, #6aa8ff);
   box-shadow:
-    0 0 0.5cqw var(--blue-lit, #6aa8ff),
-    0 0 1.6cqw var(--blue-glow, rgba(26, 107, 255, 0.75));
+    0 0 0.45cqw var(--blue-lit, #6aa8ff),
+    0 0 1.5cqw var(--blue-glow, rgba(26, 107, 255, 0.75));
 }
 
 .tip {
@@ -180,8 +233,8 @@
   background: var(--blue, #1a6bff);
   color: #fff;
   font-family: var(--ui-font, -apple-system, sans-serif);
-  /* the same tooltip as the keycaps wear, so it can't shrink to
-     nothing just because the board got narrow */
+  /* the same tooltip the keycaps wear, so it can't shrink to nothing
+     just because the board got narrow */
   font-size: clamp(11px, 2.2cqw, 15px);
   font-weight: 500;
   white-space: nowrap;
@@ -201,45 +254,50 @@
 /* ── the copy ──────────────────────────────────────────── */
 
 .copy {
-  container-type: inline-size;
   display: flex;
   min-width: 0;
   flex: 1 1 auto;
   flex-direction: column;
 }
 
+/* the same face and treatment as the other two section headings,
+   stacked one word per line and set tight enough that the lines touch */
 .heading {
-  margin: 0 0 0.36em;
-  color: var(--word, var(--text));
-  font-size: clamp(40px, 19cqw, 190px);
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.24em;
+  color: var(--word);
+  font-size: clamp(28px, 13vw, 240px);
   font-weight: 400;
   letter-spacing: -0.052em;
-  line-height: 0.86;
+  line-height: 0.76;
+  text-align: left;
 }
 
 .accent {
-  color: var(--blue, #1a6bff);
+  color: var(--blue);
 }
 
 .name {
-  margin: 0 0 1.2em;
-  color: var(--text, #0c0c0e);
-  font-family: var(--ui-font, -apple-system, sans-serif);
+  max-width: 62ch;
+  margin: 0 0 1.1em;
+  color: var(--text);
+  font-family: var(--ui-font);
   font-size: clamp(16px, 1.35vw, 21px);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .ipa {
-  color: var(--text-dim, #86868c);
+  color: var(--text-dim);
   font-weight: 400;
 }
 
 .bio {
   max-width: 62ch;
   margin: 0 0 1.1em;
-  color: var(--text-mid, #3d3d42);
-  font-family: var(--ui-font, -apple-system, sans-serif);
+  color: var(--text-mid);
+  font-family: var(--ui-font);
   font-size: clamp(15px, 1.2vw, 18px);
   line-height: 1.7;
 }
@@ -259,7 +317,7 @@
   }
 
   .heading {
-    text-align: center;
+    margin-top: 0.3em;
   }
 
   .name,

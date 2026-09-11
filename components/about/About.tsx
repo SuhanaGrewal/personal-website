@@ -6,14 +6,16 @@ import s from "./About.module.css";
 
 /* the shelves in the board photograph, measured off the image itself:
    every one spans x 2.96%–44.17% of the board's width and their top
-   surfaces sit at these heights, so a block's base can be set to land
-   on the surface rather than floated near it by eye. */
-const SHELF_TOPS = [23.43, 47.5, 71.48, 95.37];
+   surfaces run from 23.43% to 25.84% (and the three below at 24.07%
+   intervals). a frame stands on the middle of that surface rather than
+   on its back edge, which is what makes it read as resting on the
+   plank instead of hovering in front of it. */
+const SHELF_TOPS = [24.7, 48.77, 72.75, 96.64];
 const SHELF_CENTRE = 23.52;
 
-/* the lit face: a grid of dots, the on ones glowing blue. the dark
-   ones are left visible at low contrast — an LED panel reads as a
-   panel because you can see the pixels that aren't lit. */
+/* the picture inside each frame: a grid of dots, the on ones glowing
+   blue. the off ones stay faintly visible — a dot-matrix picture reads
+   as one because you can see the pixels that aren't lit. */
 function PixelFace({ bitmap }: { bitmap: Bitmap }) {
   return (
     <span className={s.pixelGrid}>
@@ -64,16 +66,12 @@ export function About() {
               onFocus={() => setHot(link.id)}
               onBlur={() => setHot(null)}
             >
-              {/* a real box: a lit front face, and a side wall folded
-                  back 90° at its right edge so the block has depth
-                  from this angle rather than being a flat square */}
-              <span className={s.block}>
-                <span className={s.face}>
+              {/* a polished chrome picture frame standing on the shelf,
+                  with the logo inside it as a pixel photograph */}
+              <span className={s.frame}>
+                <span className={s.mat}>
                   <PixelFace bitmap={link.icon} />
                 </span>
-                <span className={s.side} aria-hidden="true" />
-                <span className={s.top} aria-hidden="true" />
-                <span className={s.ground} aria-hidden="true" />
               </span>
               <span className={s.tip}>{link.label}</span>
             </a>
@@ -82,31 +80,33 @@ export function About() {
 
         <div className={s.copy}>
           <h2 className={s.heading}>
-            about <span className={s.accent}>me</span>
+            <span>about</span>
+            <span className={s.accent}>me</span>
           </h2>
 
           <p className={s.name}>
-            My name is Suhana Grewal{" "}
+            Hi, I&rsquo;m Suhana Grewal,{" "}
             <span className={s.ipa}>
               pronounced /su&bull;hahn&bull;ah: grey&bull;wahl/
             </span>
+            .
           </p>
 
           <p className={s.bio}>
-            I&rsquo;m a sophomore @ uchicago studying econ &amp; cs and an
-            aspiring AI engineer who&rsquo;s lately been deep into RAG,
-            agentic memory, and inference optimization. When I have the
-            time, I like to hook up cool ui/ux to my AI projects (hence
-            half a design nerd).
+            I&rsquo;m a sophomore at UChicago studying Econ &amp; CS, and an
+            aspiring AI engineer. Lately I&rsquo;ve been deep into RAG,
+            agentic memory, and inference optimization. When I get the time,
+            I like to pair my AI projects with clean UI/UX (hence, a design
+            nerd).
           </p>
 
           <p className={s.bio}>
             I also work a lot on consulting projects, having interned with
-            EY and 180 Degrees for AI-related consulting.
+            EY and 180 Degrees Consulting on AI-related work.
           </p>
 
           <p className={s.bio}>
-            In my free time I enjoy producing music and compete as a
+            In my free time, I enjoy producing music and compete as a
             national-level equestrian.
           </p>
         </div>

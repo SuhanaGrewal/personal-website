@@ -1,323 +1,74 @@
 /* ============================================================
-   about me — the board is suhana's own rendered photograph; the
-   only things drawn here are the four chrome picture frames
-   standing on its shelves, each holding a logo as a photograph
-   made out of pixels.
+   about me — the copy on the left, the heading on the right in
+   the same face as the other two sections.
    ============================================================ */
 
 .about {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: clamp(48px, 8vh, 112px) clamp(24px, 3.2vw, 40px);
+  justify-content: space-between;
+  padding: clamp(56px, 9vh, 128px) clamp(24px, 3.2vw, 40px);
   background: #fff;
-}
-
-.inner {
-  display: flex;
-  width: min(1400px, 100%);
-  align-items: center;
-  gap: clamp(32px, 5vw, 72px);
-}
-
-/* ── the board ─────────────────────────────────────────── */
-
-.board {
-  position: relative;
-  width: 46%;
-  flex: 0 0 auto;
-  /* the pegboard is a perfect square in the render, and the shelf
-     percentages were measured against that square — any other ratio
-     here would slide the frames off their planks */
-  aspect-ratio: 1 / 1;
-  container-type: inline-size;
-}
-
-.boardImg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-/* ── a framed picture on a shelf ───────────────────────── */
-
-.slot {
-  position: absolute;
-  isolation: isolate;
-  bottom: var(--shelf-bottom);
-  left: var(--shelf-centre);
-  width: 20cqw;
-  height: 20cqw;
-  cursor: pointer;
-  /* the base sits on the plank's top surface, not centred on it */
-  transform: translateX(-50%);
-}
-
-.slot:focus-visible {
-  outline: none;
-}
-
-/* the dark line where the frame's foot meets the plank — without it the
-   frame reads as floating in front of the shelf rather than standing on
-   it */
-.slot::before {
-  content: "";
-  position: absolute;
-  bottom: -0.5%;
-  left: 3%;
-  width: 94%;
-  height: 7%;
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse at 50% 55%,
-    rgb(0 0 0 / 0.78) 0%,
-    rgb(0 0 0 / 0.4) 44%,
-    rgb(0 0 0 / 0) 74%
-  );
-  filter: blur(0.35cqw);
-  transition: opacity 300ms var(--ease-out, ease-out);
-}
-
-.slot:hover::before,
-.slot:focus-visible::before {
-  opacity: 0.7;
-}
-
-.frame {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  padding: 6.2%;
-  border-radius: 15%;
-  background:
-    /* the gloss the room leaves across a polished face */
-    linear-gradient(
-      158deg,
-      rgb(255 255 255 / 0.5) 0%,
-      rgb(255 255 255 / 0) 34%,
-      rgb(0 0 0 / 0.2) 68%,
-      rgb(255 255 255 / 0.26) 100%
-    ),
-    /* chrome is just a ring of alternating light and dark reflections,
-       so it's a conic sweep rather than a linear ramp */
-    conic-gradient(
-      from 140deg at 50% 45%,
-      #74777e 0deg,
-      #eaecef 26deg,
-      #a9adb4 54deg,
-      #5c5f66 88deg,
-      #cfd2d7 120deg,
-      #f7f8fa 146deg,
-      #8d9198 178deg,
-      #5f6269 212deg,
-      #dcdfe4 246deg,
-      #9b9fa6 280deg,
-      #6a6d74 312deg,
-      #c3c6cc 340deg,
-      #74777e 360deg
-    );
-  box-shadow:
-    inset 0 0 0 0.13cqw rgb(255 255 255 / 0.55),
-    inset 0 -0.12cqw 0.3cqw rgb(0 0 0 / 0.45),
-    0 1cqw 1.8cqw -0.6cqw rgb(0 0 0 / 0.7),
-    0 0.2cqw 0.4cqw rgb(0 0 0 / 0.5);
-  transition:
-    transform 300ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow 300ms var(--ease-out, ease-out);
-}
-
-.slot:hover .frame,
-.slot:focus-visible .frame {
-  transform: translateY(-3%) scale(1.035);
-  box-shadow:
-    inset 0 0 0 0.13cqw rgb(255 255 255 / 0.7),
-    inset 0 -0.12cqw 0.3cqw rgb(0 0 0 / 0.45),
-    0 1.8cqw 2.8cqw -0.7cqw rgb(0 0 0 / 0.75),
-    0 0.2cqw 0.4cqw rgb(0 0 0 / 0.5);
-}
-
-/* the step down from the outer face to the mount */
-.frame::before {
-  content: "";
-  position: absolute;
-  inset: 4.2%;
-  border-radius: 11.5%;
-  background: conic-gradient(
-    from 320deg at 50% 55%,
-    #4e5158 0deg,
-    #b9bcc2 34deg,
-    #7a7d84 70deg,
-    #3f4248 104deg,
-    #a6aab1 140deg,
-    #e2e4e8 166deg,
-    #6c6f76 198deg,
-    #45484e 232deg,
-    #c0c3c9 266deg,
-    #7f828a 300deg,
-    #4e5158 360deg
-  );
-  box-shadow:
-    inset 0 0 0 0.08cqw rgb(0 0 0 / 0.5),
-    0 0 0.25cqw rgb(0 0 0 / 0.35);
-}
-
-/* the mount behind the glass, recessed inside the bezel */
-.mat {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9%;
-  background: radial-gradient(
-    124% 124% at 50% 0%,
-    #17171b 0%,
-    #0b0b0d 55%,
-    #060607 100%
-  );
-  box-shadow:
-    inset 0 0.18cqw 0.45cqw rgb(0 0 0 / 0.85),
-    inset 0 0 0 0.1cqw rgb(0 0 0 / 0.9),
-    0 0 0 0.09cqw rgb(255 255 255 / 0.16);
-}
-
-.pixelGrid {
-  display: grid;
-  width: 88%;
-  height: 88%;
-  grid-template-columns: repeat(21, 1fr);
-  grid-template-rows: repeat(21, 1fr);
-}
-
-.pixel {
-  border-radius: 50%;
-  background: rgb(255 255 255 / 0.045);
-  transform: scale(0.58);
-  transition:
-    background 260ms var(--ease-out, ease-out),
-    box-shadow 260ms var(--ease-out, ease-out);
-}
-
-.pixel[data-lit="true"] {
-  background: var(--blue, #1a6bff);
-  /* the lit dots read as the picture, so they sit slightly proud of
-     the dark ones rather than matching them */
-  box-shadow:
-    0 0 0.3cqw var(--blue, #1a6bff),
-    0 0 0.8cqw var(--blue-glow, rgba(26, 107, 255, 0.55));
-  transform: scale(0.72);
-}
-
-.slot:hover .pixel[data-lit="true"],
-.slot:focus-visible .pixel[data-lit="true"] {
-  background: var(--blue-lit, #6aa8ff);
-  box-shadow:
-    0 0 0.45cqw var(--blue-lit, #6aa8ff),
-    0 0 1.5cqw var(--blue-glow, rgba(26, 107, 255, 0.75));
-}
-
-.tip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-bottom: 1cqw;
-  padding: 0.45em 0.95em;
-  border-radius: 999px;
-  background: var(--blue, #1a6bff);
-  color: #fff;
-  font-family: var(--ui-font, -apple-system, sans-serif);
-  /* the same tooltip the keycaps wear, so it can't shrink to nothing
-     just because the board got narrow */
-  font-size: clamp(11px, 2.2cqw, 15px);
-  font-weight: 500;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 0.4cqw);
-  transition:
-    opacity 180ms var(--ease-out, ease-out),
-    transform 220ms var(--spring, ease-out);
-}
-
-.slot[data-hot="true"] .tip {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-/* ── the copy ──────────────────────────────────────────── */
-
-.copy {
-  display: flex;
-  min-width: 0;
-  flex: 1 1 auto;
-  flex-direction: column;
+  gap: clamp(24px, 4.5vw, 80px);
 }
 
 /* the same face and treatment as the other two section headings,
    stacked one word per line and set tight enough that the lines touch */
 .heading {
   display: flex;
+  flex: 0 0 auto;
   flex-direction: column;
-  margin: 0 0 0.24em;
+  margin: 0;
   color: var(--word);
   font-size: clamp(28px, 13vw, 240px);
   font-weight: 400;
   letter-spacing: -0.052em;
   line-height: 0.76;
-  text-align: left;
+  text-align: right;
 }
 
 .accent {
   color: var(--blue);
 }
 
+.copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
 .name {
-  max-width: 62ch;
+  max-width: 58ch;
   margin: 0 0 1.1em;
   color: var(--text);
   font-family: var(--ui-font);
-  font-size: clamp(16px, 1.35vw, 21px);
-  font-weight: 500;
+  font-size: clamp(15px, 1.28vw, 19px);
+  font-weight: 400;
   line-height: 1.6;
 }
 
 .ipa {
   color: var(--text-dim);
-  font-weight: 400;
 }
 
 .bio {
-  max-width: 62ch;
-  margin: 0 0 1.1em;
+  max-width: 58ch;
+  margin: 0;
   color: var(--text-mid);
   font-family: var(--ui-font);
-  font-size: clamp(15px, 1.2vw, 18px);
-  line-height: 1.7;
-}
-
-.bio:last-child {
-  margin-bottom: 0;
+  font-size: clamp(15px, 1.28vw, 19px);
+  line-height: 1.75;
 }
 
 @media (max-width: 900px) {
-  .inner {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .board {
-    width: 100%;
+  .about {
+    flex-direction: column-reverse;
+    align-items: flex-start;
   }
 
   .heading {
-    margin-top: 0.3em;
+    text-align: left;
   }
 
   .name,

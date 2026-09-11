@@ -1,17 +1,18 @@
 /* ============================================================
    about me — the copy on the left, the heading on the right in
-   the same face as the other two sections. generous padding
-   above and below keeps the heading from crowding the sections
-   on either side of it.
+   the same face as the other two sections, sitting right beside
+   the copy. tall padding top and bottom keeps this whole block
+   floating in its own whitespace, clear of the sections either
+   side of it.
    ============================================================ */
 
 .about {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: clamp(96px, 16vh, 200px) clamp(24px, 3.2vw, 40px);
+  justify-content: center;
+  padding: clamp(160px, 26vh, 320px) clamp(24px, 3.2vw, 40px);
   background: #fff;
-  gap: clamp(20px, 3vw, 48px);
+  gap: clamp(12px, 1.6vw, 28px);
 }
 
 /* the same face and treatment as the other two section headings,
@@ -33,15 +34,17 @@
   color: var(--blue);
 }
 
+/* sized to its own content rather than stretched to fill — that's what
+   lets the heading sit right beside it instead of across a gap left by
+   flex:1 filling the row */
 .copy {
   display: flex;
-  min-width: 0;
-  flex: 1;
+  flex: 0 1 auto;
   flex-direction: column;
+  max-width: 58ch;
 }
 
 .name {
-  max-width: 58ch;
   margin: 0 0 1.1em;
   color: var(--text);
   font-family: var(--ui-font);
@@ -55,7 +58,6 @@
 }
 
 .bio {
-  max-width: 58ch;
   margin: 0 0 1.1em;
   color: var(--text-mid);
   font-family: var(--ui-font);
@@ -77,8 +79,7 @@
     text-align: left;
   }
 
-  .name,
-  .bio {
+  .copy {
     max-width: none;
   }
 }

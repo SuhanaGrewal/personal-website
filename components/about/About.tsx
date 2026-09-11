@@ -5,28 +5,26 @@ export function About() {
     <section className={s.about}>
       <div className={s.copy}>
         <p className={s.name}>
-          Hi, I&rsquo;m Suhana Grewal,{" "}
-          <span className={s.ipa}>
-            pronounced /su&bull;hahn&bull;ah: grey&bull;wahl/
-          </span>
-          .
+          Hi, I&rsquo;m Suhana Grewal, pronounced{" "}
+          <span className={s.ipa}>/su&bull;hahn&bull;ah: grey&bull;wahl/</span>
         </p>
 
         <p className={s.bio}>
-          I&rsquo;m a sophomore doing Econ &amp; CS @ UChicago, and an
+          I&rsquo;m a sophomore @ UChicago doing Econ &amp; CS and an
           aspiring AI engineer. Lately I&rsquo;ve been deep into RAG, agentic
           memory, and inference optimization. When I get the time, I like to
-          pair my AI projects with clean UI/UX (hence, a design nerd:).
+          pair my AI projects with clean UI/UX (hence, a design nerd!)
         </p>
 
         <p className={s.bio}>
-          I also work on AI consulting projects, having interned with EY and
-          180 Degrees Consulting on tech projects.
+          I love working in AI consulting too &mdash; having interned with
+          Ernst &amp; Young and 180 Degrees Consulting on AI optimization for
+          existing workflow.
         </p>
 
         <p className={s.bio}>
           In my free time, I enjoy producing music and compete as a
-          national-level equestrian!
+          national-level equestrian :)
         </p>
       </div>
 

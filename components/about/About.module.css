@@ -1,0 +1,269 @@
+/* ============================================================
+   about me — the board is suhana's own rendered photograph; the
+   only thing drawn here is the four blocks sitting on its
+   shelves, each a real box with a lit dot-matrix face.
+   ============================================================ */
+
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(48px, 8vh, 112px) clamp(24px, 3.2vw, 40px);
+  background: #fff;
+}
+
+.inner {
+  display: flex;
+  width: min(1400px, 100%);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+}
+
+/* ── the board ─────────────────────────────────────────── */
+
+.board {
+  position: relative;
+  width: 46%;
+  flex: 0 0 auto;
+  /* the pegboard is a perfect square in the render, and the shelf
+     percentages below were measured against that square — any other
+     ratio here would slide the blocks off their shelves */
+  aspect-ratio: 1 / 1;
+  container-type: inline-size;
+}
+
+.boardImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ── a block on a shelf ────────────────────────────────── */
+
+.slot {
+  cursor: pointer;
+  --size: 20cqw;
+  --depth: 4.4cqw;
+
+  position: absolute;
+  bottom: var(--shelf-bottom);
+  left: var(--shelf-centre);
+  width: var(--size);
+  height: var(--size);
+  /* the base sits on the shelf's top surface, not centred on it */
+  perspective: 62cqw;
+  transform: translateX(-50%);
+}
+
+.block {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  /* turned just far enough to show its right-hand wall, the way the
+     reference block is turned */
+  transform: rotateY(-17deg) rotateX(3deg);
+  transition: transform 320ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.slot:hover .block,
+.slot:focus-visible .block {
+  transform: rotateY(-17deg) rotateX(3deg) translateZ(1.4cqw);
+}
+
+.slot:focus-visible {
+  outline: none;
+}
+
+/* the lit face */
+.face {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5cqw;
+  background: linear-gradient(158deg, #131316 0%, #0b0b0d 52%, #060607 100%);
+  box-shadow:
+    inset 0 0 0 0.16cqw #17171a,
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 1.4cqw 2.4cqw -0.9cqw rgb(0 0 0 / 0.8);
+}
+
+/* the right-hand wall, hinged at the block's right edge */
+.side {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--depth);
+  height: 100%;
+  border-radius: 0 0.4cqw 0.4cqw 0;
+  background: linear-gradient(90deg, #141417 0%, #0a0a0c 60%, #050506 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  transform-origin: 100% 50%;
+  transform: rotateY(-90deg);
+}
+
+/* the shadow the block casts onto the plank it stands on: laid flat at
+   its base so it foreshortens with the rest of the box */
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: -6%;
+  width: 112%;
+  height: calc(var(--depth) * 1.6);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgb(0 0 0 / 0.55) 0%,
+    rgb(0 0 0 / 0.28) 46%,
+    rgb(0 0 0 / 0) 72%
+  );
+  transform-origin: 50% 100%;
+  transform: rotateX(-90deg);
+}
+
+/* a sliver of top, since the board is seen very slightly from above */
+.top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--depth);
+  border-radius: 0.4cqw 0.4cqw 0 0;
+  background: linear-gradient(180deg, #1d1d21 0%, #101013 100%);
+  transform-origin: 50% 0%;
+  transform: rotateX(-90deg);
+}
+
+.pixelGrid {
+  display: grid;
+  width: 82%;
+  height: 82%;
+  grid-template-columns: repeat(21, 1fr);
+  grid-template-rows: repeat(21, 1fr);
+}
+
+.pixel {
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.05);
+  transform: scale(0.6);
+  transition:
+    background 260ms var(--ease-out, ease-out),
+    box-shadow 260ms var(--ease-out, ease-out);
+}
+
+.pixel[data-lit="true"] {
+  background: var(--blue, #1a6bff);
+  box-shadow:
+    0 0 0.35cqw var(--blue, #1a6bff),
+    0 0 0.9cqw var(--blue-glow, rgba(26, 107, 255, 0.55));
+}
+
+.slot:hover .pixel[data-lit="true"],
+.slot:focus-visible .pixel[data-lit="true"] {
+  background: var(--blue-lit, #6aa8ff);
+  box-shadow:
+    0 0 0.5cqw var(--blue-lit, #6aa8ff),
+    0 0 1.6cqw var(--blue-glow, rgba(26, 107, 255, 0.75));
+}
+
+.tip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 1cqw;
+  padding: 0.45em 0.95em;
+  border-radius: 999px;
+  background: var(--blue, #1a6bff);
+  color: #fff;
+  font-family: var(--ui-font, -apple-system, sans-serif);
+  /* the same tooltip as the keycaps wear, so it can't shrink to
+     nothing just because the board got narrow */
+  font-size: clamp(11px, 2.2cqw, 15px);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 0.4cqw);
+  transition:
+    opacity 180ms var(--ease-out, ease-out),
+    transform 220ms var(--spring, ease-out);
+}
+
+.slot[data-hot="true"] .tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ── the copy ──────────────────────────────────────────── */
+
+.copy {
+  container-type: inline-size;
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.heading {
+  margin: 0 0 0.36em;
+  color: var(--word, var(--text));
+  font-size: clamp(40px, 19cqw, 190px);
+  font-weight: 400;
+  letter-spacing: -0.052em;
+  line-height: 0.86;
+}
+
+.accent {
+  color: var(--blue, #1a6bff);
+}
+
+.name {
+  margin: 0 0 1.2em;
+  color: var(--text, #0c0c0e);
+  font-family: var(--ui-font, -apple-system, sans-serif);
+  font-size: clamp(16px, 1.35vw, 21px);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.ipa {
+  color: var(--text-dim, #86868c);
+  font-weight: 400;
+}
+
+.bio {
+  max-width: 62ch;
+  margin: 0 0 1.1em;
+  color: var(--text-mid, #3d3d42);
+  font-family: var(--ui-font, -apple-system, sans-serif);
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.7;
+}
+
+.bio:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .board {
+    width: 100%;
+  }
+
+  .heading {
+    text-align: center;
+  }
+
+  .name,
+  .bio {
+    max-width: none;
+  }
+}

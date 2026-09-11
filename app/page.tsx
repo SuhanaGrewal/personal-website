@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero/Hero";
 import { Desk } from "@/components/desk/Desk";
 import { Laptop } from "@/components/laptop/Laptop";
+import { About } from "@/components/about/About";
 import s from "./page.module.css";
 
 export default function Home() {
@@ -21,6 +22,8 @@ export default function Home() {
           <Desk />
         </div>
       </section>
+
+      <About />
 
       {/* the closing beat: the same white as the work section, with a
           space grey machine whose live keys are the links */}

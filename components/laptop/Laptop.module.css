@@ -208,49 +208,32 @@
   position: absolute;
   top: 50%;
   left: 0.5cqw;
-  width: 9.6cqw;
+  display: block;
+  width: 11.4cqw;
   padding: 0;
   border: 0;
-  aspect-ratio: 0.46;
-  border-radius: 46% 46% 42% 42% / 30% 30% 26% 26%;
-  background:
-    /* the long specular down the upper left of the dome */
-    radial-gradient(
-      58% 34% at 34% 15%,
-      rgb(255 255 255 / 0.34) 0%,
-      rgb(255 255 255 / 0.1) 42%,
-      transparent 74%
-    ),
-    /* the softer bounce along the right flank */
-    radial-gradient(
-      40% 46% at 88% 52%,
-      rgb(255 255 255 / 0.07) 0%,
-      transparent 68%
-    ),
-    linear-gradient(174deg, #4a4a52 0%, #38383f 20%, #26262c 58%, #17181c 100%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.26),
-    inset 0 0 0 1px rgb(255 255 255 / 0.055),
-    inset 0 -1.4cqw 2.4cqw rgb(0 0 0 / 0.5),
-    0 2.2cqw 3cqw -1.4cqw rgb(14 16 22 / 0.42);
+  background: none;
   cursor: pointer;
   transform: translateY(-50%);
-  transition:
-    transform 0.3s var(--ease-out),
-    box-shadow 0.3s var(--ease-out);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.mouseArt {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
 .mouse:hover,
 .mouse:focus-visible {
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.34),
-    inset 0 0 0 1px rgb(26 107 255 / 0.3),
-    inset 0 calc(var(--u, 14px) * -0.7) calc(var(--u, 14px) * 1.1)
-      rgb(0 0 0 / 0.45),
-    0 0 3cqw rgb(26 107 255 / 0.3),
-    0 2.6cqw 3.4cqw -1.4cqw rgb(14 16 22 / 0.45);
   outline: none;
-  transform: translateY(calc(-50% - 0.3cqw));
+  transform: translateY(calc(-50% - 0.35cqw));
+}
+
+.mouse:hover .mouseArt,
+.mouse:focus-visible .mouseArt {
+  filter: drop-shadow(0 0 1.6cqw rgb(26 107 255 / 0.35));
 }
 
 .mouse:active {
@@ -328,7 +311,7 @@
 
   .mouse {
     position: static;
-    width: 16cqw;
+    width: 19cqw;
     transform: none;
   }
 

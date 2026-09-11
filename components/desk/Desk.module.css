@@ -594,15 +594,14 @@
   margin: 0.4cqw 0 1.6cqw;
 }
 
-/* sized and set in the same face as .para — a caption that reads at
-   normal text size, left-aligned with the rest of the column rather
-   than centred under the chart as its own separate display element */
+/* matches .para exactly now — size, face, ink, and left-aligned
+   rather than its own smaller, dimmer, centred caption style */
 .chartCaption {
   margin: 1cqw 0 0;
-  color: #6a6a74;
+  color: #3d3d47;
   font-family: var(--ui-font);
   font-size: 1.62cqw;
-  line-height: 1.55;
+  line-height: 1.72;
   text-align: left;
 }
 

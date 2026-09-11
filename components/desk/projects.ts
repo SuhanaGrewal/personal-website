@@ -134,19 +134,19 @@ export const PROJECTS: Project[] = [
         heading: "what it can do",
         list: [
           {
-            term: "morning digests:",
+            term: "Morning Digests:",
             body: "A rundown of what changed while you were away, and what your day ahead looks like.",
           },
           {
-            term: "proactive drafts:",
+            term: "Proactive Drafts:",
             body: "Replies get drafted before you ask — not just answers when prompted.",
           },
           {
-            term: "soft-commitment tracking:",
+            term: "Soft-Commitment Tracking:",
             body: "An “I’ll get back to you Friday” becomes a follow-up or a to-do item automatically.",
           },
           {
-            term: "calendar management:",
+            term: "Calendar Management:",
             body: "Flags overlaps, proposes reschedules, creates events.",
           },
         ],
@@ -176,15 +176,15 @@ export const PROJECTS: Project[] = [
         heading: "how it’s different from what’s out there",
         list: [
           {
-            term: "writes in your voice:",
+            term: "Writes in Your Voice:",
             body: "It learns how you actually write to each person, so a drafted reply to your manager doesn’t sound like the one to a friend.",
           },
           {
-            term: "reads inside your files:",
+            term: "Reads Inside Your Files:",
             body: "Most systems stop at the message body — Ori extracts and indexes what’s in attachments too.",
           },
           {
-            term: "retrieval and action in one pass:",
+            term: "Retrieval and Action in One Pass:",
             body: "Most tools either search your data or act on the web, so you have to bridge the two yourself. Ori’s agents skip that step, pulling from what it knows about you and finishing the task without you re-typing the context.",
           },
         ],

@@ -11,6 +11,14 @@
   initial-value: 0px;
 }
 
+/* the depth of a part standing off the accelerator board — registered
+   so a package can actually settle when pressed instead of jumping */
+@property --part-d {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
 @property --lit {
   syntax: "<number>";
   inherits: false;

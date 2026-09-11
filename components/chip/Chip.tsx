@@ -20,13 +20,13 @@ export function Chip() {
 
   return (
     <div className={s.card}>
+      <div className={s.groundShadow} aria-hidden="true" />
+
       <div className={s.pcb}>
-        {/* board status led — a real feature of a card like this,
-            and the one place the site's accent shows up here */}
-        <div className={s.status}>
-          <i className={s.led} aria-hidden="true" />
-          <span className={s.statusText}>available for freelance</span>
-        </div>
+        {/* the packages sit in a milled recess, the way the reference's
+            keys sit in a well rather than straight on the face — the
+            depth reads as much from what is sunk in as what stands out */}
+        <div className={s.well} aria-hidden="true" />
 
         {/* the links, as the memory bank flanking the die */}
         <div className={s.bank}>

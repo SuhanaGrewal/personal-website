@@ -53,22 +53,22 @@
 }
 
 /* the closing beat — the white of the work section carries straight
-   through, and the card is full-bleed and flush to the bottom edge:
-   no padding under it, so the pcie contacts meet the end of the page
-   rather than floating above a margin. the heading takes the free
-   space above via margin:auto, which leaves the card anchored down
-   however tall the viewport is. */
+   through. heading and card are centred together as one group, with
+   white on every side: the board is a contained object sitting on the
+   page, not a full-bleed panel filling the viewport. */
 .contact {
   display: flex;
   min-height: 100svh;
   flex-direction: column;
-  padding: clamp(48px, 8vh, 96px) 0 0;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(48px, 9vh, 104px) clamp(24px, 3.2vw, 40px);
   background: #fff;
+  gap: clamp(32px, 7vh, 76px);
 }
 
 .contactHeading {
-  margin: auto;
-  padding: 0 clamp(24px, 3.2vw, 40px);
+  margin: 0;
   color: var(--word);
   font-size: clamp(36px, 8vw, 108px);
   font-weight: 400;

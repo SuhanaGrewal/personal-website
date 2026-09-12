@@ -40,11 +40,14 @@ export default function Home() {
 
       {/* the last word: one line to leave on, and the small print */}
       <footer className={s.footer}>
-        <p className={s.quote}>
-          If the universe put the dream in your heart,
-          <br />
-          it has every intention for you to make it happen.
-        </p>
+        <div className={s.thought}>
+          <p className={s.thoughtLabel}>food for thought:</p>
+          <p className={s.quote}>
+            If the universe put the dream in your heart,
+            <br />
+            it has every intention for you to make it happen.
+          </p>
+        </div>
         <p className={s.copyright}>&copy; 2026 Suhana Grewal</p>
       </footer>
     </main>

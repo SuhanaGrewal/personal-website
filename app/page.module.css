@@ -94,6 +94,20 @@
   gap: 32px;
 }
 
+.thought {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+}
+
+/* the small lead-in above the quote, in the muted ink the copyright uses */
+.thoughtLabel {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: clamp(12px, 0.9vw, 13px);
+  letter-spacing: 0.01em;
+}
+
 /* the one line to leave on, in the site's one accent */
 .quote {
   max-width: 46ch;

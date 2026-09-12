@@ -383,6 +383,20 @@
   object-position: center;
 }
 
+/* the top-row tiles are wider than either clip, so cover trims top and
+   bottom there. ryng's frame is empty black at the bottom and has its
+   nav buttons at the top — anchor to the top so they stay in. */
+.window[data-project="ryng"] .thumbVideo {
+  object-position: 50% 0%;
+}
+
+/* ori's clip is wider still and was losing its sides; contain shows
+   the whole frame, and because the clip itself is white the sliver of
+   paper above and below reads as part of it. */
+.window[data-project="ori"] .thumbVideo {
+  object-fit: contain;
+}
+
 /* the calm state: just the mark, on the same paper the real preview
    sits on. the video or image is already there underneath, already
    playing — this is only ever a lid on top of it, so nothing has to

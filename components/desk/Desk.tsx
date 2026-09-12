@@ -316,6 +316,7 @@ export function Desk() {
             <article
               key={p.id}
               className={s.window}
+              data-project={p.id}
               data-open={isOpen || undefined}
               data-dimmed={open && !isOpen ? "true" : undefined}
               data-hover={hovered === p.id || undefined}

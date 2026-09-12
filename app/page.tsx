@@ -21,8 +21,9 @@ export default function Home() {
           {/* the windows open from their green light, which nobody guesses
               unprompted — one quiet line says so */}
           <p className={s.hint}>
-            hover a window for a preview, and click its green light to open
-            the full case study.
+            hover a window for a preview;
+            <br />
+            expand to open the full case study.
           </p>
         </div>
 

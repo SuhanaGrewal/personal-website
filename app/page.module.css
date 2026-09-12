@@ -19,7 +19,8 @@
 
 /* the small print under the heading, in the muted ink */
 .hint {
-  max-width: 26ch;
+  max-width: 40ch;
+  white-space: nowrap;
   margin: clamp(14px, 1.6vw, 24px) 0 0;
   color: var(--text-dim);
   font-size: clamp(13px, 1vw, 15px);

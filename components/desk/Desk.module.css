@@ -440,20 +440,15 @@
   border-radius: 0.6cqw;
 }
 
-/* a clip runs at a wider aspect than the drawn banners and was
-   pushing the whole first screen of copy below the fold. narrower
-   plus a height cap keeps the lead and preface visible on open. */
+/* a clip sits exactly on the reading column — the same 62cqw the
+   copy below it is set to — so its edges line up with the body text,
+   and every clip header (ori, ryng, prune) is the same size. the
+   height cap is only a guard for an unusually tall clip; a 16:9 one
+   at this width is ~35cqw, under it. */
 video.header {
-  width: 68%;
-  max-height: 24cqw;
+  width: 62cqw;
+  max-height: 38cqw;
   object-fit: contain;
-}
-
-/* ori's clip is a landing-page recording with small type in it, so it
-   gets more room than ryng's — still capped so the lead stays on screen */
-.detail[data-project="ori"] video.header {
-  width: 80%;
-  max-height: 28cqw;
 }
 
 /* everything below the artwork sits in a reading column */

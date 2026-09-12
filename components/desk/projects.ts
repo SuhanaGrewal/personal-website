@@ -269,12 +269,8 @@ export const PROJECTS: Project[] = [
       {
         heading: "preface",
         cols: [
-          [
-            "Year: 2026",
-            "Role: AI Engineering Intern",
-            "Organization: Stealth Startup",
-          ],
-          ["Languages: Python, JavaScript, SQL"],
+          ["Year: 2026", "Role: AI Engineering Intern"],
+          ["Languages: Python, JavaScript, SQL", "Organization: Stealth Startup"],
         ],
       },
       {

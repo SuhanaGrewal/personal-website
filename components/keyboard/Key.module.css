@@ -54,7 +54,12 @@
     inset 0 0 calc(var(--u) * 0.3) rgb(26 107 255 / calc(var(--lit) * 0.45)),
     0 0 calc(var(--u) * 0.42) rgb(26 107 255 / calc(var(--lit) * 0.3));
   color: var(--cap-legend);
+  /* a real keycap's legend is set in the system face, not whatever
+     the page body happens to use — `font: inherit` was pulling in
+     Geist (the site's body font) instead, which reads nothing like
+     the actual Magic Keyboard */
   font: inherit;
+  font-family: var(--ui-font);
   /* a cap rendered as a link must not arrive with an underline */
   text-decoration: none;
   transform: translateZ(var(--cap-h));

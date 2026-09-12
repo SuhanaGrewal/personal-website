@@ -6,8 +6,8 @@
    targets are defined once and the keys point at them by
    name rather than each carrying its own url.
 
-   TODO(suhana): only github is real. swap the rest for your
-   actual linkedin / x / substack / email / résumé.
+   TODO(suhana): x and résumé are still placeholders — x isn't
+   working right now, and there's no résumé link yet.
    ────────────────────────────────────────────────────────── */
 
 export interface Target {
@@ -30,12 +30,19 @@ export type TargetName =
    omits sameTab has no such property in its narrowed type, so reading
    t.sameTab off the union fails to compile */
 export const TARGETS: Record<TargetName, Target> = {
-  linkedin: { label: "linkedin", href: "#" },
-  substack: { label: "substack", href: "#" },
+  linkedin: {
+    label: "linkedin",
+    href: "https://www.linkedin.com/in/suhana-grewal",
+  },
+  substack: { label: "substack", href: "https://substack.com/@suhanagrewal" },
   github: { label: "github", href: "https://github.com/SuhanaGrewal" },
   x: { label: "x", href: "#" },
   resume: { label: "résumé", href: "#", sameTab: true },
-  email: { label: "email", href: "mailto:you@example.com", sameTab: true },
+  email: {
+    label: "email",
+    href: "mailto:suhanagrewal@uchicago.edu",
+    sameTab: true,
+  },
 };
 
 /** key id → where it goes. ids match the layout the hero already uses. */

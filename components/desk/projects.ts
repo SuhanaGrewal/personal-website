@@ -291,11 +291,11 @@ export const PROJECTS: Project[] = [
         body: "Most self-healing pipelines stop at the backend. They catch failing tests and broken functions, but nothing looks at what actually renders in the browser. Broken layouts, unreachable buttons, and accessibility violations all slip through, and the only backstop left is a human clicking through every page by hand.",
       },
       {
-        heading: "architecture",
+        heading: "my work",
         body: "I owned the UI/UX bug detection system, the taxonomy behind it, and the reliability gates that keep it honest.",
       },
       {
-        heading: "my work",
+        heading: "architecture",
         body: "Architected a deterministic UI/UX bug detection system that extends the company\u2019s self-healing software pipeline from backend code to the rendered frontend. Built a four-tier bug taxonomy that classifies UI defects by machine-verifiability (from fully deterministic signals like JS runtime errors and WCAG violations down to heuristic, human-gated findings) and maps each tier to a corresponding PR action policy.\n\nIntegrated into the existing e2b sandbox setup: Playwright crawls every route across logged-in/logged-out states.\n\nReliability was an important component. A bug only counts if it reproduces across 3 consecutive runs. Screenshots don\u2019t fire until the network is idle and fonts have loaded. Regions with dynamic content are masked so they don\u2019t trigger false positives.",
       },
       {

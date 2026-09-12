@@ -282,6 +282,10 @@ function Detail({ p }: { p: Project }) {
 
 export function Desk() {
   const [open, setOpen] = useState<string | null>(null);
+  /* CSS :hover alone doesn't reliably drive this in every environment
+     this renders in, so the hover state that reveals a tile's real
+     preview is tracked explicitly rather than left to the pseudo-class */
+  const [hovered, setHovered] = useState<string | null>(null);
   const clock = useClock();
 
   return (
@@ -311,6 +315,9 @@ export function Desk() {
               className={s.window}
               data-open={isOpen || undefined}
               data-dimmed={open && !isOpen ? "true" : undefined}
+              data-hover={hovered === p.id || undefined}
+              onPointerEnter={() => setHovered(p.id)}
+              onPointerLeave={() => setHovered(null)}
               style={{
                 left: isOpen ? "0%" : `${p.x}%`,
                 top: isOpen ? "0%" : `${p.y}%`,

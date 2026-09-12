@@ -18,18 +18,20 @@ import s from "./Composer.module.css";
      return res.ok;
    }
    ────────────────────────────────────────────────────────── */
-/* there's no server behind this site yet, so the message goes out the
-   one way that needs none: a mailto: to suhana's gmail, which opens
-   the visitor's own mail app with the note already written. swap for
-   the fetch above once there's an api route with credentials. */
-const INBOX = "suhanagrewal0407@gmail.com";
-
+/* the note posts to /api/message, which mails it to suhana from the
+   server — nothing opens on the visitor's side. false on any failure
+   so the composer can say so instead of pretending it went. */
 async function deliver(message: string): Promise<boolean> {
-  const subject = "hi from your website";
-  const url = `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-  // mailto: hands off to the mail client without unloading this page
-  window.location.href = url;
-  return true;
+  try {
+    const res = await fetch("/api/message", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ message }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 interface Props {
@@ -40,6 +42,7 @@ interface Props {
 export function Composer({ onType }: Props) {
   const [value, setValue] = useState("");
   const [sent, setSent] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [busy, setBusy] = useState(false);
 
   const ready = value.trim().length > 0;
@@ -49,9 +52,15 @@ export function Composer({ onType }: Props) {
     if (!ready || busy) return;
 
     setBusy(true);
+    setFailed(false);
     const ok = await deliver(value.trim());
     setBusy(false);
-    if (!ok) return;
+    if (!ok) {
+      // keep what they typed; just say it didn't go
+      setFailed(true);
+      window.setTimeout(() => setFailed(false), 3200);
+      return;
+    }
 
     setValue("");
     setSent(true);
@@ -70,9 +79,12 @@ export function Composer({ onType }: Props) {
           onType?.(e.code);
           if (e.shiftKey) onType?.("ShiftLeft");
         }}
-        placeholder={sent ? "sent to suhana" : "don’t be shy, say hi!"}
+        placeholder={
+          sent ? "sent to suhana" : failed ? "didn’t send — try again?" : "don’t be shy, say hi!"
+        }
         aria-label="Send Suhana a message"
         data-sent={sent || undefined}
+        data-failed={failed || undefined}
         maxLength={1000}
       />
 

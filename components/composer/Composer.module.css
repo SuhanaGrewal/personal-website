@@ -123,6 +123,10 @@
   color: var(--text-dim);
 }
 
+.input[data-failed="true"]::placeholder {
+  color: #c0392b;
+}
+
 .input[data-sent="true"]::placeholder {
   color: var(--blue);
 }

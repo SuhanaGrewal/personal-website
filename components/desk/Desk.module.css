@@ -449,6 +449,13 @@ video.header {
   object-fit: contain;
 }
 
+/* ori's clip is a landing-page recording with small type in it, so it
+   gets more room than ryng's — still capped so the lead stays on screen */
+.detail[data-project="ori"] video.header {
+  width: 80%;
+  max-height: 28cqw;
+}
+
 /* everything below the artwork sits in a reading column */
 /* ~70 characters a line, centred — the full width of the display
    ran closer to 100, which reads as a wall */

@@ -159,7 +159,7 @@ function Collapsed({ p }: { p: Project }) {
 function Detail({ p }: { p: Project }) {
   if (p.kind === "finder") return null;
   return (
-    <div className={`${s.detail} ${s.scroller}`}>
+    <div className={`${s.detail} ${s.scroller}`} data-project={p.id}>
       {p.video ? (
         <Clip src={p.video} poster={p.videoPoster} className={s.header} />
       ) : p.header ? (

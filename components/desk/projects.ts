@@ -220,7 +220,7 @@ export const PROJECTS: Project[] = [
     videoPoster: "/projects/ryng-preview-poster.jpg",
     logo: "/projects/ryng-icon.png",
     oneLiner:
-      "Ryng lets you give any AI agent a working phone number. It handles the hard parts — carrier connections, low-latency audio streaming, and a synchronized speech-to-text / LLM / text-to-speech pipeline. Developers integrate with a single webhook; everyone else can build a voice agent with a few clicks and some context.",
+      "Ryng lets you give any AI agent a working phone number. It handles the hard parts — carrier connections, low-latency audio streaming, and a synchronized speech-to-text/LLM/text-to-speech pipeline. Developers integrate with a single webhook; everyone else can build a voice agent with a few clicks and some context.",
     sections: [
       {
         heading: "preface",
@@ -246,7 +246,7 @@ export const PROJECTS: Project[] = [
           [
             {
               src: "/projects/ryng-ui-templates.webp",
-              caption: "Industry templates — a pre-built agent for common use cases, customisable after.",
+              caption: "Industry templates with a pre-built agent for common use cases, customisable after.",
             },
           ],
           [
@@ -323,8 +323,13 @@ export const PROJECTS: Project[] = [
     w: 29.33,
     h: 45.5,
     logo: "/projects/prune-icon.png",
-    // TODO(suhana): header artwork — the opened view starts straight on
-    // the lead until there's a banner to put above it
+    /* the preview is an animation of what prune actually does: requests
+       stream in, get cached / routed to the 4-bit model / batched into
+       one pass, and go out. rendered from prune-anim.html to a clip so
+       it behaves exactly like ori's and ryng's — under the icon lid on
+       hover, and as the banner when opened. */
+    video: "/projects/prune-preview.mp4",
+    videoPoster: "/projects/prune-preview-poster.jpg",
     oneLiner:
       "Prune wraps any LLM with cost and latency optimizations including semantic caching, adaptive routing, request batching, and quantization. Developers can plug it in as a serving layer and it decides when to reuse a past answer, downgrade to a cheaper model, group requests together, and runs everything on a compressed version of the model.",
     sections: [

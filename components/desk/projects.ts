@@ -272,14 +272,14 @@ export const PROJECTS: Project[] = [
           [
             "Year: 2026",
             "Role: AI Engineering Intern",
-            "Organization: Stealth Startup \u2014 backed by T1 Angels, Z Fellows, Pear VC",
+            "Organization: Stealth Startup, backed by Z Fellows; T1 Angels",
           ],
-          ["Languages: Python, JavaScript, SQL", "Tools:"],
+          ["Languages: Python, JavaScript, SQL"],
         ],
       },
       {
         heading: "the problem",
-        body: "Most self-healing pipelines stop at the backend \u2014 they catch failing tests and broken functions, but nothing looks at what actually renders in the browser. Broken layouts, unreachable buttons, and accessibility violations all slip through, and the only backstop left is a human clicking through every page by hand.",
+        body: "Most self-healing pipelines stop at the backend. They catch failing tests and broken functions, but nothing looks at what actually renders in the browser. Broken layouts, unreachable buttons, and accessibility violations all slip through, and the only backstop left is a human clicking through every page by hand.",
       },
       {
         heading: "what i did",

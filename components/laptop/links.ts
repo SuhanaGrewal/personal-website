@@ -6,8 +6,8 @@
    targets are defined once and the keys point at them by
    name rather than each carrying its own url.
 
-   TODO(suhana): x and résumé are still placeholders — x isn't
-   working right now, and there's no résumé link yet.
+   TODO(suhana): x is still a placeholder — it isn't working right
+   now.
    ────────────────────────────────────────────────────────── */
 
 export interface Target {
@@ -37,7 +37,7 @@ export const TARGETS: Record<TargetName, Target> = {
   substack: { label: "substack", href: "https://substack.com/@suhanagrewal" },
   github: { label: "github", href: "https://github.com/SuhanaGrewal" },
   x: { label: "x", href: "#" },
-  resume: { label: "résumé", href: "#", sameTab: true },
+  resume: { label: "résumé", href: "/resume-suhana-grewal.pdf" },
   email: {
     label: "email",
     href: "mailto:suhanagrewal@uchicago.edu",

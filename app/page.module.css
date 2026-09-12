@@ -80,3 +80,33 @@
   line-height: 0.86;
   text-align: left;
 }
+
+/* ── footer ────────────────────────────────────────────── */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(40px, 6vh, 72px) clamp(24px, 3.2vw, 40px)
+    clamp(28px, 4vh, 48px);
+  background: #fff;
+  gap: 0.9em;
+  text-align: center;
+}
+
+/* set in the page face, a step under body, so it reads as a sign-off
+   rather than another paragraph */
+.quote {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--text-mid);
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.6;
+}
+
+.copyright {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: clamp(12px, 0.9vw, 13px);
+  letter-spacing: 0.01em;
+}

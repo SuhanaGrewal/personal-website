@@ -37,6 +37,15 @@ export default function Home() {
           }
         />
       </section>
+
+      {/* the last word: one line to leave on, and the small print */}
+      <footer className={s.footer}>
+        <p className={s.quote}>
+          Most things work out in the end. The trick is doing the work in the
+          middle.
+        </p>
+        <p className={s.copyright}>&copy; 2026 Suhana Grewal</p>
+      </footer>
     </main>
   );
 }

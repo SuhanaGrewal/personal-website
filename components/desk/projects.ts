@@ -228,7 +228,7 @@ export const PROJECTS: Project[] = [
           ["Year: 2025", "Role: Full-stack developer"],
           [
             "Languages: JavaScript",
-            "Tools: React, Tailwind CSS, Supabase, Node.js, PostgreSQL",
+            "Tools: React, Tailwind CSS, Supabase, Node.js",
           ],
         ],
       },
@@ -288,8 +288,29 @@ export const PROJECTS: Project[] = [
         body: "Most self-healing pipelines stop at the backend. They catch failing tests and broken functions, but nothing looks at what actually renders in the browser. Broken layouts, unreachable buttons, and accessibility violations all slip through, and the only backstop left is a human clicking through every page by hand.",
       },
       {
-        heading: "what i did",
-        body: "Architected a deterministic UI/UX bug detection system that extends the company\u2019s self-healing software pipeline from backend code to the rendered frontend. Built a four-tier bug taxonomy that classifies UI defects by machine-verifiability (from fully deterministic signals like JS runtime errors and WCAG violations down to heuristic, human-gated findings) and maps each tier to a corresponding PR action policy.\n\nIntegrated into the existing e2b sandbox setup: Playwright crawls every route across logged-in/logged-out states. On each page, axe-core runs an accessibility audit and a set of DOM checks catch layout overflow, broken links, and click targets blocked by overlapping elements.\n\nReliability was an important component. A bug only counts if it reproduces across 3 consecutive runs. Screenshots don\u2019t fire until the network is idle and fonts have loaded. Regions with dynamic content are masked so they don\u2019t trigger false positives.",
+        heading: "architecture",
+        body: "I owned this end to end: the detection system, the taxonomy behind it, and the reliability gates that keep it honest.\n\nArchitected a deterministic UI/UX bug detection system that extends the company\u2019s self-healing software pipeline from backend code to the rendered frontend. Built a four-tier bug taxonomy that classifies UI defects by machine-verifiability (from fully deterministic signals like JS runtime errors and WCAG violations down to heuristic, human-gated findings) and maps each tier to a corresponding PR action policy.\n\nIntegrated into the existing e2b sandbox setup: Playwright crawls every route across logged-in/logged-out states. On each page, axe-core runs an accessibility audit and a set of DOM checks catch layout overflow, broken links, and click targets blocked by overlapping elements.\n\nReliability was an important component. A bug only counts if it reproduces across 3 consecutive runs. Screenshots don\u2019t fire until the network is idle and fonts have loaded. Regions with dynamic content are masked so they don\u2019t trigger false positives.",
+      },
+      {
+        heading: "the four-tier taxonomy",
+        list: [
+          {
+            term: "Tier 1 \u2014 Deterministic:",
+            body: "Machine-verifiable with zero ambiguity. JS runtime errors, console exceptions, HTTP 4xx/5xx on asset loads, broken anchor hrefs. PR action: auto-block merge.",
+          },
+          {
+            term: "Tier 2 \u2014 Contractual:",
+            body: "Violations of a published spec. WCAG 2.1 AA failures, viewport overflow beyond the document boundary, z-index occlusion of interactive elements. PR action: auto-flag with inline annotation, merge requires reviewer sign-off.",
+          },
+          {
+            term: "Tier 3 \u2014 Heuristic:",
+            body: "Likely bugs based on statistical thresholds. Tap targets under 44px, text contrast between 4.2:1 and 4.5:1 (near-fail), layout shifts above 0.15 CLS. PR action: open a low-priority issue, no merge block.",
+          },
+          {
+            term: "Tier 4 \u2014 Subjective:",
+            body: "Requires human judgment. Inconsistent spacing that doesn\u2019t violate any rule, copy truncation that\u2019s technically clipped but maybe intentional, animations that feel janky but pass performance budgets. PR action: screenshot attached to PR comment, triaged weekly.",
+          },
+        ],
       },
     ],
   },
@@ -302,12 +323,42 @@ export const PROJECTS: Project[] = [
     w: 29.33,
     h: 45.5,
     logo: "/projects/prune-icon.png",
+    // TODO(suhana): header artwork — the opened view starts straight on
+    // the lead until there's a banner to put above it
+    oneLiner:
+      "Prune wraps any LLM with cost and latency optimizations including semantic caching, adaptive routing, request batching, and quantization. Developers can plug it in as a serving layer and it decides when to reuse a past answer, downgrade to a cheaper model, group requests together, and runs everything on a compressed version of the model.",
     sections: [
       {
+        heading: "preface",
+        cols: [
+          ["Year: 2025", "Role: Full-stack Developer"],
+          [
+            "Languages: Python",
+            "Tools: PyTorch, Hugging Face Transformers, FastAPI, SQLite, asyncio",
+          ],
+        ],
+      },
+      {
+        heading: "model used",
+        body: "Llama 3.1 8B Instruct (free, open-weight via Hugging Face).",
+      },
+      {
         heading: "the problem",
-        // TODO(suhana): drop in prune's real case study — oneLiner,
-        // preface (year/role/languages/tools), problem, what you did.
-        body: "What you hit.",
+        body: "Serving an LLM in production usually means every request hits the same full-size model, one at a time, at full precision. This wastes compute on duplicate queries, over-serves trivial requests with an expensive model, and misses easy throughput gains from handling concurrent traffic together. Prune adds a layer in front of the model that fixes this without touching how the model was trained.",
+      },
+      {
+        heading: "why it\u2019s different from a basic caching wrapper",
+        body: "Most \u201csave cost on LLM calls\u201d tools stop at caching. Prune combines four techniques that compound: a cache to skip repeat work, a router to send easy queries to a smaller quantized model, a batcher to group concurrent requests into a single forward pass, and quantization applied by default so even the \u201cfull\u201d path runs lighter.",
+      },
+      {
+        heading: "results",
+        body: "From internal benchmarking on a mixed query set of ~500 requests:",
+        bullets: [
+          "18% cache hit rate on near-duplicate queries.",
+          "~48% of remaining queries routed to the 4-bit quantized model with no perceptible quality drop on simple queries.",
+          "1.6x throughput improvement under concurrent load from micro-batching.",
+          "~30% reduction in average latency and ~40% reduction in estimated inference cost vs. an unoptimized fp16 baseline hitting every request individually.",
+        ],
       },
     ],
   },

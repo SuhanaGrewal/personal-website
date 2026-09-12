@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "geist": "^1.7.2",
     "next": "16.3.4",
     "nodemailer": "^10.0.9",

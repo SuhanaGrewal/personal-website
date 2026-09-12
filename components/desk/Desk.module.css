@@ -395,6 +395,10 @@
    paper above and below reads as part of it. */
 .window[data-project="ori"] .thumbVideo {
   object-fit: contain;
+  /* the strips contain leaves above and below are painted the clip's
+     own edge colour (sampled from its frame), so they read as more of
+     the clip rather than as the tile's placeholder showing through */
+  background: #f3f2ed;
 }
 
 /* the calm state: just the mark, on the same paper the real preview

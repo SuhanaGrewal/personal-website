@@ -84,6 +84,20 @@ html {
      trackpad scrolling stay native, which is smoother than anything
      scripted would be */
   scroll-behavior: smooth;
+  /* the page stops at each section as you scroll. proximity, not
+     mandatory: the hero is a 320vh scroll-driven sequence and a
+     mandatory snap would throw you to its top or bottom whenever
+     you paused mid-animation. */
+  scroll-snap-type: y proximity;
+}
+
+main > section {
+  scroll-snap-align: start;
+}
+
+/* the footer is short — rest the page on its bottom edge, not its top */
+main > footer {
+  scroll-snap-align: end;
 }
 
 html,

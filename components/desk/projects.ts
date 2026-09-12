@@ -256,14 +256,35 @@ export const PROJECTS: Project[] = [
     links: [{ label: "ryng.online", href: "https://ryng.online" }],
   },
   {
-    id: "three",
-    title: "project three",
+    id: "self-healing",
+    title: "self-healing interfaces",
     kind: "project",
     x: 47.47,
     y: 59,
     w: 23.27,
     h: 38,
-    sections: [{ heading: "the problem", body: "What you hit." }],
+    image: "/projects/self-healing-cover.webp",
+    sections: [
+      {
+        heading: "preface",
+        cols: [
+          [
+            "Year: 2026",
+            "Role: AI Engineering Intern",
+            "Organization: Stealth Startup \u2014 backed by T1 Angels, Z Fellows, Pear VC",
+          ],
+          ["Languages: Python, JavaScript, SQL", "Tools:"],
+        ],
+      },
+      {
+        heading: "the problem",
+        body: "Most self-healing pipelines stop at the backend \u2014 they catch failing tests and broken functions, but nothing looks at what actually renders in the browser. Broken layouts, unreachable buttons, and accessibility violations all slip through, and the only backstop left is a human clicking through every page by hand.",
+      },
+      {
+        heading: "what i did",
+        body: "Architected a deterministic UI/UX bug detection system that extends the company\u2019s self-healing software pipeline from backend code to the rendered frontend. Built a four-tier bug taxonomy that classifies UI defects by machine-verifiability (from fully deterministic signals like JS runtime errors and WCAG violations down to heuristic, human-gated findings) and maps each tier to a corresponding PR action policy.\n\nIntegrated into the existing e2b sandbox setup: Playwright crawls every route across logged-in/logged-out states. On each page, axe-core runs an accessibility audit and a set of DOM checks catch layout overflow, broken links, and click targets blocked by overlapping elements.\n\nReliability was an important component. A bug only counts if it reproduces across 3 consecutive runs. Screenshots don\u2019t fire until the network is idle and fonts have loaded. Regions with dynamic content are masked so they don\u2019t trigger false positives.",
+      },
+    ],
   },
   {
     id: "index",
@@ -273,6 +294,6 @@ export const PROJECTS: Project[] = [
     y: 59,
     w: 23.27,
     h: 38,
-    files: ["foresite", "ori", "ryng", "project three", "archive/"],
+    files: ["foresite", "ori", "ryng", "self-healing interfaces", "archive/"],
   },
 ];

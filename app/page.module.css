@@ -19,7 +19,7 @@
 
 /* the small print under the heading, in the muted ink */
 .hint {
-  max-width: 40ch;
+  max-width: 52ch;
   white-space: nowrap;
   margin: clamp(14px, 1.6vw, 24px) 0 0;
   color: var(--text-dim);

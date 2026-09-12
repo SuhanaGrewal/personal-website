@@ -37,6 +37,45 @@
     box-shadow 0.4s var(--ease-out);
 }
 
+/* collapsed, it beckons: a soft wave rings out every couple of
+   seconds and the dot breathes with it, so it reads as something to
+   press rather than a decoration. the ring is the element's own
+   shadow — the form clips its children, but not its shadow — and it
+   stops the instant the dot is hovered or opened. */
+.composer:not(:hover):not(:focus-within):not([data-open="true"]) {
+  animation: beckon 2.6s var(--ease-out) infinite;
+}
+
+@keyframes beckon {
+  0% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.3),
+      0 6px 16px -8px rgb(26 107 255 / 0.6),
+      0 0 0 0 rgb(26 107 255 / 0.45);
+  }
+  60% {
+    transform: scale(1.05);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.3),
+      0 6px 16px -8px rgb(26 107 255 / 0.6),
+      0 0 0 16px rgb(26 107 255 / 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.3),
+      0 6px 16px -8px rgb(26 107 255 / 0.6),
+      0 0 0 16px rgb(26 107 255 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .composer {
+    animation: none !important;
+  }
+}
+
 .composer:hover,
 .composer:focus-within,
 .composer[data-open="true"] {

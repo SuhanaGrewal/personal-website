@@ -340,7 +340,7 @@ export const PROJECTS: Project[] = [
     video: "/projects/prune-preview.mp4",
     videoPoster: "/projects/prune-preview-poster.jpg",
     oneLiner:
-      "Prune wraps any LLM with cost and latency optimizations including semantic caching, adaptive routing, request batching, and quantization. Developers can plug it in as a serving layer and it decides when to reuse a past answer, downgrade to a cheaper model, group requests together, and runs everything on a compressed version of the model.",
+      "Prune wraps LLMs with cost and latency optimizations including semantic caching, adaptive routing, batching, and quantization. Developers can plug it in as a serving layer and it decides when to reuse a past answer, downgrade to a cheaper model, group requests together, and runs everything on a compressed version of the model.",
     sections: [
       {
         heading: "preface",

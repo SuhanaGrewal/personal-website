@@ -9,6 +9,23 @@
 
 /* the same face and treatment as the name in the hero, stacked one
    word per line and set tight enough that the lines touch */
+/* the heading and its one-line hint, stacked, sized to the heading */
+.workCopy {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* the small print under the heading, in the muted ink */
+.hint {
+  max-width: 26ch;
+  margin: clamp(14px, 1.6vw, 24px) 0 0;
+  color: var(--text-dim);
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.55;
+}
+
 .heading {
   display: flex;
   flex: 0 0 auto;

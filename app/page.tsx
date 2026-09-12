@@ -11,12 +11,20 @@ export default function Home() {
 
       {/* the machine slides away to reveal this */}
       <section id="after-hero" className={s.work}>
-        <h2 className={s.heading}>
-          <span>some</span>
-          <span className={s.accent}>stuff</span>
-          <span>i&rsquo;ve</span>
-          <span>made</span>
-        </h2>
+        <div className={s.workCopy}>
+          <h2 className={s.heading}>
+            <span>some</span>
+            <span className={s.accent}>stuff</span>
+            <span>i&rsquo;ve</span>
+            <span>made</span>
+          </h2>
+          {/* the windows open from their green light, which nobody guesses
+              unprompted — one quiet line says so */}
+          <p className={s.hint}>
+            hover a window for a preview, and click its green light to open
+            the full case study.
+          </p>
+        </div>
 
         <div className={s.deskWrap}>
           <Desk />

@@ -381,6 +381,35 @@
   object-position: center;
 }
 
+/* the calm state: just the wordmark, on the same paper the real
+   preview sits on. the video or image is already there underneath,
+   already playing — this is only ever a lid on top of it, so nothing
+   has to mount or start when the lid comes off on hover. */
+.logoLayer {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+  padding: 8cqw;
+  background: linear-gradient(145deg, #fbfbfc 0%, #eceef0 100%);
+  opacity: 1;
+  transition: opacity 0.28s var(--ease-out);
+  pointer-events: none;
+}
+
+.logoImg {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  object-fit: contain;
+}
+
+.window:hover .logoLayer {
+  opacity: 0;
+}
+
 /* ── the opened view ───────────────────────────────────── */
 
 .detail {

@@ -134,14 +134,25 @@ function Collapsed({ p }: { p: Project }) {
       </div>
     );
   }
+  const logo = p.logo ? (
+    <div className={s.logoLayer} aria-hidden="true">
+      <img className={s.logoImg} src={p.logo} alt="" />
+    </div>
+  ) : null;
+
   if (p.video) {
     return (
       <div className={s.thumb}>
         <Clip src={p.video} poster={p.videoPoster} className={s.thumbVideo} />
+        {logo}
       </div>
     );
   }
-  return <div className={s.thumb} style={shot(p)} />;
+  return (
+    <div className={s.thumb} style={shot(p)}>
+      {logo}
+    </div>
+  );
 }
 
 function Detail({ p }: { p: Project }) {

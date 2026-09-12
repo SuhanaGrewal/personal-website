@@ -47,6 +47,11 @@ export interface Project {
   h: number;
 
   image?: string;
+  /** shown at rest in the collapsed tile, in place of the video/image
+      preview — that preview only shows once you hover the tile.
+      keeps the closed mosaic calm; the wordmark is enough to say
+      which window is which until you're actually looking at it */
+  logo?: string;
   /** wide artwork across the top of the opened view */
   header?: string;
   /** the foresite vs LRU comparison graphic */
@@ -76,9 +81,10 @@ export const PROJECTS: Project[] = [
     kind: "project",
     x: 3,
     y: 3,
-    w: 37.31,
-    h: 53,
+    w: 29.33,
+    h: 45.5,
     image: "/projects/foresite-preview.svg",
+    logo: "/projects/foresite-logo.png",
     header: "/projects/foresite-header.svg",
     bars: true,
     sections: [
@@ -111,12 +117,13 @@ export const PROJECTS: Project[] = [
     id: "ori",
     title: "ori",
     kind: "project",
-    x: 3,
-    y: 59,
-    w: 41.47,
-    h: 38,
+    x: 35.33,
+    y: 3,
+    w: 29.33,
+    h: 45.5,
     video: "/projects/ori-preview.mp4",
     videoPoster: "/projects/ori-preview-poster.jpg",
+    logo: "/projects/ori-logo.png",
     oneLiner:
       "Ori is an agentic personal assistant. It answers questions about your emails, calendars, and events through a RAG system with 92% accuracy across 860 tests — and it can act: spawning agents to draft emails, schedule calendar events, flag potential fraud, and catch what you'd forget.",
     sections: [
@@ -204,12 +211,13 @@ export const PROJECTS: Project[] = [
     id: "ryng",
     title: "ryng",
     kind: "project",
-    x: 43.31,
+    x: 67.67,
     y: 3,
-    w: 53.69,
-    h: 53,
+    w: 29.33,
+    h: 45.5,
     video: "/projects/ryng-preview.mp4",
     videoPoster: "/projects/ryng-preview-poster.jpg",
+    logo: "/projects/ryng-logo.png",
     oneLiner:
       "Ryng lets you give any AI agent a working phone number. It handles the hard parts — carrier connections, low-latency audio streaming, and a synchronized speech-to-text / LLM / text-to-speech pipeline. Developers integrate with a single webhook; everyone else can build a voice agent with a few clicks and some context.",
     sections: [
@@ -259,11 +267,12 @@ export const PROJECTS: Project[] = [
     id: "self-healing",
     title: "self-healing interfaces",
     kind: "project",
-    x: 47.47,
-    y: 59,
-    w: 23.27,
-    h: 38,
+    x: 3,
+    y: 51.5,
+    w: 45.5,
+    h: 45.5,
     image: "/projects/self-healing-cover.webp",
+    logo: "/projects/self-healing-logo.png",
     header: "/projects/self-healing-header.webp",
     sections: [
       {
@@ -284,13 +293,21 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: "index",
-    title: "projects",
-    kind: "finder",
-    x: 73.73,
-    y: 59,
-    w: 23.27,
-    h: 38,
-    files: ["foresite", "ori", "ryng", "self-healing interfaces", "archive/"],
+    id: "prune",
+    title: "prune",
+    kind: "project",
+    x: 51.5,
+    y: 51.5,
+    w: 45.5,
+    h: 45.5,
+    logo: "/projects/prune-logo.png",
+    sections: [
+      {
+        heading: "the problem",
+        // TODO(suhana): drop in prune's real case study — oneLiner,
+        // preface (year/role/languages/tools), problem, what you did.
+        body: "What you hit.",
+      },
+    ],
   },
 ];

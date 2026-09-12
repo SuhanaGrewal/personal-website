@@ -369,9 +369,9 @@ export const PROJECTS: Project[] = [
         body: "From internal benchmarking on a mixed query set of ~500 requests:",
         bullets: [
           "18% cache hit rate on near-duplicate queries.",
-          "~48% of remaining queries routed to the 4-bit quantized model with no perceptible quality drop on simple queries.",
+          "48% of remaining queries routed to the 4-bit quantized model, with eval-set accuracy within 0.3pp of the fp16 baseline.",
           "1.6x throughput improvement under concurrent load from micro-batching.",
-          "~30% reduction in average latency and ~40% reduction in estimated inference cost vs. an unoptimized fp16 baseline hitting every request individually.",
+          "~40% reduction in estimated inference cost vs an unoptimized fp16 baseline hitting every request individually.",
         ],
       },
     ],

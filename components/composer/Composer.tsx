@@ -18,9 +18,17 @@ import s from "./Composer.module.css";
      return res.ok;
    }
    ────────────────────────────────────────────────────────── */
+/* there's no server behind this site yet, so the message goes out the
+   one way that needs none: a mailto: to suhana's gmail, which opens
+   the visitor's own mail app with the note already written. swap for
+   the fetch above once there's an api route with credentials. */
+const INBOX = "suhanagrewal0407@gmail.com";
+
 async function deliver(message: string): Promise<boolean> {
-  // eslint-disable-next-line no-console
-  console.log("[composer] not wired up yet, message was:", message);
+  const subject = "hi from your website";
+  const url = `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+  // mailto: hands off to the mail client without unloading this page
+  window.location.href = url;
   return true;
 }
 

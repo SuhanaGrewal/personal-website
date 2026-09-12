@@ -272,7 +272,7 @@ export const PROJECTS: Project[] = [
           [
             "Year: 2026",
             "Role: AI Engineering Intern",
-            "Organization: Stealth Startup, backed by Z Fellows; T1 Angels",
+            "Organization: Stealth Startup",
           ],
           ["Languages: Python, JavaScript, SQL"],
         ],

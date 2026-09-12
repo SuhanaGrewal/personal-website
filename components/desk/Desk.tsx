@@ -248,7 +248,7 @@ function Detail({ p }: { p: Project }) {
 
       {p.links?.length ? (
         <section className={s.section}>
-          <h4 className={s.sectionHeading}>try it</h4>
+          <h4 className={s.sectionHeading}>{p.linksHeading ?? "try it"}</h4>
           <div className={s.links}>
             {p.links.map((l) => (
               <a

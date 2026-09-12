@@ -374,13 +374,13 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  /* contain, not cover — the tiles are a different shape than the
-     clips were cut for, and cropping into a preview to fill the tile
-     was losing the actual content. letterboxed on the tile's own
-     paper colour shows the whole frame instead. */
-  object-fit: contain;
+  /* cover: the preview fills the whole tile, no letterbox bands. the
+     tile is squarer than the 16:9 clips, so the outer ~12% of each
+     side is trimmed — every clip keeps its subject centred, so
+     nothing that matters goes with it. the opened view's banner uses
+     contain and shows the full frame. */
+  object-fit: cover;
   object-position: center;
-  background: linear-gradient(145deg, #fbfbfc 0%, #eceef0 100%);
 }
 
 /* the calm state: just the mark, on the same paper the real preview

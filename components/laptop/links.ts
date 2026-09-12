@@ -37,7 +37,7 @@ export const TARGETS: Record<TargetName, Target> = {
   substack: { label: "substack", href: "https://substack.com/@suhanagrewal" },
   github: { label: "github", href: "https://github.com/SuhanaGrewal" },
   x: { label: "x", href: "#" },
-  resume: { label: "résumé", href: "/resume-suhana-grewal.pdf" },
+  resume: { label: "résumé", href: "/Suhana%20Grewal%20Resume.pdf" },
   email: {
     label: "email",
     href: "mailto:suhanagrewal@uchicago.edu",

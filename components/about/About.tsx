@@ -14,16 +14,17 @@ export function About() {
         </p>
 
         <p className={s.bio}>
-          I&rsquo;m a sophomore @ UChicago doing Econ &amp; CS and an
-          aspiring AI engineer. Lately I&rsquo;ve been deep into RAG, agentic
-          memory, and inference optimization. When I get the time, I like to
-          pair my AI projects with clean UI/UX (hence, a design nerd!)
+          I&rsquo;m a sophomore @ UChicago doing Econ &amp; CS to (hopefully)
+          become an AI engineer. Lately I&rsquo;ve been deep into RAG, agentic
+          memory, and inference optimization. When I get a little extra time,
+          I like to pair my AI projects with clean UI/UX (hence, a design
+          nerd!)
         </p>
 
         <p className={s.bio}>
           I love working in AI consulting too &mdash; having interned with
-          Ernst &amp; Young and 180 Degrees Consulting on AI optimization for
-          organizational workflows.
+          Ernst &amp; Young and 180 Degrees Consulting on projects for AI
+          optimization in organizational workflows.
         </p>
 
         <p className={s.bio}>

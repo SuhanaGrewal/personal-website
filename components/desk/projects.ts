@@ -46,11 +46,12 @@ export interface Project {
   w: number;
   h: number;
 
+  /** kept for the record but no longer drawn anywhere — the tile
+      shows `logo` alone, and the opened view uses `header`/`video` */
   image?: string;
-  /** shown at rest in the collapsed tile, in place of the video/image
-      preview — that preview only shows once you hover the tile.
-      keeps the closed mosaic calm; the wordmark is enough to say
-      which window is which until you're actually looking at it */
+  /** the mark the collapsed tile shows, at rest and on hover alike.
+      keeps the closed mosaic calm; a plain icon is enough to say
+      which window is which until you actually open it */
   logo?: string;
   /** wide artwork across the top of the opened view */
   header?: string;
@@ -84,7 +85,7 @@ export const PROJECTS: Project[] = [
     w: 29.33,
     h: 45.5,
     image: "/projects/foresite-preview.svg",
-    logo: "/projects/foresite-logo.png",
+    logo: "/projects/foresite-icon.png",
     header: "/projects/foresite-header.svg",
     bars: true,
     sections: [
@@ -123,7 +124,7 @@ export const PROJECTS: Project[] = [
     h: 45.5,
     video: "/projects/ori-preview.mp4",
     videoPoster: "/projects/ori-preview-poster.jpg",
-    logo: "/projects/ori-logo.png",
+    logo: "/projects/ori-icon.png",
     oneLiner:
       "Ori is an agentic personal assistant. It answers questions about your emails, calendars, and events through a RAG system with 92% accuracy across 860 tests — and it can act: spawning agents to draft emails, schedule calendar events, flag potential fraud, and catch what you'd forget.",
     sections: [
@@ -217,7 +218,7 @@ export const PROJECTS: Project[] = [
     h: 45.5,
     video: "/projects/ryng-preview.mp4",
     videoPoster: "/projects/ryng-preview-poster.jpg",
-    logo: "/projects/ryng-logo.png",
+    logo: "/projects/ryng-icon.png",
     oneLiner:
       "Ryng lets you give any AI agent a working phone number. It handles the hard parts — carrier connections, low-latency audio streaming, and a synchronized speech-to-text / LLM / text-to-speech pipeline. Developers integrate with a single webhook; everyone else can build a voice agent with a few clicks and some context.",
     sections: [
@@ -272,7 +273,7 @@ export const PROJECTS: Project[] = [
     w: 29.33,
     h: 45.5,
     image: "/projects/self-healing-cover.webp",
-    logo: "/projects/self-healing-logo.png",
+    logo: "/projects/self-healing-icon.png",
     header: "/projects/self-healing-header.webp",
     sections: [
       {
@@ -300,7 +301,7 @@ export const PROJECTS: Project[] = [
     y: 51.5,
     w: 29.33,
     h: 45.5,
-    logo: "/projects/prune-logo.png",
+    logo: "/projects/prune-icon.png",
     sections: [
       {
         heading: "the problem",

@@ -350,72 +350,33 @@
   background: linear-gradient(160deg, #fff 0%, #eceef1 100%);
 }
 
-/* the thumbnail: the shot itself, or the gradient if there is not
-   one there yet */
+/* the thumbnail: just the mark, centred on a quiet placeholder
+   gradient — the video/image case study lives in the opened view now,
+   not doing double duty as a hover reveal here */
 .thumb {
   position: relative;
+  display: flex;
   overflow: hidden;
+  align-items: center;
+  justify-content: center;
   flex: 1;
-  /* the same paper the preview artwork is drawn on, so the bands left
-     by `contain` are invisible rather than a white frame around it.
-     the gradient is the placeholder for a project with no image or
-     video yet — shot()'s inline style overrides it once one is set. */
   background-color: #f4f5f6;
   background-image:
     radial-gradient(60% 80% at 28% 18%, rgb(26 107 255 / 0.2), transparent 68%),
     radial-gradient(52% 70% at 82% 74%, rgb(106 168 255 / 0.24), transparent 70%);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.thumbVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  /* contain, not cover — the tiles are a different shape than the
-     clips were cut for, and cropping into a preview to fill the tile
-     was losing the actual content (the line of copy at the top, the
-     phone at the bottom). letterboxed on the tile's own paper colour
-     shows the whole frame instead. */
-  object-fit: contain;
-  object-position: center;
-  background: linear-gradient(145deg, #fbfbfc 0%, #eceef0 100%);
-}
-
-/* the calm state: just the wordmark, on the same paper the real
-   preview sits on. the video or image is already there underneath,
-   already playing — this is only ever a lid on top of it, so nothing
-   has to mount or start when the lid comes off on hover. */
-.logoLayer {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  inset: 0;
-  background: linear-gradient(145deg, #fbfbfc 0%, #eceef0 100%);
-  opacity: 1;
-  transition: opacity 0.28s var(--ease-out);
-  pointer-events: none;
 }
 
 /* a fixed box in screen-relative units — .screen is the container
    every cqw here resolves against, not each tile's own width, so
    this box is the same physical size in every tile regardless of how
    wide that tile happens to be. object-fit then does the rest: a wide
-   flat wordmark and a squarer mark both land at the same visual scale
+   flat mark and a squarer one both land at the same visual scale
    instead of the wide one shrinking to fit and the square one
    ballooning to fill the same width. */
 .logoImg {
-  width: 15cqw;
-  height: 6cqw;
+  width: 26cqw;
+  height: 13cqw;
   object-fit: contain;
-}
-
-.window[data-hover] .logoLayer {
-  opacity: 0;
 }
 
 /* ── the opened view ───────────────────────────────────── */

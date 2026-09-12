@@ -39,24 +39,6 @@ function useClock() {
   return now;
 }
 
-/* the image sits as a background over a gradient, so a project with no
-   shot yet shows the gradient instead of a broken-image icon */
-/* the artwork sits on the paper it was drawn on, supplied here rather
-   than inside the SVG — layered this way the two cannot disagree at any
-   size, and `contain` leaves no band of a different colour */
-const PAPER = "linear-gradient(145deg, #fbfbfc 0%, #eceef0 100%)";
-
-function shot(p: Project) {
-  return p.image
-    ? {
-        backgroundImage: `url(${p.image}), ${PAPER}`,
-        backgroundSize: "contain, cover",
-        backgroundRepeat: "no-repeat, no-repeat",
-        backgroundPosition: "center, center",
-      }
-    : undefined;
-}
-
 /* a muted, looping clip — used identically in the thumbnail and the
    opened view, so "the animation shows in both" is just this element
    rendering twice rather than two things to keep in sync. `cover`
@@ -134,23 +116,15 @@ function Collapsed({ p }: { p: Project }) {
       </div>
     );
   }
-  const logo = p.logo ? (
-    <div className={s.logoLayer} aria-hidden="true">
-      <img className={s.logoImg} src={p.logo} alt="" />
-    </div>
-  ) : null;
-
-  if (p.video) {
-    return (
-      <div className={s.thumb}>
-        <Clip src={p.video} poster={p.videoPoster} className={s.thumbVideo} />
-        {logo}
-      </div>
-    );
-  }
+  /* the mosaic tile is always just the mark — the video/image preview
+     that used to reveal on hover now shows up only inside the opened
+     case study, where it's the real content rather than a tile doing
+     double duty */
   return (
-    <div className={s.thumb} style={shot(p)}>
-      {logo}
+    <div className={s.thumb}>
+      {p.logo ? (
+        <img className={s.logoImg} src={p.logo} alt="" aria-hidden="true" />
+      ) : null}
     </div>
   );
 }
@@ -282,10 +256,6 @@ function Detail({ p }: { p: Project }) {
 
 export function Desk() {
   const [open, setOpen] = useState<string | null>(null);
-  /* CSS :hover alone doesn't reliably drive this in every environment
-     this renders in, so the hover state that reveals a tile's real
-     preview is tracked explicitly rather than left to the pseudo-class */
-  const [hovered, setHovered] = useState<string | null>(null);
   const clock = useClock();
 
   return (
@@ -315,9 +285,6 @@ export function Desk() {
               className={s.window}
               data-open={isOpen || undefined}
               data-dimmed={open && !isOpen ? "true" : undefined}
-              data-hover={hovered === p.id || undefined}
-              onPointerEnter={() => setHovered(p.id)}
-              onPointerLeave={() => setHovered(null)}
               style={{
                 left: isOpen ? "0%" : `${p.x}%`,
                 top: isOpen ? "0%" : `${p.y}%`,

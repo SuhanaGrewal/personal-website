@@ -264,6 +264,7 @@ export const PROJECTS: Project[] = [
     w: 23.27,
     h: 38,
     image: "/projects/self-healing-cover.webp",
+    header: "/projects/self-healing-header.webp",
     sections: [
       {
         heading: "preface",
